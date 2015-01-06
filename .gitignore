@@ -1,0 +1,6 @@
+dev/*
+node_modules/
+.idea/
+dist/rdt-dev.js
+dist/index.html
+*.iml

@@ -1,0 +1,70 @@
+
+.sidenav-wrapper {
+    margin-left: -150px;
+    left: 150px;
+    width: 250px;
+    position: fixed;
+    height: 100%;
+    z-index: 999;
+}
+
+.sidenav-wrapper {
+    background: #30426a;
+}
+
+.sidenav > li.sidenav-title {
+    height: 65px;
+}
+.sidenav > li.sidenav-title > a {
+    background: #2d3e63;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidenav {
+    list-style: none;
+    text-indent: 20px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.sidenav li a {
+    color: #fff;
+    display: block;
+    float: left;
+    text-decoration: none;
+    width: 250px;
+}
+
+.sidenav .sidenav-title .sidenav-toogle {
+    float: right;
+    font-size: 18px;
+    padding-right: 28px;
+    line-height: 60px;
+}
+
+.sidenav .sidenav-list a {
+    text-indent: 25px;
+    font-size: 15px;
+    color: #b2bfdc;
+    line-height: 40px;
+}
+
+.sidenav .sidenav-list a:hover {
+    color: #fff;
+    border-left: 3px solid #e99d1a;
+    text-indent: 22px;
+}
+
+.sidenav .sidenav-list a:hover,.sidenav .sidebar-title a {
+    background: #2d3e63;
+}
+
+.sidenav-navgroup > span {
+    color: #FFF;
+}

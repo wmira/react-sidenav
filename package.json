@@ -1,0 +1,17 @@
+{
+  "name": "dashboard-sidenav",
+  "version": "0.0.1",
+  "description": "A Simple Reach SideBar Navigation with Menus and Routes",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "webpack src/sidenav.js dist/dashboard-sidenav.js",
+    "build-min": "NODE_ENV=production COMPRESS=1 webpack src/sidenav.js dist/dashboard-sidenav.min.js",
+    "watch" : "webpack src/sidenav.js dist/dashboard-sidenav.js --watch"
+  },
+  "author": "Warren Mira",
+  "license": "MIT",
+  "devDependencies": {
+    "jsx-loader": "^0.12.2",
+    "react": "^0.12.2"
+  }
+}

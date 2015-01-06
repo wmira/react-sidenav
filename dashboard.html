@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dashboard</title>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="css/sidenav.css">
+    <script src="http://fb.me/react-0.12.2.js"></script>
+    <script src="dist/dashboard-sidenav.js"></script>
+</head>
+<body>
+<div class="dashboard-wrapper">
+    <div id='sidenav-container' class="sidenav-wrapper">
+    </div>
+    <div id="content-wrapper">
+    </div>
+</div>
+<script language="javascript">
+
+    var navigation = [
+        {id: 'landing', title: 'Dashboard', 'icon-cls': 'fa fa-tachometer'},
+        {id: 'landing', title: 'Channels', 'icon-cls': 'fa fa-tachometer'},
+        {id: 'landing', title: 'Products', 'icon-cls': 'fa fa-tachometer'},
+    ];
+
+    React.render(React.createElement(SideNav,{ navigation : navigation}),
+            document.getElementById("sidenav-container"));
+
+</script>
+</body>
+</html>
