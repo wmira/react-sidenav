@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "A Simple Reach SideBar Navigation with Menus and Routes",
   "main": "lib/index.js",
+  "author": "Warren Mira",
   "scripts": {
     "build": "webpack src/sidenav.js dist/dashboard-sidenav.js",
     "build-min": "NODE_ENV=production COMPRESS=1 webpack src/sidenav.js dist/dashboard-sidenav.min.js",

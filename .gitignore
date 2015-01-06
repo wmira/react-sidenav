@@ -4,3 +4,4 @@ node_modules/
 dist/rdt-dev.js
 dist/index.html
 *.iml
+*.log
