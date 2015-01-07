@@ -8,7 +8,7 @@
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/dashboard.css">
     <link rel="stylesheet" type="text/css" href="css/sidenav.css">
     <script src="http://fb.me/react-0.12.2.js"></script>
@@ -24,9 +24,11 @@
 <script language="javascript">
 
     var navigation = [
-        {id: 'landing', title: 'Dashboard', 'icon-cls': 'fa fa-tachometer'},
-        {id: 'landing', title: 'Channels', 'icon-cls': 'fa fa-tachometer'},
-        {id: 'landing', title: 'Products', 'icon-cls': 'fa fa-tachometer'},
+        {id: 'landing', title: 'Dashboard', 'icon-cls': 'fa fa-dashboard'},
+        {id: 'channels', title: 'Channels', 'icon-cls': 'fa fa-exchange'},
+        {id: 'fleet', title: 'Fleet', 'icon-cls': 'fa fa-truck'},
+        {id: 'products', title: 'Products', 'icon-cls': 'fa fa-cubes'},
+        {id: 'inventory', title: 'Inventory', 'icon-cls': 'fa fa-database'}
     ];
 
     React.render(React.createElement(SideNav,{ navigation : navigation}),

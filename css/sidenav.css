@@ -9,7 +9,7 @@
 }
 
 .sidenav-wrapper {
-    background: #30426a;
+    background: #2b3643;
 }
 
 .sidenav > li.sidenav-title {
@@ -48,6 +48,10 @@
     line-height: 60px;
 }
 
+.sidenav .sidenav-list {
+    height: 40px;
+}
+
 .sidenav .sidenav-list a {
     text-indent: 25px;
     font-size: 15px;
@@ -55,16 +59,32 @@
     line-height: 40px;
 }
 
+
 .sidenav .sidenav-list a:hover {
     color: #fff;
-    border-left: 3px solid #e99d1a;
-    text-indent: 22px;
 }
 
+
 .sidenav .sidenav-list a:hover,.sidenav .sidebar-title a {
-    background: #2d3e63;
+    background: #1caf9a;
 }
 
 .sidenav-navgroup > span {
     color: #FFF;
 }
+
+.sidenav .sidenav-list .sidenav-icon {
+    float: right;
+    padding-right: 29px;
+    line-height: 40px;
+    width: 70px;
+}
+
+.sidenav .sidenav-list .sidenav-icon:hover {
+    padding-right:29px;
+}
+
+.sidenav .sidenav-list a:hover .sidenav-icon {
+    text-indent: 25px;
+}
+

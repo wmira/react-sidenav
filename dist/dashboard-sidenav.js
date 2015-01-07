@@ -62,6 +62,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(1);
 
 	/**
+	 * Extract href
+	 *
+	 * @param target
+	 */
+	var extractPath = function(target) {
+	    return target.getAttribute("href") ?
+	        target.getAttribute("href") :
+	        target.parentNode.getAttribute("href");
+
+	};
+
+
+	/**
 	 * Creates a side navigator which can automatically trigger events+change history nagivation etc
 	 *
 	 * //sidenav could be dynamically generated depending on user role for example
@@ -83,9 +96,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SideNav = React.createClass({displayName: "SideNav",
 
 	    getInitialState : function() {
-	        return {navigation: this.props.navigation};
+	        return {navigation: this.props.navigation, rootPath: this.props.rootPath};
 	    },
 
+	    onClick : function(e) {
+	        e.stopPropagation();
+	        e.preventDefault();
+	        var path = extractPath(e.target);
+	        window.history.pushState({id:path},'',path);
+
+	    },
 	    render: function() {
 
 	        var navigation = this.state.navigation || [];
@@ -93,18 +113,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	           React.createElement("ul", {className: "sidenav"}, 
 	            
 	                navigation.map(function(nav) {
-	                    return (React.createElement("li", {className: "sidenav-list"}, 
-	                        React.createElement("a", {href: "/" + nav.id}, nav.title, 
-	                           React.createElement("span", {className: "menu-icon fa fa-tachometer"})
+	                    return (React.createElement("li", {key: nav.id, className: "sidenav-list"}, 
+	                        React.createElement("a", {onClick: this.onClick, className: "sidenav-link", href: "/" + nav.id}, React.createElement("span", null, nav.title), 
+	                           React.createElement("span", {className: "sidenav-icon " + (nav['icon-cls'] ? nav['icon-cls'] : '')})
 	                         )
 	                    ))
-	                })
+	                }.bind(this))
 	            
 	           )
 	        )
 	    }
 
 	});
+
+
 
 	module.exports = SideNav;
 
