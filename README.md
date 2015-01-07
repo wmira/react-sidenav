@@ -1,5 +1,6 @@
-dashboard-sidenav - A Simple Side Navigation component written in React
+dashboard-sidenav
 ==============================
+A Simple Side Navigation component written in React
 
 ![alt tag](https://raw.githubusercontent.com/wmira/dashboard-sidenav/master/img/sidenav-1.jpg)
 
