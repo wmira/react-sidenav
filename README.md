@@ -1,4 +1,4 @@
-dashboard-sidenav
+react-sidenav
 ==============================
 A Simple Side Navigation component written in React
 
