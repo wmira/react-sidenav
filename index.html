@@ -26,9 +26,14 @@
     var navigation = [
         {id: 'landing', title: 'Dashboard', 'icon-cls': 'fa fa-dashboard'},
         {id: 'channels', title: 'Channels', 'icon-cls': 'fa fa-exchange'},
-        {id: 'fleet', title: 'Fleet', 'icon-cls': 'fa fa-truck'},
         {id: 'products', title: 'Products', 'icon-cls': 'fa fa-cubes'},
-        {id: 'inventory', title: 'Inventory', 'icon-cls': 'fa fa-database'}
+        {id: 'inventory', title: 'Inventory',
+            'sub-menu': [
+                { id: 'levels', title: 'Product Levels', 'icon-cls': 'fa fa-list'},
+                { id: 'levels', title: 'Sales Report', 'icon-cls': 'fa fa-area-chart'},
+            ]
+        },
+        {id: 'fleet', title: 'Fleet', 'icon-cls': 'fa fa-truck'}
     ];
 
     React.render(React.createElement(SideNav,{ navigation : navigation}),

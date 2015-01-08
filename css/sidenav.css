@@ -33,7 +33,7 @@
     overflow-y: auto;
 }
 
-.sidenav li a {
+.sidenav li a  {
     color: #fff;
     display: block;
     float: left;
@@ -48,11 +48,11 @@
     line-height: 60px;
 }
 
-.sidenav .sidenav-list {
+.sidenav .sidenav-list,.sidenav .sidenav-submenu {
     height: 40px;
 }
 
-.sidenav .sidenav-list a {
+.sidenav .sidenav-list a,.sidenav .sidenav-submenu  a {
     text-indent: 25px;
     font-size: 15px;
     color: #b2bfdc;
@@ -73,7 +73,7 @@
     color: #FFF;
 }
 
-.sidenav .sidenav-list .sidenav-icon {
+.sidenav .sidenav-list .sidenav-icon,.sidenav .sidenav-submenu .sidenav-icon {
     float: right;
     padding-right: 29px;
     line-height: 40px;
@@ -84,7 +84,26 @@
     padding-right:29px;
 }
 
+
 .sidenav .sidenav-list a:hover .sidenav-icon {
     text-indent: 25px;
 }
+.sidenav-submenu-sidenav {
+    list-style: none;
+    text-indent: 20px;
+    margin:0;
+    padding:0;
+}
 
+.sidenav-submenu-closed > ul.sidenav-submenu-sidenav {
+    display:none;
+}
+
+
+.sidenav .sidenav-submenu a:hover {
+    color: #FFF;
+}
+
+.sidenav-submenu-sidenav span.sidenav-submenu-item {
+    margin-left: 15px;
+}

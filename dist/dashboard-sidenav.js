@@ -73,7 +73,83 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	};
 
+	var ItemNav = React.createClass({displayName: "ItemNav",
 
+	    getInitialState : function() {
+	        return { navigation : this.props.navigation, subnav : this.props.subnav };
+	    },
+
+	    onClick : function(e) {
+	        e.stopPropagation();
+	        e.preventDefault();
+	        var path = extractPath(e.target);
+	        window.history.pushState({id:path},'',path);
+
+	    },
+	    render : function() {
+	        var nav = this.state.navigation;
+	        return (React.createElement("li", {key: nav.id, className: "sidenav-list"}, 
+	            React.createElement("a", {onClick: this.onClick, className: "sidenav-link", href: "/" + nav.id}, 
+	                React.createElement("span", {className: this.state.subnav ? "sidenav-submenu-item" : ""}, nav.title), 
+	                React.createElement("span", {className: "sidenav-icon " + (nav['icon-cls'] ? nav['icon-cls'] : '')})
+	            )
+	        ));
+	    }
+
+	});
+	var SubNav = React.createClass({displayName: "SubNav",
+
+	    getInitialState : function() {
+	        return {navigation: this.props.navigation};
+	    },
+
+	    render: function() {
+
+	        var nav = this.state.navigation || [];
+
+	        var navigation = nav['sub-menu'];
+	        return (
+	            React.createElement("ul", {className: "sidenav-submenu-sidenav"}, 
+	           
+	               navigation.map(function (nav) {
+	                   if ( nav['sub-menu'] ) {
+	                       return React.createElement(PreSubNav, {navigation: nav})
+	                   } else {
+	                       return React.createElement(ItemNav, {navigation: nav, subnav: true})
+	                   }
+	               }.bind(this))
+	               
+	            )
+	        )
+	    }
+	});
+
+	var PreSubNav = React.createClass({displayName: "PreSubNav",
+	    getInitialState : function() {
+	        return { navigation : this.props.navigation, collapse: false };
+	    },
+
+	    onClick : function(e) {
+	        e.stopPropagation();
+	        e.preventDefault();
+
+	        this.setState ( { collapse: !this.state.collapse } );
+
+
+	    },
+	    render : function() {
+	        var nav = this.state.navigation;
+	        var containerCls = this.state.collapse ? "sidenav-submenu " : "sidenav-submenu  sidenav-submenu-closed";
+	        var iconCls = this.state.collapse ? "sidenav-icon fa fa-chevron-down" : "sidenav-icon fa fa-chevron-left";
+	        return (React.createElement("li", {ref: "menuContainer", key: nav.id, className: containerCls}, 
+	            React.createElement("a", {onClick: this.onClick, className: "sidenav-link", href: "/" + nav.id}, 
+	                React.createElement("span", null, nav.title), 
+	                React.createElement("span", {className: iconCls})
+	            ), 
+	            React.createElement(SubNav, {navigation: nav})
+	        ));
+	    }
+	});
 	/**
 	 * Creates a side navigator which can automatically trigger events+change history nagivation etc
 	 *
@@ -111,14 +187,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var navigation = this.state.navigation || [];
 	        return (
 	           React.createElement("ul", {className: "sidenav"}, 
-	            
-	                navigation.map(function(nav) {
-	                    return (React.createElement("li", {key: nav.id, className: "sidenav-list"}, 
-	                        React.createElement("a", {onClick: this.onClick, className: "sidenav-link", href: "/" + nav.id}, React.createElement("span", null, nav.title), 
-	                           React.createElement("span", {className: "sidenav-icon " + (nav['icon-cls'] ? nav['icon-cls'] : '')})
-	                         )
-	                    ))
-	                }.bind(this))
+	           
+	               navigation.map(function (nav) {
+	                   if ( nav['sub-menu'] ) {
+	                       return React.createElement(PreSubNav, {navigation: nav})
+	                   } else {
+	                       return React.createElement(ItemNav, {navigation: nav})
+	                   }
+	               }.bind(this))
 	            
 	           )
 	        )
@@ -129,6 +205,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	module.exports = SideNav;
+
 
 /***/ },
 /* 1 */
