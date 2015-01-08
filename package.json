@@ -2,7 +2,7 @@
   "name": "react-sidenav",
   "version": "0.0.1",
   "description": "A Simple Reach SideBar Navigation",
-  "main": "lib/index.js",
+  "main": "dist/react-sidenav.js",
   "author": "Warren Mira",
   "scripts": {
     "build": "webpack src/sidenav.js dist/react-sidenav.js",
