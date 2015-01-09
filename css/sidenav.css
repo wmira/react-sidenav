@@ -107,3 +107,8 @@
 .sidenav-submenu-sidenav span.sidenav-submenu-item {
     margin-left: 15px;
 }
+
+.sidenav-selected {
+    background: #1caf9a;
+    color: #FFF;
+}

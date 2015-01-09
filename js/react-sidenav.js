@@ -66,31 +66,59 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *
 	 * @param target
 	 */
-	var extractPath = function(target) {
-	    return target.getAttribute("href") ?
-	        target.getAttribute("href") :
-	        target.parentNode.getAttribute("href");
+	var extractMenuData = function(target) {
+
+	    var element = target.getAttribute("href") ? target :target.parentNode;
+
+	    return {
+	        href: element.getAttribute("href"),
+	        navid : element.getAttribute("data-navid")
+	    }
 
 	};
+
 
 	var ItemNav = React.createClass({displayName: "ItemNav",
 
 	    getInitialState : function() {
-	        return { navigation : this.props.navigation, subnav : this.props.subnav };
+	        return { navigation : this.props.navigation, subnav : this.props.subnav, selected : this.props.selected};
+	    },
+
+	    componentWillReceiveProps : function(nextProps) {
+	        if ( nextProps.selection && ( this.state.navigation.id === nextProps.selection.navid  ) ) {
+	            this.setState({ selected: true})
+	        } else {
+	            this.setState({selected: false})
+	        }
+	    },
+
+	    shouldComponentUpdate:function(nextProps, nextState) {
+	        //lets check if we are selected for now
+	        return ( nextProps.selected !== this.props.selected ||
+	            nextState.selected !== this.state.selected )
 	    },
 
 	    onClick : function(e) {
 	        e.stopPropagation();
 	        e.preventDefault();
-	        var path = extractPath(e.target);
-	        window.history.pushState({id:path},'',path);
+
+	        var menuData = extractMenuData(e.target);
+	        window.history.pushState({id:menuData.href},'',menuData.href);
+	        this.props.onItemClicked(menuData);
 
 	    },
 	    render : function() {
 	        var nav = this.state.navigation;
+	        var titleClsName = this.state.subNav ? "sidenav-submenu-item " : "";
+	        var linkClsName = "sidenav-link";
+
+	        if ( this.state.selected  ) {
+	            linkClsName += " sidenav-selected ";
+	        }
+
 	        return (React.createElement("li", {key: nav.id, className: "sidenav-list"}, 
-	            React.createElement("a", {onClick: this.onClick, className: "sidenav-link", href: "/" + nav.id}, 
-	                React.createElement("span", {className: this.state.subnav ? "sidenav-submenu-item" : ""}, nav.title), 
+	            React.createElement("a", {"data-navid": nav.id, onClick: this.onClick, className: linkClsName, href: nav.id}, 
+	                React.createElement("span", {className: titleClsName}, nav.title), 
 	                React.createElement("span", {className: "sidenav-icon " + (nav['icon-cls'] ? nav['icon-cls'] : '')})
 	            )
 	        ));
@@ -134,15 +162,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        e.preventDefault();
 
 	        this.setState ( { collapse: !this.state.collapse } );
-
-
 	    },
 	    render : function() {
 	        var nav = this.state.navigation;
 	        var containerCls = this.state.collapse ? "sidenav-submenu " : "sidenav-submenu  sidenav-submenu-closed";
 	        var iconCls = this.state.collapse ? "sidenav-icon fa fa-chevron-down" : "sidenav-icon fa fa-chevron-left";
+
 	        return (React.createElement("li", {ref: "menuContainer", key: nav.id, className: containerCls}, 
-	            React.createElement("a", {onClick: this.onClick, className: "sidenav-link", href: "/" + nav.id}, 
+	            React.createElement("a", {onClick: this.onClick, className: "sidenav-link"}, 
 	                React.createElement("span", null, nav.title), 
 	                React.createElement("span", {className: iconCls})
 	            ), 
@@ -175,13 +202,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return {navigation: this.props.navigation, rootPath: this.props.rootPath};
 	    },
 
-	    onClick : function(e) {
-	        e.stopPropagation();
-	        e.preventDefault();
-	        var path = extractPath(e.target);
-	        window.history.pushState({id:path},'',path);
-
+	    onItemClicked : function(menuData) {
+	        this.setState({selection:menuData});
 	    },
+
 	    render: function() {
 
 	        var navigation = this.state.navigation || [];
@@ -192,10 +216,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                   if ( nav['sub-menu'] ) {
 	                       return React.createElement(PreSubNav, {navigation: nav})
 	                   } else {
-	                       return React.createElement(ItemNav, {navigation: nav})
+	                       return React.createElement(ItemNav, {selection: this.state.selection, onItemClicked: this.onItemClicked, navigation: nav})
 	                   }
 	               }.bind(this))
-	            
+	           
 	           )
 	        )
 	    }

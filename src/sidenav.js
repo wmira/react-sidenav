@@ -10,31 +10,59 @@ var React = require("react");
  *
  * @param target
  */
-var extractPath = function(target) {
-    return target.getAttribute("href") ?
-        target.getAttribute("href") :
-        target.parentNode.getAttribute("href");
+var extractMenuData = function(target) {
+
+    var element = target.getAttribute("href") ? target :target.parentNode;
+
+    return {
+        href: element.getAttribute("href"),
+        navid : element.getAttribute("data-navid")
+    }
 
 };
+
 
 var ItemNav = React.createClass({
 
     getInitialState : function() {
-        return { navigation : this.props.navigation, subnav : this.props.subnav };
+        return { navigation : this.props.navigation, subnav : this.props.subnav, selected : this.props.selected};
+    },
+
+    componentWillReceiveProps : function(nextProps) {
+        if ( nextProps.selection && ( this.state.navigation.id === nextProps.selection.navid  ) ) {
+            this.setState({ selected: true})
+        } else {
+            this.setState({selected: false})
+        }
+    },
+
+    shouldComponentUpdate(nextProps, nextState) {
+        //lets check if we are selected for now
+        return ( nextProps.selected !== this.props.selected ||
+            nextState.selected !== this.state.selected )
     },
 
     onClick : function(e) {
         e.stopPropagation();
         e.preventDefault();
-        var path = extractPath(e.target);
-        window.history.pushState({id:path},'',path);
+
+        var menuData = extractMenuData(e.target);
+        window.history.pushState({id:menuData.href},'',menuData.href);
+        this.props.onItemClicked(menuData);
 
     },
     render : function() {
         var nav = this.state.navigation;
+        var titleClsName = this.state.subNav ? "sidenav-submenu-item " : "";
+        var linkClsName = "sidenav-link";
+
+        if ( this.state.selected  ) {
+            linkClsName += " sidenav-selected ";
+        }
+
         return (<li key={nav.id} className="sidenav-list">
-            <a  onClick={this.onClick} className="sidenav-link" href={"/" + nav.id}>
-                <span  className={this.state.subnav ? "sidenav-submenu-item" : ""}>{nav.title}</span>
+            <a  data-navid={nav.id} onClick={this.onClick} className={linkClsName} href={nav.id}>
+                <span  className={titleClsName}>{nav.title}</span>
                 <span className={"sidenav-icon " + (nav['icon-cls'] ? nav['icon-cls'] : '')}></span>
             </a>
         </li>);
@@ -59,7 +87,7 @@ var SubNav = React.createClass({
                    if ( nav['sub-menu'] ) {
                        return <PreSubNav navigation={nav} />
                    } else {
-                       return <ItemNav navigation={nav} subnav={true}/>
+                       return <ItemNav navigation={nav}  subnav={true}/>
                    }
                }.bind(this))
                }
@@ -78,15 +106,14 @@ var PreSubNav = React.createClass({
         e.preventDefault();
 
         this.setState ( { collapse: !this.state.collapse } );
-
-
     },
     render : function() {
         var nav = this.state.navigation;
         var containerCls = this.state.collapse ? "sidenav-submenu " : "sidenav-submenu  sidenav-submenu-closed";
         var iconCls = this.state.collapse ? "sidenav-icon fa fa-chevron-down" : "sidenav-icon fa fa-chevron-left";
+
         return (<li ref="menuContainer" key={nav.id} className={containerCls}>
-            <a  onClick={this.onClick} className="sidenav-link" href={"/" + nav.id}>
+            <a  onClick={this.onClick} className="sidenav-link" >
                 <span>{nav.title}</span>
                 <span className={iconCls}></span>
             </a>
@@ -119,13 +146,10 @@ var SideNav = React.createClass({
         return {navigation: this.props.navigation, rootPath: this.props.rootPath};
     },
 
-    onClick : function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        var path = extractPath(e.target);
-        window.history.pushState({id:path},'',path);
-
+    onItemClicked : function(menuData) {
+        this.setState({selection:menuData});
     },
+
     render: function() {
 
         var navigation = this.state.navigation || [];
@@ -136,10 +160,10 @@ var SideNav = React.createClass({
                    if ( nav['sub-menu'] ) {
                        return <PreSubNav navigation={nav} />
                    } else {
-                       return <ItemNav navigation={nav}/>
+                       return <ItemNav selection={this.state.selection} onItemClicked={this.onItemClicked} navigation={nav}/>
                    }
                }.bind(this))
-            }
+           }
            </ul>
         )
     }
