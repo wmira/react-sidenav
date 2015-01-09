@@ -1,13 +1,13 @@
 {
   "name": "react-sidenav",
-  "version": "0.0.3",
-  "description": "A Simple Reach SideBar Navigation",
-  "main": "dist/react-sidenav.js",
+  "version": "0.0.4",
+  "description": "A Simple SideBar Navigation written in React",
+  "main": "js/react-sidenav.js",
   "author": "Warren Mira",
   "scripts": {
-    "build": "webpack src/sidenav.js dist/react-sidenav.js",
-    "build-min": "NODE_ENV=production COMPRESS=1 webpack src/sidenav.js dist/react-sidenav.min.js",
-    "watch": "webpack src/sidenav.js dist/react-sidenav.js --watch"
+    "build": "webpack src/sidenav.js js/react-sidenav.js",
+    "build-min": "NODE_ENV=production COMPRESS=1 webpack src/sidenav.js js/react-sidenav.min.js",
+    "watch": "webpack src/sidenav.js js/react-sidenav.js --watch"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,29 @@
+{
+  "name": "react-sidenav",
+  "version": "0.0.3",
+  "homepage": "https://github.com/wmira/react-sidenav",
+  "authors": [
+    "Warren Mira <warrenmira@gmail.com>"
+  ],
+  "description": "A Simple SideBar Navigation written in React",
+  "main": "js/react-sidenav.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "side",
+    "navigation",
+    "menu",
+    "react"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
