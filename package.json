@@ -1,6 +1,6 @@
 {
   "name": "react-sidenav",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A Simple Reach SideBar Navigation",
   "main": "dist/react-sidenav.js",
   "author": "Warren Mira",
@@ -9,6 +9,21 @@
     "build-min": "NODE_ENV=production COMPRESS=1 webpack src/sidenav.js dist/react-sidenav.min.js",
     "watch": "webpack src/sidenav.js dist/react-sidenav.js --watch"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wmira/react-sidenav"
+  },
+  "bugs": {
+    "url": "https://github.com/wmira/react-sidenav/issues"
+  },
+  "homepage": "https://github.com/wmira/react-sidenav",
+  "keywords": [
+    "react",
+    "react-component",
+    "menu",
+    "vertical menu",
+    "navigation"
+  ],
   "license": "MIT",
   "devDependencies": {
     "jsx-loader": "^0.12.2",

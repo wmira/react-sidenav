@@ -23,11 +23,16 @@ module.exports = {
 
     output: {
         library: 'SideNav',
-        libraryTarget: 'umd'
+        libraryTarget: 'umd2'
     },
 
     externals: {
-        react: 'React'
+	react: {
+	    root: 'React',
+	    commonjs: 'react',
+	    commonjs2: 'react',
+	    amd: 'react'
+	}
     },
 
     node: {
