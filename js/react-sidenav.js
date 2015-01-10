@@ -60,7 +60,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	var React = __webpack_require__(1);
-
+	var RenderWrapper = __webpack_require__(2);
 	/**
 	 * Extract href
 	 *
@@ -94,17 +94,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    shouldComponentUpdate:function(nextProps, nextState) {
 	        //lets check if we are selected for now
-	        return ( nextProps.selected !== this.props.selected ||
+	        return ( (nextProps.selected !== this.props.selected) ||
 	            nextState.selected !== this.state.selected )
 	    },
 
-	    onClick : function(e) {
-	        e.stopPropagation();
+	    clickHandler : function(e) {
+
 	        e.preventDefault();
+	        e.stopPropagation();
+	        
 
 	        var menuData = extractMenuData(e.target);
 	        window.history.pushState({id:menuData.href},'',menuData.href);
 	        this.props.onItemClicked(menuData);
+	        return false;
 
 	    },
 	    render : function() {
@@ -117,7 +120,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        return (React.createElement("li", {key: nav.id, className: "sidenav-list"}, 
-	            React.createElement("a", {"data-navid": nav.id, onClick: this.onClick, className: linkClsName, href: nav.id}, 
+
+	            React.createElement("a", {onClick: this.clickHandler, href: nav.id, style: {cursor: 'pointer'}, "data-navid": nav.id, className: linkClsName}, 
 	                React.createElement("span", {className: titleClsName}, nav.title), 
 	                React.createElement("span", {className: "sidenav-icon " + (nav['icon-cls'] ? nav['icon-cls'] : '')})
 	            )
@@ -134,7 +138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    render: function() {
 
 	        var nav = this.state.navigation || [];
-
+	        console.log('hey');
 	        var navigation = nav['sub-menu'];
 	        return (
 	            React.createElement("ul", {className: "sidenav-submenu-sidenav"}, 
@@ -209,6 +213,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    render: function() {
 
 	        var navigation = this.state.navigation || [];
+
 	        return (
 	           React.createElement("ul", {className: "sidenav"}, 
 	           
@@ -228,7 +233,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 
-	module.exports = SideNav;
+	module.exports = RenderWrapper(React,SideNav);
 
 
 /***/ },
@@ -236,6 +241,69 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*globals require,module,React */
+	"use strict";
+
+	/**
+	 * React instance creation is a bit noisy. Use this on react a library such
+	 * that its more direct to the point when creating new instance. E.g.
+	 *
+	   React.render(React.createElement(ViewPager,{ views : ["page11","page22","page33"], visible:"page11"}),
+	            document.getElementById("viewpager-container2"));
+	 * 
+	 * to something like
+	 *
+	 * ViewPager.render({ views : ["page1","page2","page3"], visible:"page1"},"viewpager-container");
+	 * or
+	 * ViewPager.render("viewpager-container");
+	 * 
+	 * If your are exposing a library then :
+	 * 
+	 * var renderWrapper = require("react-render");
+	 * var MyReactComponent = React.createClass... 
+	 * 
+	 * module.exports = renderWrapper(React,MyReactComponent)
+	 *
+	 */
+
+	    
+	var render = function(React,ReactClass,options,el) {
+	    
+	    var ouroption = {};
+	    //if he passed an html element or a string on the first argument
+	    //then we assume he wants no options
+	    var ourEl = null;
+	    
+	    //check if its actually an element
+	    if ( ( options.tagName && options.nodeName && (typeof options.nodeType === 'number') ) 
+	        || ( typeof options === 'string' ) ) {
+	        ourEl = options;
+	    } else {
+	        ouroption = options;
+	        ourEl = ( typeof el === 'string') ? document.getElementById(el) : el;
+	    }
+
+	    return React.render(React.createElement(ReactClass,ouroption), ourEl);
+	};
+
+	var RenderWrapper = function(React,ReactClass) {
+
+	    return {
+	        cls : ReactClass,
+	        render : function(options,el) {
+	            return render(React,ReactClass,options,el)
+	        }
+	    }
+
+	};
+
+	module.exports = RenderWrapper;
+
 
 /***/ }
 /******/ ])

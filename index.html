@@ -36,8 +36,7 @@
         {id: 'fleet', title: 'Fleet', 'icon-cls': 'fa fa-truck'}
     ];
 
-    React.render(React.createElement(SideNav,{ navigation : navigation}),
-            document.getElementById("sidenav-container"));
+    SideNav.render({ navigation : navigation},"sidenav-container");
 
 </script>
 </body>

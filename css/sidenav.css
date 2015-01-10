@@ -110,5 +110,5 @@
 
 .sidenav-selected {
     background: #1caf9a;
-    color: #FFF;
+    color: #FFF !important;
 }

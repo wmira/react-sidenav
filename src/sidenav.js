@@ -4,7 +4,7 @@
 "use strict";
 
 var React = require("react");
-
+var RenderWrapper = require("react-render-wrapper");
 /**
  * Extract href
  *
@@ -38,17 +38,20 @@ var ItemNav = React.createClass({
 
     shouldComponentUpdate(nextProps, nextState) {
         //lets check if we are selected for now
-        return ( nextProps.selected !== this.props.selected ||
+        return ( (nextProps.selected !== this.props.selected) ||
             nextState.selected !== this.state.selected )
     },
 
-    onClick : function(e) {
-        e.stopPropagation();
+    clickHandler : function(e) {
+
         e.preventDefault();
+        e.stopPropagation();
+        
 
         var menuData = extractMenuData(e.target);
         window.history.pushState({id:menuData.href},'',menuData.href);
         this.props.onItemClicked(menuData);
+        return false;
 
     },
     render : function() {
@@ -60,8 +63,9 @@ var ItemNav = React.createClass({
             linkClsName += " sidenav-selected ";
         }
 
-        return (<li key={nav.id} className="sidenav-list">
-            <a  data-navid={nav.id} onClick={this.onClick} className={linkClsName} href={nav.id}>
+        return (<li  key={nav.id} className="sidenav-list">
+
+            <a onClick={this.clickHandler} href={nav.id} style={{cursor: 'pointer'}} data-navid={nav.id}  className={linkClsName} >
                 <span  className={titleClsName}>{nav.title}</span>
                 <span className={"sidenav-icon " + (nav['icon-cls'] ? nav['icon-cls'] : '')}></span>
             </a>
@@ -78,7 +82,7 @@ var SubNav = React.createClass({
     render: function() {
 
         var nav = this.state.navigation || [];
-
+        console.log('hey');
         var navigation = nav['sub-menu'];
         return (
             <ul className="sidenav-submenu-sidenav">
@@ -153,6 +157,7 @@ var SideNav = React.createClass({
     render: function() {
 
         var navigation = this.state.navigation || [];
+
         return (
            <ul className="sidenav">
            {
@@ -172,4 +177,4 @@ var SideNav = React.createClass({
 
 
 
-module.exports = SideNav;
+module.exports = RenderWrapper(React,SideNav);

@@ -1,6 +1,6 @@
 {
   "name": "react-sidenav",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A Simple SideBar Navigation written in React",
   "main": "js/react-sidenav.js",
   "author": "Warren Mira",
@@ -27,6 +27,7 @@
   "license": "MIT",
   "devDependencies": {
     "jsx-loader": "^0.12.2",
-    "react": "^0.12.2"
+    "react": "^0.12.2",
+    "react-render-wrapper": "^1.0.0"
   }
 }
