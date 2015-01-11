@@ -69,7 +69,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var extractMenuData = function(target) {
 
 	    var element = target.getAttribute("href") ? target :target.parentNode;
-
+	    var path = element.getAttribute("data-path");
+	    
 	    return {
 	        href: element.getAttribute("href"),
 	        navid : element.getAttribute("data-navid")
@@ -77,6 +78,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	};
 
+
+
+	var createHref = function(props,nav) {
+	    var prefix = props.pushState === false  ? "#!/" : "/";
+	    return (nav.path !== undefined ) ? (prefix + nav.path) : (prefix + nav.id);
+	};
 
 	var ItemNav = React.createClass({displayName: "ItemNav",
 
@@ -105,7 +112,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        
 
 	        var menuData = extractMenuData(e.target);
-	        window.history.pushState({id:menuData.href},'',menuData.href);
+
+	        //dont do a !pushState, it might not be there, if he specifically say false then we use hashes
+	        if ( this.props.pushState === false ) {
+	            window.location.hash = menuData.href;
+	        } else {
+	            window.history.pushState({id:menuData.href},'',menuData.href);
+	        }
+	        
+
 	        this.props.onItemClicked(menuData);
 	        return false;
 
@@ -118,10 +133,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if ( this.state.selected  ) {
 	            linkClsName += " sidenav-selected ";
 	        }
+	        
+
 
 	        return (React.createElement("li", {key: nav.id, className: "sidenav-list"}, 
 
-	            React.createElement("a", {onClick: this.clickHandler, href: nav.id, style: {cursor: 'pointer'}, "data-navid": nav.id, className: linkClsName}, 
+	            React.createElement("a", {onClick: this.clickHandler, href: createHref(this.props,nav), style: {cursor: 'pointer'}, "data-navid": nav.id, className: linkClsName}, 
 	                React.createElement("span", {className: titleClsName}, nav.title), 
 	                React.createElement("span", {className: "sidenav-icon " + (nav['icon-cls'] ? nav['icon-cls'] : '')})
 	            )
@@ -137,17 +154,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    render: function() {
 
-	        var nav = this.state.navigation || [];
-	        console.log('hey');
-	        var navigation = nav['sub-menu'];
+	        var pnav = this.state.navigation || [];
+	        var navigation = pnav['sub-menu'];
 	        return (
 	            React.createElement("ul", {className: "sidenav-submenu-sidenav"}, 
 	           
 	               navigation.map(function (nav) {
 	                   if ( nav['sub-menu'] ) {
-	                       return React.createElement(PreSubNav, {navigation: nav})
+	                       return React.createElement(PreSubNav, {key: pnav.id, navigation: nav})
 	                   } else {
-	                       return React.createElement(ItemNav, {navigation: nav, subnav: true})
+	                       return React.createElement(ItemNav, {onItemClicked: this.props.onItemClicked, key: pnav.id + "/" + nav.id, pushState: this.props.pushState, navigation: nav, subnav: true})
 	                   }
 	               }.bind(this))
 	               
@@ -177,7 +193,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                React.createElement("span", null, nav.title), 
 	                React.createElement("span", {className: iconCls})
 	            ), 
-	            React.createElement(SubNav, {navigation: nav})
+	            React.createElement(SubNav, {onItemClicked: this.props.onItemClicked, pushState: this.props.pushState, navigation: nav})
 	        ));
 	    }
 	});
@@ -219,9 +235,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	           
 	               navigation.map(function (nav) {
 	                   if ( nav['sub-menu'] ) {
-	                       return React.createElement(PreSubNav, {navigation: nav})
+	                       return React.createElement(PreSubNav, {key: nav.id, onItemClicked: this.onItemClicked, pushState: this.props.pushState, navigation: nav})
 	                   } else {
-	                       return React.createElement(ItemNav, {selection: this.state.selection, onItemClicked: this.onItemClicked, navigation: nav})
+	                       return React.createElement(ItemNav, {key: nav.id, pushState: this.props.pushState, selection: this.state.selection, onItemClicked: this.onItemClicked, navigation: nav})
 	                   }
 	               }.bind(this))
 	           

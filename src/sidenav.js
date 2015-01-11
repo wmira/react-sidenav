@@ -13,7 +13,8 @@ var RenderWrapper = require("react-render-wrapper");
 var extractMenuData = function(target) {
 
     var element = target.getAttribute("href") ? target :target.parentNode;
-
+    var path = element.getAttribute("data-path");
+    
     return {
         href: element.getAttribute("href"),
         navid : element.getAttribute("data-navid")
@@ -21,6 +22,12 @@ var extractMenuData = function(target) {
 
 };
 
+
+
+var createHref = function(props,nav) {
+    var prefix = props.pushState === false  ? "#!/" : "/";
+    return (nav.path !== undefined ) ? (prefix + nav.path) : (prefix + nav.id);
+};
 
 var ItemNav = React.createClass({
 
@@ -49,7 +56,15 @@ var ItemNav = React.createClass({
         
 
         var menuData = extractMenuData(e.target);
-        window.history.pushState({id:menuData.href},'',menuData.href);
+
+        //dont do a !pushState, it might not be there, if he specifically say false then we use hashes
+        if ( this.props.pushState === false ) {
+            window.location.hash = menuData.href;
+        } else {
+            window.history.pushState({id:menuData.href},'',menuData.href);
+        }
+        
+
         this.props.onItemClicked(menuData);
         return false;
 
@@ -62,10 +77,12 @@ var ItemNav = React.createClass({
         if ( this.state.selected  ) {
             linkClsName += " sidenav-selected ";
         }
+        
+
 
         return (<li  key={nav.id} className="sidenav-list">
 
-            <a onClick={this.clickHandler} href={nav.id} style={{cursor: 'pointer'}} data-navid={nav.id}  className={linkClsName} >
+            <a onClick={this.clickHandler} href={createHref(this.props,nav)} style={{cursor: 'pointer'}} data-navid={nav.id}  className={linkClsName} >
                 <span  className={titleClsName}>{nav.title}</span>
                 <span className={"sidenav-icon " + (nav['icon-cls'] ? nav['icon-cls'] : '')}></span>
             </a>
@@ -81,17 +98,16 @@ var SubNav = React.createClass({
 
     render: function() {
 
-        var nav = this.state.navigation || [];
-        console.log('hey');
-        var navigation = nav['sub-menu'];
+        var pnav = this.state.navigation || [];
+        var navigation = pnav['sub-menu'];
         return (
             <ul className="sidenav-submenu-sidenav">
            {
                navigation.map(function (nav) {
                    if ( nav['sub-menu'] ) {
-                       return <PreSubNav navigation={nav} />
+                       return <PreSubNav key={pnav.id} navigation={nav} />
                    } else {
-                       return <ItemNav navigation={nav}  subnav={true}/>
+                       return <ItemNav onItemClicked={this.props.onItemClicked}  key={pnav.id + "/" + nav.id} pushState={this.props.pushState} navigation={nav}  subnav={true}/>
                    }
                }.bind(this))
                }
@@ -121,7 +137,7 @@ var PreSubNav = React.createClass({
                 <span>{nav.title}</span>
                 <span className={iconCls}></span>
             </a>
-            <SubNav navigation={nav}/>
+            <SubNav onItemClicked={this.props.onItemClicked}  pushState={this.props.pushState}  navigation={nav}/>
         </li>);
     }
 });
@@ -163,9 +179,9 @@ var SideNav = React.createClass({
            {
                navigation.map(function (nav) {
                    if ( nav['sub-menu'] ) {
-                       return <PreSubNav navigation={nav} />
+                       return <PreSubNav key={nav.id} onItemClicked={this.onItemClicked}  pushState={this.props.pushState} navigation={nav} />
                    } else {
-                       return <ItemNav selection={this.state.selection} onItemClicked={this.onItemClicked} navigation={nav}/>
+                       return <ItemNav key={nav.id} pushState={this.props.pushState} selection={this.state.selection} onItemClicked={this.onItemClicked} navigation={nav}/>
                    }
                }.bind(this))
            }

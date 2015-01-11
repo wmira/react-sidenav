@@ -24,19 +24,20 @@
 <script language="javascript">
 
     var navigation = [
-        {id: 'landing', title: 'Dashboard', 'icon-cls': 'fa fa-dashboard'},
+        {id: 'landing', path:'' , title: 'Dashboard', 'icon-cls': 'fa fa-dashboard'},
         {id: 'channels', title: 'Channels', 'icon-cls': 'fa fa-exchange'},
         {id: 'products', title: 'Products', 'icon-cls': 'fa fa-cubes'},
         {id: 'inventory', title: 'Inventory',
             'sub-menu': [
                 { id: 'levels', title: 'Product Levels', 'icon-cls': 'fa fa-list'},
-                { id: 'levels', title: 'Sales Report', 'icon-cls': 'fa fa-area-chart'},
+                { id: 'salesrep', title: 'Sales Report', 'icon-cls': 'fa fa-area-chart'},
             ]
         },
         {id: 'fleet', title: 'Fleet', 'icon-cls': 'fa fa-truck'}
     ];
 
-    SideNav.render({ navigation : navigation},"sidenav-container");
+    //pushState false forces hashBang
+    SideNav.render({ navigation : navigation,pushState:false},"sidenav-container");
 
 </script>
 </body>
