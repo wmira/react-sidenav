@@ -4,7 +4,7 @@ react-sidenav
 A React Component that makes it easier to automatically build vertical nav menus or compose them from within your React
 components.
 
-Please check the demo here.
+[Please check the demo here](http://wmira.github.io/react-sidenav/).
 
 ![alt tag](https://raw.githubusercontent.com/wmira/dashboard-sidenav/master/img/sidenav.png)
 
