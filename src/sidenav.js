@@ -1,196 +1,223 @@
 /** @jsx React.DOM */
 /*globals require,module */
-/* jshint -W097 */
+/* jshint -W097,esnext: true */
 "use strict";
 
 var React = require("react");
-var RenderWrapper = require("react-render-wrapper");
-/**
- * Extract href
- *
- * @param target
- */
-var extractMenuData = function(target) {
 
-    var element = target.getAttribute("href") ? target :target.parentNode;
-    var path = element.getAttribute("data-path");
+var DEFAULT_SELECTED_CSS = "selected";
+var DEFAULT_CLASSNAME = "sidenav";
+
+var ItemCreateMixin = {
     
-    return {
-        href: element.getAttribute("href"),
-        navid : element.getAttribute("data-navid")
+    createItems: function(item) {
+        
+        if ( item.subMenu ) {
+            return (
+                <SubMenu navigation={item.subMenu}></SubMenu>
+            )
+        } else if ( this.props.itemType === "lefticon" ) {
+
+            return React.addons.cloneWithProps(<IconLeftItem children={item.title}/>, {
+                itemHeight :  this.props.height,
+                className : item.iconClassName
+            });
+
+        } else if ( this.props.itemType === "righticon" ) {
+            return React.addons.cloneWithProps(<IconRightItem children={item.title}/>, {
+                itemHeight :  this.props.height,
+                className : item.iconClassName
+            })
+        } else if ( this.props.itemType === "text" ) {
+            var style = {};
+            return <a style={ {"display": "block"}}><span style={ style }>{item.title}</span></a>
+        }
+        
+    }
+};
+
+
+var Menu = React.createClass({
+    
+    getInitialState() {
+        return { "selected" : this.props.defaultSelected }
+    },
+    
+    _onItemClick : function(key) {
+        this.setState( { "selected" : key } );
+    },
+    render : function() {
+
+        return (
+            <ul className={this.props.className} style={ { "listStyle" : "none" ,"padding":"0", "margin" : "0"} }>
+                {
+                    
+                    React.Children.map(this.props.children, child => {
+
+                        var className = this.props.className || DEFAULT_CLASSNAME;
+                        var selectedClassName = this.props.selectedClassName || (className) ?  className +"-" + DEFAULT_SELECTED_CSS : DEFAULT_SELECTED_CSS;
+                        return React.addons.cloneWithProps(child, {
+                            height: this.props.itemHeight,
+                            onClick : this._onItemClick,
+                            selectedItem :  this.state.selected,
+                            selectedClassName : selectedClassName
+                        })
+                    })
+                }
+            </ul>
+        );
+        
     }
 
-};
+});
 
-
-
-var createHref = function(props,nav) {
-    var prefix = props.pushState === false  ? "#!/" : "/";
-    return (nav.path !== undefined ) ? (prefix + nav.path) : (prefix + nav.id);
-};
-
-var ItemNav = React.createClass({
+var MenuItem = React.createClass({
+    
 
     getInitialState : function() {
-        return { navigation : this.props.navigation, subnav : this.props.subnav, selected : this.props.selected};
+
+        return { "isSelected" : ( this.props.selectedItem ?  ( this.props.selectedItem === this.props.itemKey ) : false ) };
     },
 
     componentWillReceiveProps : function(nextProps) {
-        if ( nextProps.selection && ( this.state.navigation.id === nextProps.selection.navid  ) ) {
-            this.setState({ selected: true})
+
+        if ( nextProps.selectedItem && ( this.props.itemKey === nextProps.selectedItem  ) ) {
+            this.setState({ isSelected: true})
         } else {
-            this.setState({selected: false})
+            this.setState({isSelected: false})
         }
     },
 
-    shouldComponentUpdate(nextProps, nextState) {
-        //lets check if we are selected for now
-        return ( (nextProps.selected !== this.props.selected) ||
-            nextState.selected !== this.state.selected )
-    },
 
-    clickHandler : function(e) {
-
-        e.preventDefault();
-        e.stopPropagation();
-        
-
-        var menuData = extractMenuData(e.target);
-
-        //dont do a !pushState, it might not be there, if he specifically say false then we use hashes
-        if ( this.props.pushState === false ) {
-            window.location.hash = menuData.href;
-        } else {
-            window.history.pushState({id:menuData.href},'',menuData.href);
+    _onClick : function() {
+        if ( this.props.onClick ) {
+            this.props.onClick(this.props.itemKey);
         }
-        
-
-        this.props.onItemClicked(menuData);
-        return false;
-
+        this.setState({"isSelected" : true});
     },
     render : function() {
-        var nav = this.state.navigation;
-        var titleClsName = this.state.subNav ? "sidenav-submenu-item " : "";
-        var linkClsName = "sidenav-link";
+        var className = this.props.selectedItem === this.props.itemKey  ? this.props.selectedClassName : "";
 
-        if ( this.state.selected  ) {
-            linkClsName += " sidenav-selected ";
-        }
+        return (<li className={className} key={this.props.itemKey} onClick={this._onClick} style={ { height : this.props.height, lineHeight: this.props.height}}>
+            {
+                React.Children.map(this.props.children, child => {
+                    if ( child.props ) {
+                        return React.addons.cloneWithProps(child, {
+                            itemHeight: this.props.height,
+                            itemPaddingLeft: this.props.itemPaddingLeft
+                        })    
+                    } else {
+                        return child;
+                    }
+                })
+            }
+
+        </li>)
         
-
-
-        return (<li  key={nav.id} className="sidenav-list">
-
-            <a onClick={this.clickHandler} href={createHref(this.props,nav)} style={{cursor: 'pointer'}} data-navid={nav.id}  className={linkClsName} >
-                <span  className={titleClsName}>{nav.title}</span>
-                <span className={"sidenav-icon " + (nav['icon-cls'] ? nav['icon-cls'] : '')}></span>
-            </a>
-        </li>);
+        
     }
-
-});
-var SubNav = React.createClass({
-
-    getInitialState : function() {
-        return {navigation: this.props.navigation};
-    },
-
-    render: function() {
-
-        var pnav = this.state.navigation || [];
-        var navigation = pnav['sub-menu'];
-        return (
-            <ul className="sidenav-submenu-sidenav">
-           {
-               navigation.map(function (nav) {
-                   if ( nav['sub-menu'] ) {
-                       return <PreSubNav key={pnav.id} navigation={nav} />
-                   } else {
-                       return <ItemNav onItemClicked={this.props.onItemClicked}  key={pnav.id + "/" + nav.id} pushState={this.props.pushState} navigation={nav}  subnav={true}/>
-                   }
-               }.bind(this))
-               }
-            </ul>
-        )
-    }
+    
+    
 });
 
-var PreSubNav = React.createClass({
-    getInitialState : function() {
-        return { navigation : this.props.navigation, collapse: false };
-    },
-
-    onClick : function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-
-        this.setState ( { collapse: !this.state.collapse } );
-    },
-    render : function() {
-        var nav = this.state.navigation;
-        var containerCls = this.state.collapse ? "sidenav-submenu " : "sidenav-submenu  sidenav-submenu-closed";
-        var iconCls = this.state.collapse ? "sidenav-icon fa fa-chevron-down" : "sidenav-icon fa fa-chevron-left";
-
-        return (<li ref="menuContainer" key={nav.id} className={containerCls}>
-            <a  onClick={this.onClick} className="sidenav-link" >
-                <span>{nav.title}</span>
-                <span className={iconCls}></span>
-            </a>
-            <SubNav onItemClicked={this.props.onItemClicked}  pushState={this.props.pushState}  navigation={nav}/>
-        </li>);
-    }
-});
 /**
- * Creates a side navigator which can automatically trigger events+change history nagivation etc
- *
- * //sidenav could be dynamically generated depending on user role for example
- * var navigation = [
- *    { group: 'main', nav : [
- *      {id: 'landing', title: 'Dashboard', icon-cls: 'fa fa-tachometer'},
- *      {id: 'channels', title: 'Channels', icon-cls: 'fa fa-exchange'}
- *     ]
- *    },
- *    { {id: 'reports', title: 'Reports', icon-cls: 'fa fa-chart-o'}
- * ];
- * React.render(
- *   React.createElement(SideNav,{ navigation: navigation }),
- *   document.getElementById('#sidenav-container')
- * );
+ * Icon Left style
  *
  * @type {*|Function}
  */
+var IconLeftItem = React.createClass({
+
+    
+    render : function() {
+        
+        return (
+            <a style={{ "display" : "block"}} href="#"><i className={this.props.className}></i>{this.props.children}</a>
+        )
+        
+    }    
+});
+
+/**
+ *
+ * @type {*|Function}
+ */
+var IconRightItem = React.createClass({
+
+    /**
+     *  
+     * @returns {XML}
+     */
+    render : function() {
+        
+        return (
+            <a style={{ "display" : "block"}} href="#">{this.props.children} <i style={ { "lineHeight": this.props.itemHeight , "float" : "right"} } className={this.props.className}></i></a>
+        )
+
+    }
+});
+var SubMenu = React.createClass({
+    mixins: [ItemCreateMixin],
+
+    _onItemClick : function(key) {
+
+    },
+    render : function() {
+        var items = this.props.navigation || [];
+        return (<Menu {...this.props}> {
+            items.map(item => {
+                return ( <MenuItem itemKey={item.key} onClick={this._onItemClick} children={this.createItems(item)}>
+                </MenuItem>)
+            })
+        }</Menu>);
+
+    }
+    
+});
+
 var SideNav = React.createClass({
 
-    getInitialState : function() {
-        return {navigation: this.props.navigation, rootPath: this.props.rootPath};
-    },
+    mixins: [ItemCreateMixin],
+    
 
-    onItemClicked : function(menuData) {
-        this.setState({selection:menuData});
-    },
+    /**
+     *
+     */
+    render : function() {
 
-    render: function() {
-
-        var navigation = this.state.navigation || [];
-
+        var items = this.props.navigation || [];
+        var children = items.map( item => {
+            return ( <MenuItem itemKey={item.key}  >
+                {this.createItems(item)}
+            </MenuItem>)
+        });
         return (
-           <ul className="sidenav">
-           {
-               navigation.map(function (nav) {
-                   if ( nav['sub-menu'] ) {
-                       return <PreSubNav key={nav.id} onItemClicked={this.onItemClicked}  pushState={this.props.pushState} navigation={nav} />
-                   } else {
-                       return <ItemNav key={nav.id} pushState={this.props.pushState} selection={this.state.selection} onItemClicked={this.onItemClicked} navigation={nav}/>
-                   }
-               }.bind(this))
-           }
-           </ul>
+            <Menu {...this.props}  children={children}>
+            </Menu>
         )
+
     }
 
 });
 
 
+SideNav.Menu = Menu;
+SideNav.MenuItem = MenuItem;
+SideNav.ILeftItem = IconLeftItem;
+SideNav.IRightItem = IconRightItem;
 
-module.exports = RenderWrapper(React,SideNav);
+module.exports = SideNav;
+
+
+/*
+var navigation = [
+    {id: 'landing', path:'' , title: 'Dashboard', 'icon-cls': 'fa fa-dashboard'},
+    {id: 'channels', title: 'Channels', 'icon-cls': 'fa fa-exchange'},
+    {id: 'products', title: 'Products', 'icon-cls': 'fa fa-cubes'},
+    {id: 'inventory', title: 'Inventory',
+        'subMenu': [
+            { id: 'levels', title: 'Product Levels', 'icon-cls': 'fa fa-list'},
+            { id: 'salesrep', title: 'Sales Report', 'icon-cls': 'fa fa-area-chart'}
+        ]
+    },
+    {id: 'fleet', title: 'Fleet', 'icon-cls': 'fa fa-truck'}
+];*/

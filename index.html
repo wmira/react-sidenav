@@ -6,39 +6,120 @@
 
     <title>Dashboard</title>
 
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,300' rel='stylesheet' type='text/css'>
+    <style>
+        
+        
+        html,body {
+            font-family: 'Open Sans', sans-serif;
+            color: #000;
+        }
+        /*
+        li {
+            color: #DDD;
+            
+        }
+
+        li > a  {
+            text-indent: 16px;
+            color: #b2bfdc;
+            font-weight: 300;
+            font-size: 14px;
+        }
+        a > i {
+            padding-right: 10px;
+        }
+        li > a:hover {
+            text-decoration: none;
+            color: #FFF;
+            background: #1caf9a;
+        }
+
+        .selected {
+            background: #1caf9a;
+            color: #FFF !important;
+        }
+
+        .selected a {
+            color: #FFF !important;
+        }*/
+        
+        ul.plain li {
+            color: #000;
+        }
+        ul.plain li > a {
+            padding-left: 6px;
+        }
+        ul.plain li > a > i {
+            padding-right: 8px;
+        }
+        ul.plain li > a:hover {
+            text-decoration: none;
+            background: #F3F4F5;
+            cursor: pointer;
+        }
+        ul.plain li > a:focus {
+            text-decoration: none;
+        }
+        li.plain-selected {
+            background: #F3F4F5;
+            
+        }
+        
+    </style>
     <link rel="stylesheet" type="text/css" href="css/dashboard.css">
     <link rel="stylesheet" type="text/css" href="css/sidenav.css">
-    <script src="http://fb.me/react-0.12.2.js"></script>
+    <script src="http://fb.me/react-with-addons-0.12.2.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
     <script src="js/react-sidenav.js"></script>
 </head>
 <body>
 <div class="dashboard-wrapper">
     <div id='sidenav-container' class="sidenav-wrapper">
     </div>
-    <div id="content-wrapper">
+    <div style="padding-left: 400px;">
+        <div id="content-wrapper" style="width: 200px; border: 1px solid #C7CCD1;">
+            
+        </div>
     </div>
 </div>
-<script language="javascript">
-
-    var navigation = [
-        {id: 'landing', path:'' , title: 'Dashboard', 'icon-cls': 'fa fa-dashboard'},
-        {id: 'channels', title: 'Channels', 'icon-cls': 'fa fa-exchange'},
-        {id: 'products', title: 'Products', 'icon-cls': 'fa fa-cubes'},
-        {id: 'inventory', title: 'Inventory',
-            'sub-menu': [
-                { id: 'levels', title: 'Product Levels', 'icon-cls': 'fa fa-list'},
-                { id: 'salesrep', title: 'Sales Report', 'icon-cls': 'fa fa-area-chart'},
-            ]
-        },
-        {id: 'fleet', title: 'Fleet', 'icon-cls': 'fa fa-truck'}
+<script type="text/jsx">
+    /*
+    var child = <span>Im a child</span>;
+    React.render(
+        <SideNav.Menu itemHeight="32px" >
+            <SideNav.MenuItem itemKey="truck">
+                <SideNav.ILeftItem className="fa fa-truck">
+                    Truck
+                </SideNav.ILeftItem>
+            </SideNav.MenuItem>
+            <SideNav.MenuItem itemKey="bed">
+                <SideNav.ILeftItem className="fa fa-bed">
+                    Bed
+                </SideNav.ILeftItem>
+            </SideNav.MenuItem>
+            <SideNav.MenuItem itemKey="camera">
+                <SideNav.ILeftItem className="fa fa-camera">
+                    Camera
+                </SideNav.ILeftItem>
+            </SideNav.MenuItem>
+        </SideNav.Menu>,
+       document.getElementById("sidenav-container")
+    );
+    */
+    var nav = [
+        {key: 'landing', title: 'Dashboard', 'iconClassName': 'fa fa-dashboard'},
+        {key: 'channels', title: 'Channels', 'iconClassName': 'fa fa-exchange'},
+        {key: 'fleet', title: 'Fleet', 'iconClassName': 'fa fa-truck'},
+        {key: 'products', title: 'Products', 'iconClassName': 'fa fa-cubes'},
+        {key: 'inventory', title: 'Inventory', 'iconClassName': 'fa fa-database'}
     ];
-
-    //pushState false forces hashBang
-    SideNav.render({ navigation : navigation,pushState:false},"sidenav-container");
-
+    React.render(
+            <SideNav className={"plain"} itemType="righticon" itemHeight="32px" navigation={nav}></SideNav>,
+            document.getElementById("content-wrapper")
+    )
 </script>
 </body>
 </html>

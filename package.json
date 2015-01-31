@@ -1,13 +1,16 @@
 {
   "name": "react-sidenav",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A Simple SideBar Navigation written in React",
-  "main": "js/react-sidenav.js",
+  "main": "js/sidenav.js",
   "author": "Warren Mira",
   "scripts": {
+    "test": "node_modules/.bin/jest",
     "build": "webpack src/sidenav.js js/react-sidenav.js",
     "build-min": "NODE_ENV=production COMPRESS=1 webpack src/sidenav.js js/react-sidenav.min.js",
-    "watch": "webpack src/sidenav.js js/react-sidenav.js --watch"
+    "watch": "webpack src/sidenav.js js/react-sidenav.js --watch",
+    "dist" :  "npm run test && npm run build && npm run build-min"
+
   },
   "repository": {
     "type": "git",
@@ -26,8 +29,15 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "jest-cli": "^0.2.1",
     "jsx-loader": "^0.12.2",
     "react": "^0.12.2",
-    "react-render-wrapper": "^1.0.0"
+    "react-tools": "^0.12.2"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/__tests__/preprocessor.js",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react"
+    ]
   }
 }
