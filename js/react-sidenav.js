@@ -62,7 +62,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(1);
 
 	var DEFAULT_SELECTED_CSS = "selected";
-
+	var DEFAULT_CLASSNAME = "sidenav";
 
 	var ItemCreateMixin = {
 	    
@@ -100,7 +100,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    
 	    _onItemClick : function(key) {
-	        console.log("menu clicked: '" + key + "'");
 	        this.setState( { "selected" : key } );
 	    },
 	    render : function() {
@@ -111,7 +110,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    
 	                    React.Children.map(this.props.children, function(child)  {
 
-	                        var className = this.props.className || "";
+	                        var className = this.props.className || DEFAULT_CLASSNAME;
 	                        var selectedClassName = this.props.selectedClassName || (className) ?  className +"-" + DEFAULT_SELECTED_CSS : DEFAULT_SELECTED_CSS;
 	                        return React.addons.cloneWithProps(child, {
 	                            height: this.props.itemHeight,
@@ -132,10 +131,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    
 
 	    getInitialState : function() {
-	        return { "isSelected" : (this.props.selectedItem && (this.props.selectedItem == this.props.itemKey)) || false };
-	        
+
+	        return { "isSelected" : ( this.props.selectedItem ?  ( this.props.selectedItem === this.props.itemKey ) : false ) };
 	    },
-	    /*
+
 	    componentWillReceiveProps : function(nextProps) {
 
 	        if ( nextProps.selectedItem && ( this.props.itemKey === nextProps.selectedItem  ) ) {
@@ -145,21 +144,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    },
 
-	    shouldComponentUpdate : function(nextProps, nextState) {
-	        //lets check if we are selected for now
-	        return ( ( nextProps.selectedItem === this.props.itemKey) ||
-	        nextState.isSelected !== this.state.isSelected )
-	    },
 
-	     */
 	    _onClick : function() {
 	        if ( this.props.onClick ) {
 	            this.props.onClick(this.props.itemKey);
 	        }
+	        this.setState({"isSelected" : true});
 	    },
 	    render : function() {
 	        var className = this.props.selectedItem === this.props.itemKey  ? this.props.selectedClassName : "";
-	        
+
 	        return (React.createElement("li", {className: className, key: this.props.itemKey, onClick: this._onClick, style:  { height : this.props.height, lineHeight: this.props.height}}, 
 	            
 	                React.Children.map(this.props.children, function(child)  {
@@ -221,8 +215,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    mixins: [ItemCreateMixin],
 
 	    _onItemClick : function(key) {
-	      console.log("submenu clicked: " + key);
-	        
+
 	    },
 	    render : function() {
 	        var items = this.props.navigation || [];

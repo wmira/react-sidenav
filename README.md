@@ -16,11 +16,11 @@ Please check the demo here.
 ```
 
 
-1. CSS - you would need to set a css to style the navigation. A sample is included under css/default.css. The
+1.CSS - you would need to set a css to style the navigation. A sample is included under css/default.css. The
 default top level classname is "sidenav". You should be able to change the style using the "className" property. This
-enable clients to use sidenav with different styles.
+enable you to use the same instance with different style.
 
-2. Via Configuration - you can create a sidenav instance using a navigation configuration as per below:
+2.Via Configuration - you can create a sidenav instance using a navigation configuration as per below:
 
 ```javascript
 var SideNav = require("react-sidenav");
@@ -39,7 +39,7 @@ var nav = [
 
 ```
 
-3. Via Manual Composition - this is another option. The tree should be as follows:
+3.Via Manual Composition - this is another option. The tree should be as follows:
 
 ```javascript
     var SideNav = require("react-sidenav");
@@ -82,7 +82,7 @@ scripts to do continuous integration.
 2. npm install -g live-server # optional, you can use your own
 3. live-server # this loads index.html to view development result
 4. npm run watch #rebuilds react-sidenav
-
+5. npm run dist #runs the tests and all minification
 
 ## Contributing
 
