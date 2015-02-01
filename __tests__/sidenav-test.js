@@ -33,7 +33,9 @@ describe('SideNav Tests', function() {
 
         //default styles
         var ulNode =  mainUl.getDOMNode();
-
+        
+        expect(ulNode.className).toBe("sidenav");
+        
         domHelper.expectStyles(ulNode,
             { "listStyle" : "none" , "margin"  : "0px", "padding" : "0px"});
 
@@ -85,4 +87,12 @@ describe('SideNav Tests', function() {
         expect(menuItem.props.selectedClassName).toBe("hey-selected");
     });
 
+});
+
+
+describe('SideNav Path Tests', function() {
+
+    it('properly builds path', function() {
+        
+    });
 });

@@ -30,9 +30,11 @@ describe('SideNav Auto Build Test', function() {
 
             var mainUl = TestUtils.findRenderedDOMComponentWithTag(
                 instance, 'ul');
-
+            
+            
             //default styles, ensure its the same as manual build
             var ulNode =  mainUl.getDOMNode();
+            expect(ulNode.className).toBe("plain");
             domHelper.expectStyles(ulNode,
                 { "listStyle" : "none" , "margin"  : "0px", "padding" : "0px"});
 
