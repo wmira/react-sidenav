@@ -67,7 +67,7 @@ var nav = [
 
 ```
 
-# Props
+## Props
 
 SideNav props accepts the following values
 
