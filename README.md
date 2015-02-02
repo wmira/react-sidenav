@@ -67,6 +67,17 @@ var nav = [
 
 ```
 
+# Props
+
+SideNav props accepts the following values
+
+| Property      | Description   | Example  |
+| ------------- |:-------------:| -----:|
+| path          | The path appended to the key. e.g. path='#' 
+                  will create data-path or href to be '#/item-key' | # |
+| itemHeight    | The height of the row/menu item.      |   42px |
+| setHref       | Sets the href attribute in the a tag. True by default.     |  false |
+
 
 ## Todo
 
@@ -75,7 +86,7 @@ var nav = [
 
 ## Development
 
-react-sidenav uses webpack and jest for testing. You can use whatever hot reload api you want and below are the
+react-sidenav uses webpack and jest for testing. You can use whatever hot reload library you preferred and below are the
 scripts to do continuous integration.
 
 1. npm install
@@ -83,10 +94,12 @@ scripts to do continuous integration.
 3. live-server # this loads index.html to view development result
 4. npm run watch #rebuilds react-sidenav
 5. npm run dist #runs the tests and all minification
+6. npm test #runs all the tests 
+7. npm test testfile.js #run specific tests
 
 ## Contributing
 
-Pull requests are welcome. For me to accept a pull request, please include a test as well under __tests__ or your
+Pull requests are welcome. For me to accept a pull request, please include a test as well under \_\_tests\_\_ or your
 pull request will be ignored.
 
 ## License
