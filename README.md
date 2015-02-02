@@ -76,12 +76,12 @@ SideNav props accepts the following values
 | path          | The path appended to the key. e.g. path='#' will create data-path or href to be '#/item-key' | # |
 | itemHeight    | The height of the row/menu item.      |   42px |
 | setHref       | Sets the href attribute in the a tag. True by default.     |  false |
+| onClick       | Function to call when an item is clicked | function() |
 
 
 ## Todo
 
-1. Events and URL History interaction
-2. SubMenu tests
+1. SubMenu tests
 
 ## Development
 
