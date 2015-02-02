@@ -9,60 +9,138 @@ var React = require("react");
 var DEFAULT_SELECTED_CSS = "selected";
 var DEFAULT_CLASSNAME = "sidenav";
 
-var ItemCreateMixin = {
-    
-    createItems: function(item) {
-        
-        var createProps = function() {
-            return {
-
-                itemHeight :  this.props.height,
-                className : item.iconClassName,
-                path: this.props.path,
-                itemKey: this.props.itemKey
-                
-            };
-            
-        }.bind(this);
-        if ( item.subMenu ) {
-            return (
-                <SubMenu navigation={item.subMenu}></SubMenu>
-            )
-        } else if ( this.props.itemType === "lefticon" ) {
-            
-            return React.addons.cloneWithProps(<IconLeftItem children={item.title}/>, createProps());
-            
-        } else if ( this.props.itemType === "righticon" ) {
-            
-            return React.addons.cloneWithProps(<IconRightItem children={item.title}/>, createProps());
-            
-        } else if ( this.props.itemType === "plainlink" ) {
-            return React.addons.cloneWithProps(<PlainLink children={item.title}/>, createProps());
-            
-        } else if ( this.props.itemType === "plaintext" ) {
-            
-            return React.addons.cloneWithProps(<PlainText children={item.title}/>, createProps());
-            
-        } else {
-            return item.title;
-        }
-        
-    }
-};
 
 var PathCreateMixin = {
-    
+
     createPath : function() {
-        
+
         if ( this.props.path ) {
             return this.props.path + "/" + this.props.itemKey
         } else {
             return this.props.itemKey;
         }
-        
+
+    },
+
+    createAttribs : function() {
+        var attribs = {
+            style : { 'display' : 'block', 'cursor' : 'pointer' }
+        };
+        if ( this.props.setHref === true ) {
+            attribs['href'] =  this.createPath()
+        }
+        attribs['data-path'] = this.createPath();
+
+        return attribs;
+
     }
+
+};
+/**
+ * Icon Left style
+ *
+ * @type {*|Function}
+ */
+var IconLeftItem = React.createClass({
+
+    mixins: [PathCreateMixin],
+
+    render : function() {
+
+        return (
+            <a {...this.createAttribs()}><i className={this.props.className}></i>{this.props.children}</a>
+        )
+
+    }
+});
+
+/**
+ *
+ * @type {*|Function}
+ */
+var IconRightItem = React.createClass({
+    mixins: [PathCreateMixin],
+    /**
+     *
+     * @returns {XML}
+     */
+    render : function() {
+        return (
+            <a {...this.createAttribs()}>{this.props.children} <i style={ { "lineHeight": this.props.itemHeight , "float" : "right"} } className={this.props.className}></i></a>
+        )
+
+    }
+});
+
+var PlainLink = React.createClass({
+
+    mixins: [PathCreateMixin],
+    render : function() {
+
+        return (
+            <a {...this.createAttribs()}><span>{this.props.children}</span></a>
+        )
+    }
+});
+
+var PlainText = React.createClass({
+
+    mixins: [PathCreateMixin],
+    render : function() {
+
+        return (
+            <div data-path={this.createPath()} style={{ "display" : "block", "cursor": "pointer"}} >{this.props.children}</div>
+        )
+    }
+});
+
+var Items = {
+  
+    "lefticon"  : IconLeftItem,
+    "righticon" : IconRightItem,
+    "plainlink" : PlainLink,
+    "plaintext" : PlainText
     
 };
+
+var ItemCreateMixin = {
+    
+    createItems: function(item) {
+        var ItemComponent;
+        var createProps = function() {
+            return { 
+
+                itemHeight :  this.props.height,
+                className : item.iconClassName,
+                path: this.props.path,
+                itemKey: this.props.itemKey,
+                setHref : this.props.setHref
+                
+            };
+            
+        }.bind(this);
+
+        if ( item.subMenu ) {
+            return (
+                <SubMenu navigation={item.subMenu}></SubMenu>
+            )
+        } else {
+
+            ItemComponent = Items[this.props.itemType];
+
+            if ( ItemComponent ) {
+                return React.addons.cloneWithProps(<ItemComponent children={item.title}/>, createProps());
+            } else {
+                
+                return item.title;
+            }
+        }
+
+        
+    }
+};
+
+
 
 
 var Menu = React.createClass({
@@ -73,6 +151,10 @@ var Menu = React.createClass({
     
     _onItemClick : function(key) {
         this.setState( { "selected" : key } );
+        if ( this.props.onClick ) {
+            //FIXME: need to pass additional values here.
+            this.props.onClick(key);
+        }
     },
     
     render : function() {
@@ -90,7 +172,8 @@ var Menu = React.createClass({
                             onClick : this._onItemClick,
                             selectedItem :  this.state.selected,
                             selectedClassName : selectedClassName,
-                            path : this.props.path
+                            path : this.props.path,
+                            setHref : this.props.setHref !== false
                         })
                     })
                 }
@@ -141,7 +224,8 @@ var MenuItem = React.createClass({
                             itemHeight: this.props.height,
                             itemPaddingLeft: this.props.itemPaddingLeft,
                             itemKey : this.props.itemKey,
-                            path: this.props.path
+                            path: this.props.path,
+                            setHref : this.props.setHref !== false
                         })    
                     } else {
                         return child;
@@ -157,64 +241,6 @@ var MenuItem = React.createClass({
     
 });
 
-/**
- * Icon Left style
- *
- * @type {*|Function}
- */
-var IconLeftItem = React.createClass({
-
-    mixins: [PathCreateMixin],
-    
-    render : function() {
-        
-        return (
-            <a style={{ "display" : "block"}} href={this.createPath()}><i className={this.props.className}></i>{this.props.children}</a>
-        )
-        
-    }    
-});
-
-/**
- *
- * @type {*|Function}
- */
-var IconRightItem = React.createClass({
-    mixins: [PathCreateMixin],
-    /**
-     *  
-     * @returns {XML}
-     */
-    render : function() {
-        
-        return (
-            <a style={{ "display" : "block"}} href={this.createPath()}>{this.props.children} <i style={ { "lineHeight": this.props.itemHeight , "float" : "right"} } className={this.props.className}></i></a>
-        )
-
-    }
-});
-
-var PlainLink = React.createClass({
-
-    mixins: [PathCreateMixin],
-    render : function() {
-
-        return (
-            <a style={{ "display" : "block"}} href={this.createPath()}><span>{this.props.children}</span></a>
-        )
-    }
-});
-
-var PlainText = React.createClass({
-
-    mixins: [PathCreateMixin],
-    render : function() {
-
-        return (
-            <div style={{ "display" : "block", "cursor": "pointer"}} >{this.props.children}</div>
-        )
-    }
-});
 
 var SubMenu = React.createClass({
     
@@ -236,6 +262,12 @@ var SubMenu = React.createClass({
     
 });
 
+
+/**
+ * The SideNav entry point that creates navigation using config file
+ *
+ * @type {*|Function}
+ */
 var SideNav = React.createClass({
 
     mixins: [ItemCreateMixin],
@@ -264,9 +296,11 @@ var SideNav = React.createClass({
 
 
 
-SideNav.Menu = Menu;
-SideNav.MenuItem = MenuItem;
-SideNav.ILeftItem = IconLeftItem;
-SideNav.IRightItem = IconRightItem;
+SideNav.Menu        = Menu;
+SideNav.MenuItem    = MenuItem;
+SideNav.ILeftItem   = IconLeftItem;
+SideNav.IRightItem  = IconRightItem;
+SideNav.PlainText   = PlainText;
+SideNav.PlainLink   = PlainLink;
 
 module.exports = SideNav;

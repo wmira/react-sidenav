@@ -93,6 +93,56 @@ describe('SideNav Tests', function() {
 describe('SideNav Path Tests', function() {
 
     it('properly builds path', function() {
+
+        var props = { "itemHeight" : "32px" };
+
+        var instance = TestUtils.renderIntoDocument(
+            <SideNav.Menu path='#' {...props } >
+                <SideNav.MenuItem itemKey='hey' >
+                    <SideNav.ILeftItem className="fa fa-truck">
+                        Truck
+                    </SideNav.ILeftItem>
+                </SideNav.MenuItem>
+            </SideNav.Menu>
+        );
+
+        var menuItem = TestUtils.findRenderedComponentWithType(
+            instance, SideNav.MenuItem);
+
+        var a = TestUtils.findRenderedDOMComponentWithTag(
+            menuItem, 'a');
         
+        var aDomNode = a.getDOMNode();
+
+        expect(aDomNode.getAttribute("href")).toBe("#/hey");
+        expect(aDomNode.getAttribute("data-path")).toBe("#/hey");
+        
+    });
+
+    it("properly doesn't set path if configured", function() {
+
+        var props = { "itemHeight" : "32px" };
+
+        var instance = TestUtils.renderIntoDocument(
+            <SideNav.Menu setHref={false} path='#' {...props } >
+                <SideNav.MenuItem itemKey='hey' >
+                    <SideNav.ILeftItem className="fa fa-truck">
+                        Truck
+                    </SideNav.ILeftItem>
+                </SideNav.MenuItem>
+            </SideNav.Menu>
+        );
+
+        var menuItem = TestUtils.findRenderedComponentWithType(
+            instance, SideNav.MenuItem);
+
+        var a = TestUtils.findRenderedDOMComponentWithTag(
+            menuItem, 'a');
+
+        var aDomNode = a.getDOMNode();
+
+        expect(aDomNode.getAttribute("href")).toBe(null);
+        expect(aDomNode.getAttribute("data-path")).toBe("#/hey");
+
     });
 });
