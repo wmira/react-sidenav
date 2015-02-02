@@ -1,6 +1,8 @@
 react-sidenav
 ==============================
 
+[![Build Status](https://travis-ci.org/wmira/react-sidenav.svg?branch=master)](https://travis-ci.org/wmira/react-sidenav)
+
 A React Component that makes it easier to automatically build vertical nav menus or compose them from within your React
 components.
 
