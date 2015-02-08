@@ -1,10 +1,10 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("react/addons"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react"], factory);
+		define(["react/addons"], factory);
 	else if(typeof exports === 'object')
-		exports["SideNav"] = factory(require("react"));
+		exports["SideNav"] = factory(require("react/addons"));
 	else
 		root["SideNav"] = factory(root["React"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
