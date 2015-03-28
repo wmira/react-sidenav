@@ -151,29 +151,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	var Items = {
-	  
+
 	    "lefticon"  : IconLeftItem,
 	    "righticon" : IconRightItem,
 	    "plainlink" : PlainLink,
 	    "plaintext" : PlainText
-	    
+
 	};
 
 	var ItemCreateMixin = {
-	    
+
 	    createItems: function(item) {
 	        var ItemComponent;
 	        var createProps = function() {
-	            return { 
+	            return {
 
 	                itemHeight :  this.props.height,
 	                className : item.iconClassName,
 	                path: this.props.path,
 	                itemKey: this.props.itemKey,
 	                setHref : this.props.setHref
-	                
+
 	            };
-	            
+
 	        }.bind(this);
 
 	        if ( item.subMenu ) {
@@ -187,12 +187,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if ( ItemComponent ) {
 	                return React.addons.cloneWithProps(React.createElement(ItemComponent, {children: item.title}), createProps());
 	            } else {
-	                
+
 	                return item.title;
 	            }
 	        }
 
-	        
+
 	    }
 	};
 
@@ -200,11 +200,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	var Menu = React.createClass({displayName: "Menu",
-	    
+
 	    getInitialState: function() {
 	        return { "selected" : this.props.defaultSelected }
 	    },
-	    
+
 	    _onItemClick : function(key) {
 	        this.setState( { "selected" : key } );
 	        if ( this.props.onClick ) {
@@ -212,7 +212,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.props.onClick(key);
 	        }
 	    },
-	    
+
 	    render : function() {
 	        var className= this.props.className || DEFAULT_CLASSNAME;
 
@@ -235,18 +235,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	                
 	            )
 	        );
-	        
+
 	    }
 
 	});
 
 	/**
-	 * 
+	 *
 	 *
 	 * @type {*|Function}
 	 */
 	var MenuItem = React.createClass({displayName: "MenuItem",
-	    
+
 
 	    getInitialState : function() {
 
@@ -271,8 +271,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    render : function() {
 	        var className = this.props.selectedItem === this.props.itemKey  ? this.props.selectedClassName : "";
+	        var id = this.props.id || '';
 
-	        return (React.createElement("li", {className: className, key: this.props.itemKey, onClick: this._onClick, style:  { height : this.props.height, lineHeight: this.props.height}}, 
+	        return (React.createElement("li", {id: id, className: className, key: this.props.itemKey, onClick: this._onClick, style:  { height : this.props.height, lineHeight: this.props.height}}, 
 	            
 	                React.Children.map(this.props.children, function(child)  {
 	                    if ( child.props ) {
@@ -282,7 +283,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            itemKey : this.props.itemKey,
 	                            path: this.props.path,
 	                            setHref : this.props.setHref !== false
-	                        })    
+	                        })
 	                    } else {
 	                        return child;
 	                    }
@@ -290,16 +291,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	            
 
 	        ))
-	        
-	        
+
+
 	    }
-	    
-	    
+
+
 	});
 
 
 	var SubMenu = React.createClass({displayName: "SubMenu",
-	    
+
 	    mixins: [ItemCreateMixin],
 
 	    _onItemClick : function(key) {
@@ -315,7 +316,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        ));
 
 	    }
-	    
+
 	});
 
 
@@ -327,7 +328,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SideNav = React.createClass({displayName: "SideNav",
 
 	    mixins: [ItemCreateMixin],
-	    
+
 
 	    /**
 	     *
