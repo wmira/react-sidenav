@@ -95,29 +95,29 @@ var PlainText = React.createClass({
 });
 
 var Items = {
-  
+
     "lefticon"  : IconLeftItem,
     "righticon" : IconRightItem,
     "plainlink" : PlainLink,
     "plaintext" : PlainText
-    
+
 };
 
 var ItemCreateMixin = {
-    
+
     createItems: function(item) {
         var ItemComponent;
         var createProps = function() {
-            return { 
+            return {
 
                 itemHeight :  this.props.height,
                 className : item.iconClassName,
                 path: this.props.path,
                 itemKey: this.props.itemKey,
                 setHref : this.props.setHref
-                
+
             };
-            
+
         }.bind(this);
 
         if ( item.subMenu ) {
@@ -131,12 +131,12 @@ var ItemCreateMixin = {
             if ( ItemComponent ) {
                 return React.addons.cloneWithProps(<ItemComponent children={item.title}/>, createProps());
             } else {
-                
+
                 return item.title;
             }
         }
 
-        
+
     }
 };
 
@@ -144,11 +144,11 @@ var ItemCreateMixin = {
 
 
 var Menu = React.createClass({
-    
+
     getInitialState: function() {
         return { "selected" : this.props.defaultSelected }
     },
-    
+
     _onItemClick : function(key) {
         this.setState( { "selected" : key } );
         if ( this.props.onClick ) {
@@ -156,7 +156,7 @@ var Menu = React.createClass({
             this.props.onClick(key);
         }
     },
-    
+
     render : function() {
         var className= this.props.className || DEFAULT_CLASSNAME;
 
@@ -179,18 +179,18 @@ var Menu = React.createClass({
                 }
             </ul>
         );
-        
+
     }
 
 });
 
 /**
- * 
+ *
  *
  * @type {*|Function}
  */
 var MenuItem = React.createClass({
-    
+
 
     getInitialState : function() {
 
@@ -215,8 +215,9 @@ var MenuItem = React.createClass({
     },
     render : function() {
         var className = this.props.selectedItem === this.props.itemKey  ? this.props.selectedClassName : "";
+        var id = this.props.id || '';
 
-        return (<li className={className} key={this.props.itemKey} onClick={this._onClick} style={ { height : this.props.height, lineHeight: this.props.height}}>
+        return (<li id={id} className={className} key={this.props.itemKey} onClick={this._onClick} style={ { height : this.props.height, lineHeight: this.props.height}}>
             {
                 React.Children.map(this.props.children, child => {
                     if ( child.props ) {
@@ -226,7 +227,7 @@ var MenuItem = React.createClass({
                             itemKey : this.props.itemKey,
                             path: this.props.path,
                             setHref : this.props.setHref !== false
-                        })    
+                        })
                     } else {
                         return child;
                     }
@@ -234,16 +235,16 @@ var MenuItem = React.createClass({
             }
 
         </li>)
-        
-        
+
+
     }
-    
-    
+
+
 });
 
 
 var SubMenu = React.createClass({
-    
+
     mixins: [ItemCreateMixin],
 
     _onItemClick : function(key) {
@@ -259,7 +260,7 @@ var SubMenu = React.createClass({
         }</Menu>);
 
     }
-    
+
 });
 
 
@@ -271,7 +272,7 @@ var SubMenu = React.createClass({
 var SideNav = React.createClass({
 
     mixins: [ItemCreateMixin],
-    
+
 
     /**
      *

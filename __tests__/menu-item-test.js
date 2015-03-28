@@ -50,14 +50,14 @@ describe('SideNav Tests', function() {
 
         var menuItems = TestUtils.scryRenderedComponentsWithType(
             instance, SideNav.MenuItem);
-        
+
         var item1 = menuItems[0];
         var item2 = menuItems[1];
-        
+
         //both false
         expect(item1.state.isSelected).toBe(false);
         expect(item2.state.isSelected).toBe(false);
-        
+
         //clickit
         TestUtils.Simulate.click(TestUtils.findRenderedDOMComponentWithTag(item1,'li'));
         expect(item1.state.isSelected).toBe(true);
@@ -65,5 +65,28 @@ describe('SideNav Tests', function() {
         TestUtils.Simulate.click(TestUtils.findRenderedDOMComponentWithTag(item2,'li'));
         expect(item1.state.isSelected).toBe(false);
         expect(item2.state.isSelected).toBe(true);
+    });
+    it( 'Adds id from prop, when set' ,function () {
+
+        var instance = TestUtils.renderIntoDocument(
+            <SideNav.Menu >
+                <SideNav.MenuItem id="menu-id" itemKey="1" >
+                    Item1
+                </SideNav.MenuItem>
+                <SideNav.MenuItem itemKey="2">
+                    Item2
+                </SideNav.MenuItem>
+            </SideNav.Menu>
+        );
+
+        var menuItems = TestUtils.scryRenderedComponentsWithType(
+            instance, SideNav.MenuItem);
+
+        var item1 = menuItems[0];
+        var item2 = menuItems[1];
+
+        expect(TestUtils.findRenderedDOMComponentWithTag(item1,'li').getDOMNode().id).toEqual('menu-id');
+        expect(TestUtils.findRenderedDOMComponentWithTag(item2,'li').getDOMNode().id).toEqual('');
+
     });
 });
