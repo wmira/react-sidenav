@@ -9,8 +9,7 @@
     "build": "webpack src/sidenav.js js/react-sidenav.js",
     "build-min": "NODE_ENV=production COMPRESS=1 webpack src/sidenav.js js/react-sidenav.min.js",
     "watch": "webpack src/sidenav.js js/react-sidenav.js --watch",
-    "dist" :  "npm run test && npm run build && npm run build-min"
-
+    "dist": "npm run test && npm run build && npm run build-min"
   },
   "repository": {
     "type": "git",
@@ -30,7 +29,8 @@
   "license": "MIT",
   "devDependencies": {
     "jest-cli": "^0.2.1",
-    "react": "^0.14.0"
+    "react": "^0.14.0",
+    "react-tools": "^0.13.3"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/__tests__/preprocessor.js",
