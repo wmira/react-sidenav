@@ -1,51 +1,51 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("react/addons"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react"], factory);
+		define(["react/addons"], factory);
 	else if(typeof exports === 'object')
-		exports["SideNav"] = factory(require("react"));
+		exports["SideNav"] = factory(require("react/addons"));
 	else
 		root["SideNav"] = factory(root["React"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -185,7 +185,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ItemComponent = Items[this.props.itemType];
 
 	            if ( ItemComponent ) {
-	                return React.cloneElement(React.createElement(ItemComponent, {children: item.title}), createProps());
+	                return React.addons.cloneWithProps(React.createElement(ItemComponent, {children: item.title}), createProps());
 	            } else {
 
 	                return item.title;
@@ -217,13 +217,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var className= this.props.className || DEFAULT_CLASSNAME;
 
 	        return (
-	            React.createElement("ul", {className: className, style:  { "listStyle" : "none" ,"padding":"0", "margin" : "0"} },
-
+	            React.createElement("ul", {className: className, style:  { "listStyle" : "none" ,"padding":"0", "margin" : "0"} }, 
+	                
 	                    React.Children.map(this.props.children, function(child)  {
 
 	                        var className = this.props.className || DEFAULT_CLASSNAME;
 	                        var selectedClassName = this.props.selectedClassName || (className) ?  className +"-" + DEFAULT_SELECTED_CSS : DEFAULT_SELECTED_CSS;
-	                        return React.cloneElement(child, {
+	                        return React.addons.cloneWithProps(child, {
 	                            height: this.props.itemHeight,
 	                            onClick : this._onItemClick,
 	                            selectedItem :  this.state.selected,
@@ -232,7 +232,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            setHref : this.props.setHref !== false
 	                        })
 	                    }.bind(this))
-
+	                
 	            )
 	        );
 
@@ -273,11 +273,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var className = this.props.selectedItem === this.props.itemKey  ? this.props.selectedClassName : "";
 	        var id = this.props.id || '';
 
-	        return (React.createElement("li", {id: id, className: className, key: this.props.itemKey, onClick: this._onClick, style:  { height : this.props.height, lineHeight: this.props.height}},
-
+	        return (React.createElement("li", {id: id, className: className, key: this.props.itemKey, onClick: this._onClick, style:  { height : this.props.height, lineHeight: this.props.height}}, 
+	            
 	                React.Children.map(this.props.children, function(child)  {
 	                    if ( child.props ) {
-	                        return React.cloneElement(child, {
+	                        return React.addons.cloneWithProps(child, {
 	                            itemHeight: this.props.height,
 	                            itemPaddingLeft: this.props.itemPaddingLeft,
 	                            itemKey : this.props.itemKey,
@@ -365,10 +365,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
 
 /***/ }
 /******/ ])
 });
+;
