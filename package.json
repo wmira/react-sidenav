@@ -1,6 +1,6 @@
 {
   "name": "react-sidenav",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "A Simple SideBar Navigation written in React",
   "main": "js/react-sidenav.js",
   "author": "Warren Mira",
@@ -30,9 +30,7 @@
   "license": "MIT",
   "devDependencies": {
     "jest-cli": "^0.2.1",
-    "jsx-loader": "^0.12.2",
-    "react": "^0.12.2",
-    "react-tools": "^0.14.0"
+    "react": "^0.14.0"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/__tests__/preprocessor.js",
