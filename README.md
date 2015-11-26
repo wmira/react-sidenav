@@ -10,11 +10,13 @@ components.
 
 ![alt tag](https://raw.githubusercontent.com/wmira/dashboard-sidenav/master/img/sidenav.png)
 
+**Note: Submenu functionality is not complete in this project, but works in reactor-ui (https://github.com/wmira/reactor-ui). Please use reactor-ui for this functionality and more.**
+
 ## Usage
 
 ```
     npm install --save-dev react-sidenav
-    
+
 ```
 
 
@@ -65,7 +67,7 @@ var nav = [
             </SideNav.Menu>,
            document.getElementById("sidenav-container")
         );
-    
+
 
 ```
 
@@ -95,7 +97,7 @@ scripts to do continuous integration.
 3. live-server # this loads index.html to view development result
 4. npm run watch #rebuilds react-sidenav
 5. npm run dist #runs the tests and all minification
-6. npm test #runs all the tests 
+6. npm test #runs all the tests
 7. npm test testfile.js #run specific tests
 
 ## Contributing
