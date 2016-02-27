@@ -1,129 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Dashboard</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <style>
-        
-        
         html,body {
-            font-family: 'Open Sans', sans-serif;
-            color: #000;
+            color : #333;
+            background: #FFF;
+            font-family: "Helvetica", sans-serif;
+            font-size: 12px;
+            margin: 0;
+            padding: 0;
         }
-        /*
-        li {
-            color: #DDD;
-            
-        }
-
-        li > a  {
-            text-indent: 16px;
-            color: #b2bfdc;
-            font-weight: 300;
-            font-size: 14px;
-        }
-        a > i {
-            padding-right: 10px;
-        }
-        li > a:hover {
-            text-decoration: none;
-            color: #FFF;
-            background: #1caf9a;
-        }
-
-        .selected {
-            background: #1caf9a;
-            color: #FFF !important;
-        }
-
-        .selected a {
-            color: #FFF !important;
-        }*/
-        
-        ul.plain li {
-            color: #000;
-        }
-        ul.plain li > a {
-            padding-left: 6px;
-        }
-        ul.plain li > a > i {
-            padding-right: 8px;
-        }
-        ul.plain li > a:hover {
-            text-decoration: none;
-            background: #F3F4F5;
-            cursor: pointer;
-        }
-        ul.plain li > a:focus {
-            text-decoration: none;
-        }
-        li.plain-selected {
-            background: #F3F4F5;
-            
-        }
-        
     </style>
-    <link rel="stylesheet" type="text/css" href="css/dashboard.css">
-    <link rel="stylesheet" type="text/css" href="css/sidenav.css">
-    <script src="http://fb.me/react-with-addons-0.12.2.js"></script>
-    <script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
-    <script src="js/react-sidenav.js"></script>
 </head>
 <body>
-<div class="dashboard-wrapper">
-    <div id='sidenav-container' class="sidenav-wrapper">
-    </div>
-    <div style="padding-left: 400px;">
-        <div id="content-wrapper" style="width: 200px; border: 1px solid #C7CCD1;">
-            
-        </div>
-    </div>
-</div>
-<script type="text/jsx">
-
-    React.render(
-        <SideNav.Menu path="#" itemHeight="32px" >
-            <SideNav.MenuItem itemKey="truck">
-                <SideNav.ILeftItem className="fa fa-truck">
-                    Truck
-                </SideNav.ILeftItem>
-            </SideNav.MenuItem>
-            <SideNav.MenuItem itemKey="bed">
-                <SideNav.ILeftItem className="fa fa-bed">
-                    Bed
-                </SideNav.ILeftItem>
-            </SideNav.MenuItem>
-            <SideNav.MenuItem itemKey="camera">
-                <SideNav.ILeftItem className="fa fa-camera">
-                    Camera
-                </SideNav.ILeftItem>
-            </SideNav.MenuItem>
-        </SideNav.Menu>,
-       document.getElementById("sidenav-container")
-    );
-
-    var nav = [
-        {key: 'landing', title: 'Dashboard', 'iconClassName': 'fa fa-dashboard'},
-        {key: 'channels', title: 'Channels', 'iconClassName': 'fa fa-exchange'},
-        {key: 'fleet', title: 'Fleet', 'iconClassName': 'fa fa-truck'},
-        {key: 'products', title: 'Products', 'iconClassName': 'fa fa-cubes',
-            subMenu: [
-               { key: 'proudct-sub', title: 'SubMenu 1', iconClassName: 'fa fa-cubes'}
-            ]
-        },
-            
-        {key: 'inventory', title: 'Inventory', 'iconClassName': 'fa fa-database'}
-    ];
-    React.render(
-            <SideNav path="#/sub" className={"plain"} itemType="lefticon" itemHeight="32px" navigation={nav}></SideNav>,
-            document.getElementById("content-wrapper")
-    )
-</script>
+    <div id='app'></div>
+    <script type="application/javascript" src="bundle.js"></script>
 </body>
 </html>
