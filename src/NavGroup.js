@@ -71,8 +71,6 @@ const NavGroup = React.createClass({
             height: this.state.collapsed ? this.__computedHeight : 0
         };
 
-
-
         return (
             <div className={style['rui-snav-grp-c']} >
                 <div onClick={this.onClick} className={style['rui-snav-grp']}>{this.createIconTextContent()}</div>

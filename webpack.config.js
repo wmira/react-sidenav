@@ -22,7 +22,7 @@ if (process.env.COMPRESS) {
 }
 
 
-module.exports = {
+const exportsObj = {
     devtool: 'source-map',
     resolve: {
         alias: {
@@ -43,7 +43,14 @@ module.exports = {
             commonjs: 'react',
             commonjs2: 'react',
             amd: 'react'
+        },
+        'react-dom': {
+            root: 'ReactDOM',
+            commonjs: 'react-dom',
+            commonjs2: 'react-dom',
+            amd: 'react-dom'
         }
+
     },
     plugins: plugins,
 
@@ -60,3 +67,10 @@ module.exports = {
         ]
     }
 };
+
+if ( !process.env.COMPRESS ) {
+    delete exportsObj.externals;
+    delete exportsObj.output;
+}
+
+module.exports = exportsObj;

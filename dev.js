@@ -22,6 +22,7 @@ const updateSelection = (e) => {
     selected = e.id;
     renderUI();
 };
+
 const renderUI = function() {
     render(
         <div>
