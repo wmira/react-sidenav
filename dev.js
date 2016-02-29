@@ -27,7 +27,11 @@ const renderUI = function() {
     render(
         <div>
             <div style={{background: '#2c3e50', color: '#FFF', width: 220}}>
-                <SideNav selected={selected} navs={navi} onSelection={updateSelection}/>
+                <SideNav navtype='icon-left' selected={selected} navs={navi} onSelection={updateSelection}/>
+            </div>
+            <br/>
+            <div style={{background: '#2c3e50', color: '#FFF', width: 220}}>
+                <SideNav navtype='icon-right' selected={selected} navs={navi} onSelection={updateSelection}/>
             </div>
             <br/>
             <div style={{background: '#2c3e50', color: '#FFF', width: 220}}>

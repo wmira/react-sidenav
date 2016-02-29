@@ -29,3 +29,7 @@
 :local(.rui-snav-grp-c > .sidenav-item) {
   padding-left: 32px;
 }
+
+:local(.rui-snav-collapsed) {
+    border-left: 4px solid #117964;
+}

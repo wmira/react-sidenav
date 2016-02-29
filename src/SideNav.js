@@ -11,7 +11,9 @@ const SideNav = React.createClass({
         selected: PropTypes.string,
         navs: PropTypes.array,
         onSelection: PropTypes.func,
-        children: PropTypes.node
+        children: PropTypes.node,
+        navtype: PropTypes.string,
+        navrenderer: PropTypes.node
     },
 
     buildFromSettings() {
@@ -19,10 +21,11 @@ const SideNav = React.createClass({
         return this.props.navs.map( navkind => {
             //nav kind could have a navlist, which we assume it contains a group of navs link
             if ( navkind.navlist ) {
-                return <NavGroup theme={this.props.theme}
+                return <NavGroup type={this.props.navtype}
                     key={navkind.id}  selected={this.props.selected} onClick={this.onSubNavClick} nav={navkind}/>;
             } else {
-                return (<Nav theme={this.props.theme} key={navkind.id} selected={this.props.selected} {...navkind} onClick={this.onClick}/>);
+                return (<Nav type={this.props.navtype}
+                    key={navkind.id} selected={this.props.selected} {...navkind} onClick={this.onClick}/>);
             }
         });
 
@@ -55,7 +58,7 @@ const SideNav = React.createClass({
 
     render() {
 
-        return <div style={{width: '100%', color: '#FFF'}}>
+        return <div style={{position: 'relative', width: '100%', color: '#FFF'}}>
                 {this.buildChildren()}
         </div>;
     }
