@@ -116,7 +116,9 @@
 	        selected: _react.PropTypes.string,
 	        navs: _react.PropTypes.array,
 	        onSelection: _react.PropTypes.func,
-	        children: _react.PropTypes.node
+	        children: _react.PropTypes.node,
+	        navtype: _react.PropTypes.string,
+	        navrenderer: _react.PropTypes.node
 	    },
 	
 	    buildFromSettings: function buildFromSettings() {
@@ -125,10 +127,11 @@
 	        return this.props.navs.map(function (navkind) {
 	            //nav kind could have a navlist, which we assume it contains a group of navs link
 	            if (navkind.navlist) {
-	                return _react2.default.createElement(_NavGroup2.default, { theme: _this.props.theme,
+	                return _react2.default.createElement(_NavGroup2.default, { type: _this.props.navtype,
 	                    key: navkind.id, selected: _this.props.selected, onClick: _this.onSubNavClick, nav: navkind });
 	            } else {
-	                return _react2.default.createElement(_Nav2.default, _extends({ theme: _this.props.theme, key: navkind.id, selected: _this.props.selected }, navkind, { onClick: _this.onClick }));
+	                return _react2.default.createElement(_Nav2.default, _extends({ type: _this.props.navtype,
+	                    key: navkind.id, selected: _this.props.selected }, navkind, { onClick: _this.onClick }));
 	            }
 	        });
 	    },
@@ -163,7 +166,7 @@
 	
 	        return _react2.default.createElement(
 	            'div',
-	            { style: { width: '100%', color: '#FFF' } },
+	            { style: { position: 'relative', width: '100%', color: '#FFF' } },
 	            this.buildChildren()
 	        );
 	    }
@@ -19784,32 +19787,29 @@
 	
 	var _Nav2 = _interopRequireDefault(_Nav);
 	
-	var _IconTextSchemeMixin = __webpack_require__(161);
-	
-	var _IconTextSchemeMixin2 = _interopRequireDefault(_IconTextSchemeMixin);
-	
-	var _classnames = __webpack_require__(162);
+	var _classnames = __webpack_require__(161);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _style = __webpack_require__(163);
+	var _style = __webpack_require__(162);
 	
 	var _style2 = _interopRequireDefault(_style);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	var NavGroup = _react2.default.createClass({
 	    displayName: 'NavGroup',
 	
 	
-	    mixins: [_IconTextSchemeMixin2.default],
-	
 	    propTypes: {
-	        onClick: _react2.default.PropTypes.func,
-	        selected: _react2.default.PropTypes.any,
-	        nav: _react2.default.PropTypes.object,
-	        children: _react2.default.PropTypes.node,
-	        id: _react2.default.PropTypes.string
+	        onClick: _react.PropTypes.func,
+	        selected: _react.PropTypes.any,
+	        nav: _react.PropTypes.object,
+	        children: _react.PropTypes.node,
+	        id: _react.PropTypes.string,
+	        type: _react.PropTypes.string
 	    },
 	
 	    getInitialState: function getInitialState() {
@@ -19820,7 +19820,7 @@
 	
 	        if (this.props.nav) {
 	            return this.props.nav.navlist.map(function (nav) {
-	                return _react2.default.createElement(_Nav2.default, _extends({ key: nav.id, selected: _this.props.selected, onClick: _this.onSubNavClick }, nav));
+	                return _react2.default.createElement(_Nav2.default, _extends({ type: _this.props.type, key: nav.id, selected: _this.props.selected, onClick: _this.onSubNavClick }, nav));
 	            });
 	        } else {
 	            return this.props.children;
@@ -19852,18 +19852,21 @@
 	    render: function render() {
 	
 	        var itemsClassnames = (0, _classnames2.default)(_style2.default['rui-snav-items']);
+	        var groupClassnames = (0, _classnames2.default)(_style2.default['rui-snav-grp'], _defineProperty({}, _style2.default['rui-snav-collapsed'], this.state.collapsed));
 	
 	        var styles = {
 	            height: this.state.collapsed ? this.__computedHeight : 0
 	        };
+	
+	        var Item = _Nav.ITEM_MAP[this.props.type || 'icon-left'];
 	
 	        return _react2.default.createElement(
 	            'div',
 	            { className: _style2.default['rui-snav-grp-c'] },
 	            _react2.default.createElement(
 	                'div',
-	                { onClick: this.onClick, className: _style2.default['rui-snav-grp'] },
-	                this.createIconTextContent()
+	                { onClick: this.onClick, className: groupClassnames },
+	                _react2.default.createElement(Item, { icon: 'fa fa-chevron-down', text: this.props.nav.text })
 	            ),
 	            _react2.default.createElement(
 	                'div',
@@ -19885,32 +19888,34 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.Nav = exports.isActive = undefined;
+	exports.Nav = exports.isActive = exports.ITEM_MAP = undefined;
 	
 	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _IconTextSchemeMixin = __webpack_require__(161);
-	
-	var _IconTextSchemeMixin2 = _interopRequireDefault(_IconTextSchemeMixin);
-	
-	var _classnames = __webpack_require__(162);
+	var _classnames = __webpack_require__(161);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _style = __webpack_require__(163);
+	var _style = __webpack_require__(162);
 	
 	var _style2 = _interopRequireDefault(_style);
+	
+	var _Items = __webpack_require__(166);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
+	var ITEM_MAP = exports.ITEM_MAP = {
+	    'icon-left': _Items.IconLeft,
+	    'icon-right': _Items.IconRight
+	};
+	
 	var isActive = exports.isActive = function isActive(props) {
 	    return props.selected && props.selected === props.id;
 	};
-	
 	var Nav = _react2.default.createClass({
 	    displayName: 'Nav',
 	
@@ -19919,10 +19924,10 @@
 	        onClick: _react.PropTypes.func,
 	        id: _react.PropTypes.string.isRequired,
 	        text: _react.PropTypes.string.isRequired,
-	        selected: _react.PropTypes.string
+	        selected: _react.PropTypes.string,
+	        type: _react.PropTypes.string,
+	        navrenderer: _react.PropTypes.node
 	    },
-	
-	    mixins: [_IconTextSchemeMixin2.default],
 	
 	    itemClicked: function itemClicked() {
 	
@@ -19931,82 +19936,26 @@
 	        }
 	    },
 	    render: function render() {
+	        var type = this.props.type;
+	
+	
+	        var Item = (ITEM_MAP[type] ? ITEM_MAP[type] : this.props.navrenderer) || _Items.IconLeft;
 	
 	        var classes = (0, _classnames2.default)(_style2.default['sidenav-item'], _defineProperty({}, _style2.default['active'], isActive(this.props)));
 	        return _react2.default.createElement(
 	            'div',
 	            { onClick: this.itemClicked, className: classes },
-	            this.createIconTextContent()
+	            _react2.default.createElement(Item, this.props)
 	        );
 	    }
 	});
 	exports.Nav = Nav;
+	//{this.createIconTextContent()}
+	
 	exports.default = Nav;
 
 /***/ },
 /* 161 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var IconTextSchemeMixin = {
-	    createIconTextContent: function createIconTextContent() {
-	
-	        var contentEls = [],
-	            propsIcon = this.props.icon,
-	            propsText = this.props.text,
-	            icon,
-	            text,
-	            style = this.props.style;
-	        var counter = 0;
-	        if (!style) {
-	            style = 'it'; //icon, text
-	        }
-	        if (!propsIcon && this.props.nav) {
-	            propsIcon = this.props.nav.icon;
-	        }
-	        if (!propsText && this.props.nav) {
-	            propsText = this.props.nav.text;
-	        }
-	
-	        if (propsIcon) {
-	            icon = _react2.default.createElement('span', { key: this.props.id + '-' + counter++, style: { paddingRight: 10 }, className: propsIcon });
-	        }
-	        if (propsText) {
-	            text = _react2.default.createElement(
-	                'span',
-	                { key: this.props.id + '-' + counter++ },
-	                propsText
-	            );
-	        }
-	
-	        if (style === 'it') {
-	            if (icon) {
-	                contentEls.push(icon);
-	            }
-	            if (text) {
-	                contentEls.push(text);
-	            }
-	        }
-	
-	        return contentEls;
-	    }
-	};
-	
-	exports.default = IconTextSchemeMixin;
-
-/***/ },
-/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -20055,16 +20004,16 @@
 
 
 /***/ },
-/* 163 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(164);
+	var content = __webpack_require__(163);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(166)(content, {});
+	var update = __webpack_require__(165)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -20081,15 +20030,15 @@
 	}
 
 /***/ },
-/* 164 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(165)();
+	exports = module.exports = __webpack_require__(164)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, ".style_rui-snav-grp_OgHHH {\n  cursor: pointer;\n  border-left: 4px solid transparent;\n  padding: 12px 10px;\n  font-weight: bold;\n}\n.style_sidenav-item_1ECTt {\n  cursor: pointer;\n  border-left: 4px solid transparent;\n  font-weight: bold;\n  padding: 12px 10px;\n}\n.style_active_1bLoa {\n  background: #1abc9c;\n  border-left: 4px solid #117964;\n}\n\n.style_sidenav-item_1ECTt:hover {\n  background: #1abc9c !important;\n}\n\n.style_rui-snav-grp_OgHHH:hover {\n  background: #2c3e50;\n}\n.style_rui-snav-items_2hyGY {\n  overflow: hidden;\n  transition: height 0.15s ease-out;\n}\n.style_rui-snav-grp-c_3AfFK > .style_sidenav-item_1ECTt {\n  padding-left: 32px;\n}\n", ""]);
+	exports.push([module.id, ".style_rui-snav-grp_OgHHH {\n  cursor: pointer;\n  border-left: 4px solid transparent;\n  padding: 12px 10px;\n  font-weight: bold;\n}\n.style_sidenav-item_1ECTt {\n  cursor: pointer;\n  border-left: 4px solid transparent;\n  font-weight: bold;\n  padding: 12px 10px;\n}\n.style_active_1bLoa {\n  background: #1abc9c;\n  border-left: 4px solid #117964;\n}\n\n.style_sidenav-item_1ECTt:hover {\n  background: #1abc9c !important;\n}\n\n.style_rui-snav-grp_OgHHH:hover {\n  background: #2c3e50;\n}\n.style_rui-snav-items_2hyGY {\n  overflow: hidden;\n  transition: height 0.15s ease-out;\n}\n.style_rui-snav-grp-c_3AfFK > .style_sidenav-item_1ECTt {\n  padding-left: 32px;\n}\n\n.style_rui-snav-collapsed_3O2xO {\n    border-left: 4px solid #117964;\n}\n", ""]);
 	
 	// exports
 	exports.locals = {
@@ -20097,11 +20046,12 @@
 		"sidenav-item": "style_sidenav-item_1ECTt",
 		"active": "style_active_1bLoa",
 		"rui-snav-items": "style_rui-snav-items_2hyGY",
-		"rui-snav-grp-c": "style_rui-snav-grp-c_3AfFK"
+		"rui-snav-grp-c": "style_rui-snav-grp-c_3AfFK",
+		"rui-snav-collapsed": "style_rui-snav-collapsed_3O2xO"
 	};
 
 /***/ },
-/* 165 */
+/* 164 */
 /***/ function(module, exports) {
 
 	/*
@@ -20157,7 +20107,7 @@
 
 
 /***/ },
-/* 166 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -20409,6 +20359,74 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 166 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.IconRight = exports.IconLeft = undefined;
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var IconLeft = exports.IconLeft = function IconLeft(props) {
+	    var icon = props.icon;
+	    var text = props.text;
+	    var id = props.id;
+	
+	
+	    return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement('span', { key: id + '-icn', style: { paddingRight: 10 },
+	            className: icon }),
+	        _react2.default.createElement(
+	            'span',
+	            { key: props.id + '-txt' },
+	            text
+	        )
+	    );
+	};
+	
+	var IconRight = exports.IconRight = function IconRight(props) {
+	    var icon = props.icon;
+	    var text = props.text;
+	    var id = props.id;
+	
+	
+	    return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	            'span',
+	            null,
+	            text
+	        ),
+	        _react2.default.createElement(
+	            'div',
+	            { style: { float: 'right', display: 'inline-block', paddingRight: 2 } },
+	            _react2.default.createElement('span', { key: id + '-icn', style: { paddingRight: 10 },
+	                className: icon })
+	        )
+	    );
+	};
+	
+	var propTypes = {
+	    text: _react.PropTypes.string,
+	    id: _react.PropTypes.string,
+	    icon: _react.PropTypes.string
+	};
+	
+	IconLeft.propTypes = propTypes;
+	IconRight.propTypes = propTypes;
 
 /***/ },
 /* 167 */
