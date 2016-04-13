@@ -1,16 +1,15 @@
 {
   "name": "react-sidenav",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A Simple SideBar Navigation written in React",
-  "main": "dist/index.js",
+  "main": "dist/react-sidenav.js",
   "author": "Warren Mira",
-  "main": "lib/index",
   "scripts": {
     "test-watch": "mocha --require test/hook --recursive --compilers js:babel-register -w",
     "test": "mocha --require test/hook --recursive --compilers js:babel-register",
-    "build": "webpack src/index.js dist/react-sidenav.js",
-    "build-min": "NODE_ENV=production COMPRESS=1 webpack src/index.js dist/react-sidenav.min.js",
-    "watch": "webpack src/sidenav.js js/react-sidenav.js --watch",
+    "build": "webpack --config webpack.config.js src/index.js dist/react-sidenav.js",
+    "build-min": "NODE_ENV=production COMPRESS=1 webpack --config webpack.config.js src/index.js dist/react-sidenav.min.js",
+    "watch": "webpack src/index.js dist/react-sidenav.js --watch",
     "build-cjs": "babel -d dist/ src/",
     "dist": "npm run build && npm run build-min",
     "dev": "webpack-dev-server --port 8080 --config webpack.config.js --watch dev.js"

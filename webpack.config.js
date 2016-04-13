@@ -68,9 +68,4 @@ const exportsObj = {
     }
 };
 
-if ( !process.env.COMPRESS ) {
-    delete exportsObj.externals;
-    delete exportsObj.output;
-}
-
 module.exports = exportsObj;
