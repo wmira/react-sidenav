@@ -13,7 +13,8 @@ const SideNav = React.createClass({
         onSelection: PropTypes.func,
         children: PropTypes.node,
         navtype: PropTypes.string,
-        navrenderer: PropTypes.node
+        navrenderer: PropTypes.node,
+        style: PropTypes.object
     },
 
     buildFromSettings() {
@@ -58,7 +59,7 @@ const SideNav = React.createClass({
 
     render() {
 
-        return <div style={{position: 'relative', width: '100%', color: '#FFF'}}>
+        return <div style={assign({position: 'relative', width: '100%', color: '#FFF'}, this.props.style)}>
                 {this.buildChildren()}
         </div>;
     }
