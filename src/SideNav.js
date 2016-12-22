@@ -1,68 +1,51 @@
 
+import React, { PropTypes } from 'react';
+import cx from 'classnames';
 
-import React, { Children, cloneElement, PropTypes } from 'react';
-import NavGroup from './NavGroup';
-import Nav from './Nav';
-import assign from 'object-assign';
+import { SCHEMES } from './schemes';
+import { createNavItems } from './createNavItems';
 
-const SideNav = React.createClass({
+const noop = () => {};
+/**
+ * Side Bar Navigation component
+ */
+export class SideNav extends React.Component {
 
-    propTypes: {
-        selected: PropTypes.string,
-        navs: PropTypes.array,
-        onSelection: PropTypes.func,
+    static propTypes = {
         children: PropTypes.node,
-        navtype: PropTypes.string,
-        navrenderer: PropTypes.node
-    },
-
-    buildFromSettings() {
-
-        return this.props.navs.map( navkind => {
-            //nav kind could have a navlist, which we assume it contains a group of navs link
-            if ( navkind.navlist ) {
-                return <NavGroup type={this.props.navtype}
-                    key={navkind.id}  selected={this.props.selected} onClick={this.onSubNavClick} nav={navkind}/>;
-            } else {
-                return (<Nav type={this.props.navtype}
-                    key={navkind.id} selected={this.props.selected} {...navkind} onClick={this.onClick}/>);
-            }
-        });
-
-    },
-    onSubNavClick(group,child) {
-        var selection = {group: group, id: child};
-        this.setState({selected: selection});
-        this.dispatchSelection(selection);
-    },
-    onClick(id) {
-        this.dispatchSelection({id: id});
-    },
-
-    dispatchSelection: function(selection) {
-        if ( this.props.onSelection ) {
-            this.props.onSelection(selection);
-        }
-    },
-    buildChildren() {
-
-        if ( this.props.navs ) {
-            return this.buildFromSettings();
-        } else {
-            //we need to clone this or props aren't passed
-            return Children.map(this.props.children, child => {
-                return cloneElement(child, assign({key: child.props.id}, this.props));
-            });
-        }
-    },
-
-    render() {
-
-        return <div style={{position: 'relative', width: '100%', color: '#FFF'}}>
-                {this.buildChildren()}
-        </div>;
+        scheme: PropTypes.string,
+        selectedId: PropTypes.string.isRequired,
+        onClick: PropTypes.func,
+        style: PropTypes.object,
+        highlightScheme: PropTypes.oneOf(Object.keys(SCHEMES))
     }
 
-});
-export {SideNav};
-export default SideNav;
+    static defaultProps = {
+        onClick: noop,
+        scheme: 'default',
+        style: {},
+        highlightScheme: SCHEMES.danger
+    }
+
+    onClick = (id) => {
+        const { onClick } = this.props;
+        onClick(id);
+    }
+
+    render() {
+        const { children, selectedId, scheme, style, highlightScheme } = this.props;
+
+        const containerClass = cx({
+            'rui-snav-clight': scheme === 'default',
+            'rui-snav-cdark': scheme !== 'default'
+        });
+
+        return (
+            <div className={containerClass} style={{width: '100%', height: '100%', ...style}}>
+                <ul className={'rui-snav'} >
+                    {createNavItems({ children, onClick: this.onClick, selectedId, scheme, highlightScheme })}
+                </ul>
+            </div>
+        );
+    }
+}

@@ -1,0 +1,58 @@
+.rui-snav {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
+}
+.rui-snav-clight {
+  background: #E6E9ED;
+  color: #656D78;
+}
+.rui-snav-cdark {
+  background: #434A54;
+  color: #F5F7FA;
+}
+.rui-snav-item-green:hover {
+  background: #3BAFDA;
+}
+.rui-snav-item-blue:hover {
+  background: #4A89DC;
+}
+.rui-snav-item-danger:hover {
+  background: #DA4453;
+}
+.rui-snav-item-warning:hover {
+  background: #E9573F;
+}
+.rui-snav-item-green.rui-snav-item-selected {
+  background: #3BAFDA;
+}
+.rui-snav-item-blue.rui-snav-item-selected {
+  background: #4A89DC;
+}
+.rui-snav-item-warning.rui-snav-item-selected {
+  background: #E9573F;
+}
+.rui-snav-item-danger.rui-snav-item-selected {
+  background: #DA4453;
+}
+.rui-snav-item-green.rui-snav-item-selected.rui-snav-item-text-dark,
+.rui-snav-item-blue.rui-snav-item-selected.rui-snav-item-text-dark,
+.rui-snav-item-warning.rui-snav-item-selected.rui-snav-item-text-dark,
+.rui-snav-item-danger.rui-snav-item-selected.rui-snav-item-text-dark {
+  color: #F5F7FA !important;
+}
+.rui-snav-item-text-dark:hover {
+  color: #F5F7FA !important;
+}
+.rui-snav-grp {
+  transition: height 0.15s ease-out;
+}
+.rui-snav-nav {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+}
+.rui-snav-section {
+  font-weight: bold;
+}

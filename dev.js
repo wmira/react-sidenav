@@ -1,47 +1,30 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import { SideNav, Nav } from 'react-sidenav';
+import { SideNav , NavItem, IconSpan } from 'react-sidenav';
 
+import { Icon } from 'react-icons-kit/Icon';
+import { shocked } from 'react-icons-kit/icomoon/shocked';
 
-var navi = [
-    { id: 'dashboard', icon: 'fa fa-dashboard' , text: 'Dashboard'},
-    { id: 'products', icon: 'fa fa-cube', text: 'Products' ,
-        navlist: [
-          { icon: 'fa fa-desktop', id: 'manage' ,text: 'Manage Product' },
-          { icon: 'fa fa-cog', id: 'suppliers' ,text: 'Suppliers' }
-        ]
-    },
-    { id: 'inventory', icon: 'fa fa-database' ,text: 'Inventory'},
-    { id: 'deliveries', icon: 'fa fa-truck' ,text: 'Deliveries'},
-    { id: 'reports', icon: 'fa fa-bar-chart' ,text: 'Reports' }
-];
+import 'react-sidenav/sidenav.css';
 
-var selected = 'dashboard';
-const updateSelection = (e) => {
-    selected = e.id;
-    renderUI();
-};
+class SideNavDemo extends React.Component {
+    
+    constructor(props) {
+        super(props);
+        this.state= { selectedNav: 'hey' };
+    }
+    render() {
 
-const renderUI = function() {
-    render(
-        <div>
-            <div style={{background: '#2c3e50', color: '#FFF', width: 220}}>
-                <SideNav navtype='icon-left' selected={selected} navs={navi} onSelection={updateSelection}/>
-            </div>
-            <br/>
-            <div style={{background: '#2c3e50', color: '#FFF', width: 220}}>
-                <SideNav navtype='icon-right' selected={selected} navs={navi} onSelection={updateSelection}/>
-            </div>
-            <br/>
-            <div style={{background: '#2c3e50', color: '#FFF', width: 220}}>
-                <SideNav selected='nav1'>
-                    <Nav id='nav1' text='Nav1'/>
-                    <Nav id='nav2' text='Nav2'/>
-                </SideNav>
-            </div>
-        </div>,
-    document.getElementById('app'));
-};
+        return (
 
-renderUI();
+            <SideNav onClick={this.sideNavClicked} scheme='dark' highlightScheme='green' selectedId={this.state.selectedNav}>
+                <NavItem id='dashboard'><div><IconSpan><Icon icon={shocked}/></IconSpan> Dashboard</div></NavItem>
+                <NavItem id={'expenses'} text='Expenses' icon='fa fa-exchange'/>
+            </SideNav>
+        );
+    }
+}
+
+render( <SideNavDemo />, document.getElementById('app'));
+

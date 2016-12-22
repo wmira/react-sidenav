@@ -1,2 +1,37 @@
-._1ECTtJkvXxF1zV2iexQZcA,.OgHHHld0HKfuuYivQOu8m{cursor:pointer;border-left:4px solid transparent;padding:12px 10px;font-weight:700}._1bLoaccH1-tf5y_OY2Etz-{background:#1abc9c;border-left:4px solid #117964}._1ECTtJkvXxF1zV2iexQZcA:hover{background:#1abc9c!important}.OgHHHld0HKfuuYivQOu8m:hover{background:#2c3e50}._2hyGYf6DKCf50zBtk45Ude{overflow:hidden;transition:height .15s ease-out}._3AfFKAZD8w4fSrRD3Ee9ax>._1ECTtJkvXxF1zV2iexQZcA{padding-left:32px}._3O2xOSoMRZ0NDozUNpidB_{border-left:4px solid #117964}
+.OgHHHld0HKfuuYivQOu8m {
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  padding: 12px 10px;
+  font-weight: bold;
+}
+._1ECTtJkvXxF1zV2iexQZcA {
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  font-weight: bold;
+  padding: 12px 10px;
+}
+._1bLoaccH1-tf5y_OY2Etz- {
+  background: #1abc9c;
+  border-left: 4px solid #117964;
+}
+
+._1ECTtJkvXxF1zV2iexQZcA:hover {
+  background: #1abc9c !important;
+}
+
+.OgHHHld0HKfuuYivQOu8m:hover {
+  background: #2c3e50;
+}
+._2hyGYf6DKCf50zBtk45Ude {
+  overflow: hidden;
+  transition: height 0.15s ease-out;
+}
+._3AfFKAZD8w4fSrRD3Ee9ax > ._1ECTtJkvXxF1zV2iexQZcA {
+  padding-left: 32px;
+}
+
+._3O2xOSoMRZ0NDozUNpidB_ {
+    border-left: 4px solid #117964;
+}
+
 /*# sourceMappingURL=react-sidenav-styles.css.map*/

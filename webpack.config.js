@@ -18,6 +18,7 @@ if (process.env.COMPRESS) {
             }
         })
     );
+    console.log('compress');
     cssLoader = { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader')};
 }
 

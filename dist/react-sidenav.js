@@ -176,7 +176,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        return _react2.default.createElement(
 	            'div',
-	            { style: { position: 'relative', width: '100%', color: '#FFF' } },
+	            { style: { position: 'relative', width: '100%' } },
 	            this.buildChildren()
 	        );
 	    }

@@ -1,57 +1,45 @@
 
-
-
-
 import React, { PropTypes } from 'react';
 
-import cx from 'classnames';
-import styles from './style.css';
+import { IconSpan } from './IconSpan';
 
-import { IconLeft, IconRight } from './Items';
+const asElement = ({ name = 'div', className = '', style = {}, children = 'children' } = {} ) => {
 
-export const ITEM_MAP = {
-    'icon-left': IconLeft,
-    'icon-right': IconRight
+    const AsElement = props => {
+        const { style: fixedStyles = {}, className: userClassName = '' }  = props;
+        const elStyle = { ...style, ...fixedStyles };
+
+        return React.createElement(name, {
+            className: `${userClassName} ${className}`,
+            style: elStyle
+        }, props[children]);
+
+    };
+    AsElement.propTypes = {
+        style: PropTypes.object,
+        className: PropTypes.string
+    };
+
+    return AsElement;
 };
 
 
-export const isActive = (props) => {
-    return   ( props.selected && props.selected === props.id  );
+
+export const SNav = asElement({ className: 'rui-snav-section', children: 'title' });
+
+
+export const Nav = (props) => (
+    <div>
+        <IconSpan><span className={props.icon}></span></IconSpan> {props.text}
+    </div>
+);
+
+Nav.propTypes = {
+    icon: PropTypes.string,
+    text: PropTypes.string
 };
-const Nav = React.createClass({
 
-    propTypes: {
-        onClick: PropTypes.func,
-        id: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired,
-        selected: PropTypes.string,
-        type: PropTypes.string,
-        navrenderer: PropTypes.node
-    },
-
-    itemClicked() {
-
-        if ( this.props.onClick ) {
-            this.props.onClick(this.props.id);
-        }
-    },
-
-    render() {
-        const { type } = this.props;
-
-        const Item = ( ITEM_MAP[type] ? ITEM_MAP[type] :
-            this.props.navrenderer ) || IconLeft;
-
-        const classes = cx(
-            styles['sidenav-item'],
-            { [styles['active']] : isActive(this.props) }
-        );
-        return <div onClick={this.itemClicked} className={classes}>
-            <Item {...this.props}/>
-        </div>;
-    }
-
-});
-export { Nav };
-//{this.createIconTextContent()}
-export default Nav;
+SNav.propTypes = {
+    title: PropTypes.string,
+    style: PropTypes.object
+};

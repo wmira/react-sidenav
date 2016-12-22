@@ -1,95 +1,64 @@
 
 import React, { PropTypes } from 'react';
-import Nav from './Nav';
-import cx from 'classnames';
+import { NavItem } from './NavItem';
+import { createNavItems } from './createNavItems';
 
-import style from './style.css';
+const EXTRA_GROUP_STYLE = {padding: '10px 0px 0px 10px', margin: '0px -18px 0px -30px'};
 
-import { ITEM_MAP } from './Nav';
+export class NavGroup extends React.Component {
 
-
-const NavGroup = React.createClass({
-
-    propTypes: {
-        onClick: PropTypes.func,
-        selected: PropTypes.any,
-        nav: PropTypes.object,
+    static propTypes = {
         children: PropTypes.node,
-        id: PropTypes.string,
-        type: PropTypes.string
-    },
+        selectedId: PropTypes.string,
+        onClick: PropTypes.func,
+        text: PropTypes.string,
+        icon: PropTypes.string,
+        onClick: PropTypes.func,
+        highlightScheme: PropTypes.string,
+        scheme: PropTypes.string
+    }
 
-    getInitialState() {
-        return { collapsed: false  };
-    },
-
-    buildChildren() {
-
-        if ( this.props.nav ) {
-            return this.props.nav.navlist.map( nav => {
-                return (<Nav type={this.props.type} key={nav.id} selected={this.props.selected} onClick={this.onSubNavClick} {...nav}/>);
-            });
-        } else {
-            return this.props.children;
-        }
-    },
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({selected: nextProps.selected});
-    },
-
-    onSubNavClick(id) {
-        if ( this.props.onClick ) {
-            this.props.onClick(this.props.id, id);
-        }
-    },
-
-    onClick() {
-        this.setState({collapsed: !this.state.collapsed});
-    },
-
+    constructor(props) {
+        super(props);
+        this.state = { collapsed: false, computedHeight: 0 };
+    }
     componentDidMount() {
-        //we cant transition 0 height to auto height.. so below is the result
-        if ( !this.__computedHeight ) {
-            var cloned = this.refs.cont.cloneNode(true);
+
+        if ( typeof document !== 'undefined' ) {
+            const cloned = this.refs.cont.cloneNode(true);
             cloned.style.position = 'absolute';
             cloned.style.left = '-9999px';
             cloned.style.height = 'auto';
             document.body.appendChild(cloned);
-            this.__computedHeight = cloned.clientHeight;
+
+            this.setState({computedHeight: cloned.clientHeight });
             document.body.removeChild(cloned);
         }
+    }
 
-    },
+    onClick = () => {
+        this.setState({collapsed: !this.state.collapsed});
+    }
 
     render() {
 
-        const itemsClassnames = cx(
-            style['rui-snav-items'],
-        );
-        const groupClassnames = cx(
-            style['rui-snav-grp'],
-            { [style['rui-snav-collapsed']]: this.state.collapsed }
-        );
-
-        const styles = {
-            height: this.state.collapsed ? this.__computedHeight : 0
-        };
-
-        const Item = ITEM_MAP[this.props.type || 'icon-left'];
+        const { collapsed, computedHeight: height } = this.state;
+        const style = collapsed ? { height, ...EXTRA_GROUP_STYLE} : {height: 0};
+        const { selectedId, onClick, children, highlightScheme, scheme } = this.props;
 
         return (
-            <div className={style['rui-snav-grp-c']} >
-                <div onClick={this.onClick} className={groupClassnames}>
-                    <Item icon={'fa fa-chevron-down'} text={this.props.nav.text} />
-                </div>
-                <div  ref='cont' style={styles} className={itemsClassnames}>
-                    {this.buildChildren() }
-                </div>
-            </div>
+            <NavItem isGroupSection={true}>
+                <ul className={'rui-snav'}>
+                    <NavItem isGroupSection={true}
+                        scheme={scheme} onClick={this.onClick} text={this.props.text}
+                        icon={this.props.icon}
+                        style={{padding: '0px 0px', borderLeft: 0}}/>
+                </ul>
+                <ul ref='cont' style={style} className={'rui-snav rui-snav-grp'}>
+                    {createNavItems({ children, onClick, highlightScheme, scheme,
+                        selectedId, style: { paddingLeft: 24 } })}
+                </ul>
+            </NavItem>
         );
-
     }
-});
-export {NavGroup};
-export default NavGroup;
+}
