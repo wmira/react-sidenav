@@ -3,10 +3,10 @@ import React, { Children, Component, PropTypes } from 'react';
 import styled from 'styled-components';
 
 export const NavIcon = () => {
-    return null;
+    throw new Error('Should not render');
 };
 export const NavText = () => {
-    return null;
+    throw new Error('Should not render');
 };
 
 const findComponent = ComponentToFind => children => {
@@ -20,6 +20,7 @@ const findComponent = ComponentToFind => children => {
 
 const findIcon = findComponent(NavIcon);
 const findText = findComponent(NavText);
+const identity = () => {};
 
 
 const NavItemStyled = styled.div`
@@ -96,9 +97,9 @@ export class Nav extends Component {
     }
 
     onNavItemClicked = () => {
-
+        const { onClick = identity } = this.props;
         this.setState({ collapsed: !this.state.collapsed }, () => {
-            this.props.onClick(this.props.id, null);
+            onClick(this.props.id, null);
             if ( this.subNavEl && !this.s ) {
                 this.subNavEl.style.maxHeight = this.state.collapsed ? '200px' : '0px';
             }
@@ -140,8 +141,8 @@ export class Nav extends Component {
         };
 
         return (
-            <div>
-                <NavItemStyled {...itemProps}>
+            <div onClick={this.onNavItemClicked}>
+                <NavItemStyled className='__rsnav___item' {...itemProps}>
                     <NavIconCont>{ icon.props.children }</NavIconCont>
                     <NavTextCont>{ text.props.children }</NavTextCont>
                     { hasChildNav(children) ? <div style={{ position: 'absolute', right: '16px', bottom: '4px'}}>{ this.renderSubNavIndicator() } </div> : null }
@@ -155,7 +156,7 @@ export class Nav extends Component {
                             const isItemHighlighted = highlightedId === child.props.id;
 
                             return (
-                                <NavItemStyled key={idx} {...itemProps} onClick={ () => this.childClicked(child.props.id)} isHighlighted={isItemHighlighted}>
+                                <NavItemStyled className={'__rsnav___itemchild'} key={idx} {...itemProps} onClick={ () => this.childClicked(child.props.id)} isHighlighted={isItemHighlighted}>
                                     <NavIconCont>{ null }</NavIconCont>
                                     <NavTextCont>{ stext ? stext.props.children : null }</NavTextCont>
                                 </NavItemStyled>

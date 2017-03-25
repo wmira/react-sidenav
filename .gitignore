@@ -2,6 +2,5 @@ bundle.js
 dev/*
 node_modules/
 .idea/
-dist
 *.iml
 *.log

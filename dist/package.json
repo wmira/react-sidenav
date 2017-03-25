@@ -5,7 +5,7 @@
   "author": "Warren Mira",
   "scripts": {
     "playground": "webpack-dev-server --content-base playground ",
-    "dist": "mkdir dist && cp package.json dist && babel -D -d dist/ ./src ",
+    "dist": "cp package.json dist && babel -D -d dist/ ./src ",
     "test": "jest"
   },
   "repository": {
