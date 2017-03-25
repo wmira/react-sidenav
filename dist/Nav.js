@@ -33,10 +33,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var NavIcon = exports.NavIcon = function NavIcon() {
-    return null;
+    throw new Error('Should not render');
 };
 var NavText = exports.NavText = function NavText() {
-    return null;
+    throw new Error('Should not render');
 };
 
 var findComponent = function findComponent(ComponentToFind) {
@@ -52,6 +52,7 @@ var findComponent = function findComponent(ComponentToFind) {
 
 var findIcon = findComponent(NavIcon);
 var findText = findComponent(NavText);
+var identity = function identity() {};
 
 var NavItemStyled = _styledComponents2.default.div(_templateObject, function (props) {
     return props.isHighlighted ? props.highlightBgColor : 'inherit';
@@ -85,9 +86,11 @@ var Nav = exports.Nav = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
 
         _this.onNavItemClicked = function () {
+            var _this$props$onClick = _this.props.onClick,
+                onClick = _this$props$onClick === undefined ? identity : _this$props$onClick;
 
             _this.setState({ collapsed: !_this.state.collapsed }, function () {
-                _this.props.onClick(_this.props.id, null);
+                onClick(_this.props.id, null);
                 if (_this.subNavEl && !_this.s) {
                     _this.subNavEl.style.maxHeight = _this.state.collapsed ? '200px' : '0px';
                 }
@@ -145,10 +148,10 @@ var Nav = exports.Nav = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { onClick: this.onNavItemClicked },
                 _react2.default.createElement(
                     NavItemStyled,
-                    itemProps,
+                    _extends({ className: '__rsnav___item' }, itemProps),
                     _react2.default.createElement(
                         NavIconCont,
                         null,
@@ -178,7 +181,7 @@ var Nav = exports.Nav = function (_Component) {
 
                         return _react2.default.createElement(
                             NavItemStyled,
-                            _extends({ key: idx }, itemProps, { onClick: function onClick() {
+                            _extends({ className: '__rsnav___itemchild', key: idx }, itemProps, { onClick: function onClick() {
                                     return _this2.childClicked(child.props.id);
                                 }, isHighlighted: isItemHighlighted }),
                             _react2.default.createElement(

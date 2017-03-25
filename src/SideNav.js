@@ -19,12 +19,13 @@ export class SideNav extends Component {
     static propTypes = {
         ...contextTypes,
         selected: PropTypes.string,
-        defaultSelected: PropTypes.string
+        defaultSelected: PropTypes.string,
+        onItemSelection: PropTypes.func
     }
 
     constructor(props) {
         super(props);
-        this.state = { selected: props.selected, defaultSelected: props.defaultSelected };
+        this.state = { selected: props.defaultSelected , defaultSelected: props.defaultSelected };
     }
 
 
@@ -53,7 +54,7 @@ export class SideNav extends Component {
             <div>
                 { Children.toArray(children).map( child => {
                     if ( child !== null && child.type === Nav ) {
-                        const currentSelected = this.state.selected || this.state.defaultSelected;
+                        const currentSelected = this.state.defaultSelected ? this.state.selected : this.props.selected;
                         return cloneElement(child, { highlightedId: currentSelected, onClick: this.onNavClick });
                     }
                     return child;

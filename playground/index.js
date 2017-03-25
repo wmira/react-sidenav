@@ -39,6 +39,110 @@ const SeparatorTitle = (props) => {
     );
 };
 
+const BasicSideNav = () => (
+    <SideNav highlightBgColor='#00bcd4' defaultSelected='sales'>
+            <Title> Basic SideNav </Title>
+            <Nav id='dashboard'>
+                <NavIcon><Icon20 icon={ic_aspect_ratio}/></NavIcon><NavText> Dashboard </NavText>
+            </Nav>
+            <Nav id='sales'>
+                <NavIcon><Icon20 icon={ic_business}/></NavIcon><NavText> Sales </NavText>
+            </Nav>
+            <Nav id='products'>
+                <NavIcon><Icon20 icon={ic_business_center}/></NavIcon><NavText> Products </NavText>
+            </Nav>
+            <Nav id='customers'>
+                <NavIcon><Icon20 icon={ic_people}/></NavIcon><NavText> Customers </NavText>
+                <Nav id='dashboard2'>
+                    <NavIcon><Icon20 size={16} icon={ic_aspect_ratio}/></NavIcon><NavText> Search </NavText>
+                </Nav>
+                <Nav id='sales2'>
+                    <NavIcon><Icon20 size={16} icon={ic_business}/></NavIcon><NavText> Promote </NavText>
+                </Nav>
+                <Nav id='products2'>
+                    <NavIcon><Icon20 size={16} icon={ic_business_center}/></NavIcon><NavText> Social Media </NavText>
+                </Nav>
+            </Nav>
+            <Nav id='orders'>
+                <NavIcon><Icon20 icon={ic_format_list_bulleted}/></NavIcon><NavText> Orders </NavText>
+            </Nav>
+    </SideNav>
+);
+
+const NavMain = {
+    dashboard: { title: 'Dashboard', icon: ic_aspect_ratio },
+    products: { title: 'Products', icon: ic_business_center },
+    orders: { title: 'Orders', icon: ic_format_list_bulleted }
+};
+
+const BasicSideNavLite = () => (
+    <SideNav highlightBgColor='#eee' defaultSelected='products' highlightColor='#E91E63'>
+        <SeparatorTitle><div>Main</div></SeparatorTitle>
+        { Object.keys(NavMain).map( key => {
+            //dynamically created the navs
+            return (
+                <Nav key={key} id='dashboard'>
+                    <NavIcon><Icon20 icon={NavMain[key].icon}/></NavIcon><NavText> {NavMain[key].title } </NavText>
+                </Nav>
+            );
+        })}
+        <SeparatorTitle>
+            <div> Customers and Sales</div>
+        </SeparatorTitle>
+        <Nav id='customers'>
+            <NavIcon><Icon20 icon={ic_people}/></NavIcon><NavText> Customers </NavText>
+            <Nav id='dashboard2'>
+                <NavIcon><Icon20 size={16} icon={ic_aspect_ratio}/></NavIcon><NavText> Search </NavText>
+            </Nav>
+            <Nav id='sales2'>
+                <NavIcon><Icon20 size={16} icon={ic_business}/></NavIcon><NavText> Promote </NavText>
+            </Nav>
+            <Nav id='products2'>
+                <NavIcon><Icon20 size={16} icon={ic_business_center}/></NavIcon><NavText> Social Media </NavText>
+            </Nav>
+        </Nav>
+        <Nav id='sales'>
+            <NavIcon><Icon20 icon={ic_business}/></NavIcon><NavText> Sales </NavText>
+        </Nav>
+    </SideNav>
+);
+
+const SideNavWithAlerts = () => (
+    <SideNav hoverBgColor='#232a2f' highlightBgColor='#00acac' defaultSelected='products' highlightColor='#FFF'>
+            <div></div>
+            <Nav id='dashboard'>
+                <NavIcon><Icon20 icon={ic_aspect_ratio}/></NavIcon><NavText> Dashboard </NavText>
+            </Nav>
+
+            <Nav id='products'>
+                <NavIcon><Icon20 icon={ic_business_center}/></NavIcon><NavText> Products </NavText>
+            </Nav>
+            <Nav id='orders'>
+                <NavIcon><Icon20 icon={ic_format_list_bulleted}/></NavIcon>
+                <NavText> <span style={{paddingRight: 6}}>Orders</span> <span style={{ textAlign: 'center', lineHeight: '16px', height: 16, width: 16, margin: '0 auto', borderRadius: '50%', fontSize: 9, display: 'inline-block', color: '#FFF', background:'#ff5b57'}}>10</span></NavText>
+            </Nav>
+
+            <Nav id='customers'>
+                <NavIcon><Icon20 icon={ic_people}/></NavIcon><NavText> Customers </NavText>
+                <Nav id='dashboard2'>
+                    <NavIcon><Icon20 size={16} icon={ic_aspect_ratio}/></NavIcon><NavText> Search </NavText>
+                </Nav>
+                <Nav id='sales2'>
+                    <NavIcon><Icon20 size={16} icon={ic_business}/></NavIcon><NavText> Promote </NavText>
+                </Nav>
+                <Nav id='products2'>
+                    <NavIcon><Icon20 size={16} icon={ic_business_center}/></NavIcon><NavText> Social Media </NavText>
+                </Nav>
+            </Nav>
+            <Nav id='sales'>
+                <NavIcon><Icon20 icon={ic_business}/></NavIcon><NavText> Sales </NavText>
+            </Nav>
+            <Nav id='deliveries'>
+                <NavIcon><Icon20 icon={ic_shopping_cart}/></NavIcon><NavText> Deliveries </NavText>
+            </Nav>
+    </SideNav>
+);
+
 class X extends React.Component {
 
     render() {
@@ -46,69 +150,11 @@ class X extends React.Component {
         return (
             <div style={{display: 'flex'}}>
                 <BaseContainer style={{background: '#2c3e50', color: '#FFF'}}>
-                    <SideNav highlightBgColor='#00bcd4' defaultSelected='sales'>
-                        <Title> Basic SideNav </Title>
-                        <Nav id='dashboard'>
-                            <NavIcon><Icon20 icon={ic_aspect_ratio}/></NavIcon><NavText> Dashboard </NavText>
-                        </Nav>
-                        <Nav id='sales'>
-                            <NavIcon><Icon20 icon={ic_business}/></NavIcon><NavText> Sales </NavText>
-                        </Nav>
-                        <Nav id='products'>
-                            <NavIcon><Icon20 icon={ic_business_center}/></NavIcon><NavText> Products </NavText>
-                        </Nav>
-                        <Nav id='customers'>
-                            <NavIcon><Icon20 icon={ic_people}/></NavIcon><NavText> Customers </NavText>
-                            <Nav id='dashboard2'>
-                                <NavIcon><Icon20 size={16} icon={ic_aspect_ratio}/></NavIcon><NavText> Search </NavText>
-                            </Nav>
-                            <Nav id='sales2'>
-                                <NavIcon><Icon20 size={16} icon={ic_business}/></NavIcon><NavText> Promote </NavText>
-                            </Nav>
-                            <Nav id='products2'>
-                                <NavIcon><Icon20 size={16} icon={ic_business_center}/></NavIcon><NavText> Social Media </NavText>
-                            </Nav>
-                        </Nav>
-                        <Nav id='orders'>
-                            <NavIcon><Icon20 icon={ic_format_list_bulleted}/></NavIcon><NavText> Orders </NavText>
-                        </Nav>
-                    </SideNav>
+                    <BasicSideNav />
                 </BaseContainer>
                 <Separator/>
                 <BaseContainer style={{background: '#FFF', color: '#444', boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)'}}>
-                    <SideNav highlightBgColor='#eee' defaultSelected='products' highlightColor='#E91E63'>
-                         <SeparatorTitle>
-                            <div>Main</div>
-                        </SeparatorTitle>
-                        <Nav id='dashboard'>
-                            <NavIcon><Icon20 icon={ic_aspect_ratio}/></NavIcon><NavText> Dashboard </NavText>
-                        </Nav>
-
-                        <Nav id='products'>
-                            <NavIcon><Icon20 icon={ic_business_center}/></NavIcon><NavText> Products </NavText>
-                        </Nav>
-                        <Nav id='orders'>
-                            <NavIcon><Icon20 icon={ic_format_list_bulleted}/></NavIcon><NavText> Orders </NavText>
-                        </Nav>
-                        <SeparatorTitle>
-                            <div> Customers and Sales</div>
-                        </SeparatorTitle>
-                        <Nav id='customers'>
-                            <NavIcon><Icon20 icon={ic_people}/></NavIcon><NavText> Customers </NavText>
-                            <Nav id='dashboard2'>
-                                <NavIcon><Icon20 size={16} icon={ic_aspect_ratio}/></NavIcon><NavText> Search </NavText>
-                            </Nav>
-                            <Nav id='sales2'>
-                                <NavIcon><Icon20 size={16} icon={ic_business}/></NavIcon><NavText> Promote </NavText>
-                            </Nav>
-                            <Nav id='products2'>
-                                <NavIcon><Icon20 size={16} icon={ic_business_center}/></NavIcon><NavText> Social Media </NavText>
-                            </Nav>
-                        </Nav>
-                        <Nav id='sales'>
-                            <NavIcon><Icon20 icon={ic_business}/></NavIcon><NavText> Sales </NavText>
-                        </Nav>
-                    </SideNav>
+                    <BasicSideNavLite />
                 </BaseContainer>
                 <Separator/>
                 <BaseContainer style={{fontSize: 12, background: '#2d353c', color: '#a8acb1', paddingTop: 0}}>
@@ -121,40 +167,7 @@ class X extends React.Component {
                             <div style={{fontSize: 11}}> Ninja Developer </div>
                         </div>
                     </div>
-                    <SideNav hoverBgColor='#232a2f' highlightBgColor='#00acac' defaultSelected='products' highlightColor='#FFF'>
-                        <div></div>
-                        <Nav id='dashboard'>
-                            <NavIcon><Icon20 icon={ic_aspect_ratio}/></NavIcon><NavText> Dashboard </NavText>
-                        </Nav>
-
-                        <Nav id='products'>
-                            <NavIcon><Icon20 icon={ic_business_center}/></NavIcon><NavText> Products </NavText>
-                        </Nav>
-                        <Nav id='orders'>
-                            <NavIcon><Icon20 icon={ic_format_list_bulleted}/></NavIcon>
-                            <NavText> <span style={{paddingRight: 6}}>Orders</span> <span style={{ textAlign: 'center', lineHeight: '16px', height: 16, width: 16, margin: '0 auto', borderRadius: '50%', fontSize: 9, display: 'inline-block', color: '#FFF', background:'#ff5b57'}}>10</span></NavText>
-                        </Nav>
-
-                        <Nav id='customers'>
-                            <NavIcon><Icon20 icon={ic_people}/></NavIcon><NavText> Customers </NavText>
-                            <Nav id='dashboard2'>
-                                <NavIcon><Icon20 size={16} icon={ic_aspect_ratio}/></NavIcon><NavText> Search </NavText>
-                            </Nav>
-                            <Nav id='sales2'>
-                                <NavIcon><Icon20 size={16} icon={ic_business}/></NavIcon><NavText> Promote </NavText>
-                            </Nav>
-                            <Nav id='products2'>
-                                <NavIcon><Icon20 size={16} icon={ic_business_center}/></NavIcon><NavText> Social Media </NavText>
-                            </Nav>
-                        </Nav>
-                        <Nav id='sales'>
-                            <NavIcon><Icon20 icon={ic_business}/></NavIcon><NavText> Sales </NavText>
-                        </Nav>
-                        <Nav id='deliveries'>
-                            <NavIcon><Icon20 icon={ic_shopping_cart}/></NavIcon><NavText> Deliveries </NavText>
-                        </Nav>
-                    </SideNav>
-
+                    <SideNavWithAlerts/>
                 </BaseContainer>
             </div>
         );
