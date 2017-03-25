@@ -1,66 +1,69 @@
 
-import React, { cloneElement, Component, Children, PropTypes } from 'react';
 
+import React, { Children, cloneElement, PropTypes } from 'react';
+import NavGroup from './NavGroup';
 import Nav from './Nav';
+import assign from 'object-assign';
 
-const contextTypes = {
-    highlightColor: PropTypes.string,
-    highlightBgColor: PropTypes.string,
-    hoverBgColor: PropTypes.string
-};
+const SideNav = React.createClass({
 
-const identity = () => {};
-
-
-export class SideNav extends Component {
-
-
-    static childContextTypes = contextTypes
-    static propTypes = {
-        ...contextTypes,
+    propTypes: {
         selected: PropTypes.string,
-        defaultSelected: PropTypes.string
-    }
+        navs: PropTypes.array,
+        onSelection: PropTypes.func,
+        children: PropTypes.node,
+        navtype: PropTypes.string,
+        navrenderer: PropTypes.node,
+        style: PropTypes.object
+    },
 
-    constructor(props) {
-        super(props);
-        this.state = { selected: props.selected, defaultSelected: props.defaultSelected };
-    }
+    buildFromSettings() {
 
+        return this.props.navs.map( navkind => {
+            //nav kind could have a navlist, which we assume it contains a group of navs link
+            if ( navkind.navlist ) {
+                return <NavGroup type={this.props.navtype}
+                    key={navkind.id}  selected={this.props.selected} onClick={this.onSubNavClick} nav={navkind}/>;
+            } else {
+                return (<Nav type={this.props.navtype}
+                    key={navkind.id} selected={this.props.selected} {...navkind} onClick={this.onClick}/>);
+            }
+        });
 
-    getChildContext() {
-        const { highlightColor, highlightBgColor, hoverBgColor } = this.props;
-        return { highlightColor, highlightBgColor, hoverBgColor };
-    }
+    },
+    onSubNavClick(group,child) {
+        var selection = {group: group, id: child};
+        this.setState({selected: selection});
+        this.dispatchSelection(selection);
+    },
+    onClick(id) {
+        this.dispatchSelection({id: id});
+    },
 
-    onNavClick = (id) => {
-        const { onItemSelection = identity } = this.props;
-
-        if ( this.state.defaultSelected ) {
-            //lets manage it
-            this.setState({ selected: id }, () => {
-                onItemSelection(id);
-            });
-        } else {
-            onItemSelection(id);
+    dispatchSelection: function(selection) {
+        if ( this.props.onSelection ) {
+            this.props.onSelection(selection);
         }
-    }
+    },
+    buildChildren() {
+
+        if ( this.props.navs ) {
+            return this.buildFromSettings();
+        } else {
+            //we need to clone this or props aren't passed
+            return Children.map(this.props.children, child => {
+                return cloneElement(child, assign({key: child.props.id}, this.props));
+            });
+        }
+    },
 
     render() {
 
-        const { children } = this.props;
-        return (
-            <div>
-                { Children.toArray(children).map( child => {
-                    if ( child !== null && child.type === Nav ) {
-                        const currentSelected = this.state.selected || this.state.defaultSelected;
-                        return cloneElement(child, { highlightedId: currentSelected, onClick: this.onNavClick });
-                    }
-                    return child;
-                }) }
-            </div>
-        );
+        return <div style={assign({position: 'relative', width: '100%', color: '#FFF'}, this.props.style)}>
+                {this.buildChildren()}
+        </div>;
     }
-}
 
+});
+export {SideNav};
 export default SideNav;

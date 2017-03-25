@@ -1,6 +1,17 @@
 # react-sidenav
 
+<<<<<<< HEAD
 Side Navigation Component for React
+=======
+>
+> Note this project is now deprecated in favor of https://github.com/wmira/reactor-ui#sidenav
+>
+
+[![Build Status](https://travis-ci.org/wmira/react-sidenav.svg?branch=master)](https://travis-ci.org/wmira/react-sidenav)
+
+A React Component that makes it easier to automatically build vertical nav menus or compose them from within your React
+components.
+>>>>>>> master
 
 ![alt tag](https://raw.githubusercontent.com/wmira/react-sidenav/master/sidenav.png)
 
