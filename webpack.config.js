@@ -10,7 +10,7 @@ module.exports = {
     devtool: 'source-map',
     resolve: {
         alias: {
-            'react-sidenav': path.resolve(__dirname, 'dist')
+            'react-sidenav': path.resolve(__dirname, 'src')
         }
     },
 
