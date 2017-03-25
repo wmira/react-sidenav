@@ -1,72 +1,20 @@
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var plugins = [
-    new ExtractTextPlugin('../dist/react-sidenav-styles.css')
-];
+const path = require('path');
 
-var cssLoader = { test: /\.css$/, loader: 'style-loader!css-loader?localIdentName=[name]_[local]_[hash:base64:5]!postcss-loader'};
-
-
-
-
-if (process.env.COMPRESS) {
-    plugins.push(
-        new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-                warnings: false
-            }
-        })
-    );
-    console.log('compress');
-    cssLoader = { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader')};
-}
-
-
-const exportsObj = {
+module.exports = {
+    module: {
+        rules: [
+            { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader'] }
+        ]
+    },
     devtool: 'source-map',
     resolve: {
         alias: {
-            'react-sidenav': __dirname + '/src'
+            'react-sidenav': path.resolve(__dirname, 'dist')
         }
     },
-    node: {
-        buffer: false
-    },
-    output: {
-        library: 'SideNav',
-        libraryTarget: 'umd2'
-    },
 
-    externals: {
-        react: {
-            root: 'React',
-            commonjs: 'react',
-            commonjs2: 'react',
-            amd: 'react'
-        },
-        'react-dom': {
-            root: 'ReactDOM',
-            commonjs: 'react-dom',
-            commonjs2: 'react-dom',
-            amd: 'react-dom'
-        }
-
-    },
-    plugins: plugins,
-
-    module: {
-        loaders: [
-            cssLoader,
-            {test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015', 'react', 'stage-2']
-                }
-            }
-        ]
+    devServer: {
+        inline: true
     }
 };
-
-module.exports = exportsObj;

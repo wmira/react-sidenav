@@ -1,51 +1,66 @@
 
-import React, { PropTypes } from 'react';
-import cx from 'classnames';
+import React, { cloneElement, Component, Children, PropTypes } from 'react';
 
-import { SCHEMES } from './schemes';
-import { createNavItems } from './createNavItems';
+import Nav from './Nav';
 
-const noop = () => {};
-/**
- * Side Bar Navigation component
- */
-export class SideNav extends React.Component {
+const contextTypes = {
+    highlightColor: PropTypes.string,
+    highlightBgColor: PropTypes.string,
+    hoverBgColor: PropTypes.string
+};
 
+const identity = () => {};
+
+
+export class SideNav extends Component {
+
+
+    static childContextTypes = contextTypes
     static propTypes = {
-        children: PropTypes.node,
-        scheme: PropTypes.string,
-        selectedId: PropTypes.string.isRequired,
-        onClick: PropTypes.func,
-        style: PropTypes.object,
-        highlightScheme: PropTypes.oneOf(Object.keys(SCHEMES))
+        ...contextTypes,
+        selected: PropTypes.string,
+        defaultSelected: PropTypes.string
     }
 
-    static defaultProps = {
-        onClick: noop,
-        scheme: 'default',
-        style: {},
-        highlightScheme: SCHEMES.danger
+    constructor(props) {
+        super(props);
+        this.state = { selected: props.selected, defaultSelected: props.defaultSelected };
     }
 
-    onClick = (id) => {
-        const { onClick } = this.props;
-        onClick(id);
+
+    getChildContext() {
+        const { highlightColor, highlightBgColor, hoverBgColor } = this.props;
+        return { highlightColor, highlightBgColor, hoverBgColor };
+    }
+
+    onNavClick = (id) => {
+        const { onItemSelection = identity } = this.props;
+
+        if ( this.state.defaultSelected ) {
+            //lets manage it
+            this.setState({ selected: id }, () => {
+                onItemSelection(id);
+            });
+        } else {
+            onItemSelection(id);
+        }
     }
 
     render() {
-        const { children, selectedId, scheme, style, highlightScheme } = this.props;
 
-        const containerClass = cx({
-            'rui-snav-clight': scheme === 'default',
-            'rui-snav-cdark': scheme !== 'default'
-        });
-
+        const { children } = this.props;
         return (
-            <div className={containerClass} style={{width: '100%', height: '100%', ...style}}>
-                <ul className={'rui-snav'} >
-                    {createNavItems({ children, onClick: this.onClick, selectedId, scheme, highlightScheme })}
-                </ul>
+            <div>
+                { Children.toArray(children).map( child => {
+                    if ( child !== null && child.type === Nav ) {
+                        const currentSelected = this.state.selected || this.state.defaultSelected;
+                        return cloneElement(child, { highlightedId: currentSelected, onClick: this.onNavClick });
+                    }
+                    return child;
+                }) }
             </div>
         );
     }
 }
+
+export default SideNav;

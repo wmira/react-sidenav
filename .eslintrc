@@ -1,8 +1,8 @@
 {
     "parser": "babel-eslint",
     "parserOptions": {
-        ecmaVersion: 6,
-        sourceType: "module",
+        "ecmaVersion": 6,
+        "sourceType": "module",
         "ecmaFeatures": {
             "arrowFunctions": true,
             "destructuring": true,
@@ -38,6 +38,8 @@
         "semi": 2,
         "space-before-blocks": 2,
         "keyword-spacing": 2,
-        "space-in-parens": 0
+        "space-in-parens": 0,
+        "no-multiple-empty-lines": "error",
+        "no-trailing-spaces": "error"
     }
 }
