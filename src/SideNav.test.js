@@ -20,7 +20,7 @@ describe('SideNav', () => {
         );
 
         expect(wrapper.state().selected).toEqual('nav');
-        const navItems = wrapper.find(Nav);
+        const navItems = wrapper.find('.__rsnav___item');
         expect(navItems.length).toBe(2);
         const nav2 = navItems.at(1);
         nav2.simulate('click');
@@ -76,7 +76,7 @@ describe('SideNav', () => {
             </SideNav>
         );
 
-        const navItems = wrapper.find(Nav);
+        const navItems = wrapper.find('.__rsnav___item');
         expect(navItems.length).toBe(2);
         const nav2 = navItems.at(1);
         nav2.simulate('click');

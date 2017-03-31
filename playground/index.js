@@ -81,7 +81,7 @@ const BasicSideNavLite = () => (
         { Object.keys(NavMain).map( key => {
             //dynamically created the navs
             return (
-                <Nav key={key} id='dashboard'>
+                <Nav key={key} id={key}>
                     <NavIcon><Icon20 icon={NavMain[key].icon}/></NavIcon><NavText> {NavMain[key].title } </NavText>
                 </Nav>
             );
@@ -108,7 +108,7 @@ const BasicSideNavLite = () => (
 );
 
 const SideNavWithAlerts = () => (
-    <SideNav hoverBgColor='#232a2f' highlightBgColor='#00acac' defaultSelected='products' highlightColor='#FFF'>
+    <SideNav hoverBgColor='#232a2f' hoverColor='red' highlightBgColor='#00acac' defaultSelected='products' highlightColor='#FFF'>
             <div></div>
             <Nav id='dashboard'>
                 <NavIcon><Icon20 icon={ic_aspect_ratio}/></NavIcon><NavText> Dashboard </NavText>

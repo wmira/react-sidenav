@@ -59,7 +59,7 @@ var NavItemStyled = _styledComponents2.default.div(_templateObject, function (pr
 }, function (props) {
     return props.isHighlighted ? props.highlightColor : 'inherit';
 }, function (props) {
-    return props.highlightColor || 'inherit';
+    return props.hoverColor || props.highlightColor || 'inherit';
 }, function (props) {
     return props.hoverBgColor || props.highlightBgColor || 'inherit';
 });
@@ -129,6 +129,7 @@ var Nav = exports.Nav = function (_Component) {
 
             var _props = this.props,
                 hoverBgColor = _props.hoverBgColor,
+                hoverColor = _props.hoverColor,
                 highlightColor = _props.highlightColor,
                 highlightBgColor = _props.highlightBgColor,
                 children = _props.children,
@@ -140,6 +141,7 @@ var Nav = exports.Nav = function (_Component) {
             var text = findText(children);
             var itemProps = {
                 hoverBgColor: hoverBgColor || this.context.hoverBgColor,
+                hoverColor: hoverColor || this.context.hoverColor,
                 onClick: this.onNavItemClicked,
                 isHighlighted: id === highlightedId,
                 highlightColor: highlightColor || this.context.highlightColor,
@@ -148,7 +150,7 @@ var Nav = exports.Nav = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                { onClick: this.onNavItemClicked },
+                null,
                 _react2.default.createElement(
                     NavItemStyled,
                     _extends({ className: '__rsnav___item' }, itemProps),
@@ -207,7 +209,8 @@ var Nav = exports.Nav = function (_Component) {
 Nav.contextTypes = {
     highlightColor: _react.PropTypes.string,
     highlightBgColor: _react.PropTypes.string,
-    hoverBgColor: _react.PropTypes.string
+    hoverBgColor: _react.PropTypes.string,
+    hoverColor: _react.PropTypes.string
 };
 Nav.propTypes = {
     children: _react.PropTypes.node,
@@ -218,6 +221,7 @@ Nav.propTypes = {
     onClick: _react.PropTypes.func,
     highlightedId: _react.PropTypes.string,
     renderSubNavIndicator: _react.PropTypes.func,
-    hoverBgColor: _react.PropTypes.string
+    hoverBgColor: _react.PropTypes.string,
+    hoverColor: _react.PropTypes.string
 };
 exports.default = Nav;

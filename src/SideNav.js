@@ -6,7 +6,8 @@ import Nav from './Nav';
 const contextTypes = {
     highlightColor: PropTypes.string,
     highlightBgColor: PropTypes.string,
-    hoverBgColor: PropTypes.string
+    hoverBgColor: PropTypes.string,
+    hoverColor: PropTypes.string
 };
 
 const identity = () => {};
@@ -30,8 +31,8 @@ export class SideNav extends Component {
 
 
     getChildContext() {
-        const { highlightColor, highlightBgColor, hoverBgColor } = this.props;
-        return { highlightColor, highlightBgColor, hoverBgColor };
+        const { highlightColor, highlightBgColor, hoverBgColor, hoverColor } = this.props;
+        return { highlightColor, highlightBgColor, hoverBgColor, hoverColor };
     }
 
     onNavClick = (id) => {

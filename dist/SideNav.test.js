@@ -65,7 +65,7 @@ describe('SideNav', function () {
         ));
 
         expect(wrapper.state().selected).toEqual('nav');
-        var navItems = wrapper.find(_index.Nav);
+        var navItems = wrapper.find('.__rsnav___item');
         expect(navItems.length).toBe(2);
         var nav2 = navItems.at(1);
         nav2.simulate('click');
@@ -190,7 +190,7 @@ describe('SideNav', function () {
             )
         ));
 
-        var navItems = wrapper.find(_index.Nav);
+        var navItems = wrapper.find('.__rsnav___item');
         expect(navItems.length).toBe(2);
         var nav2 = navItems.at(1);
         nav2.simulate('click');

@@ -28,7 +28,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var contextTypes = {
     highlightColor: _react.PropTypes.string,
     highlightBgColor: _react.PropTypes.string,
-    hoverBgColor: _react.PropTypes.string
+    hoverBgColor: _react.PropTypes.string,
+    hoverColor: _react.PropTypes.string
 };
 
 var identity = function identity() {};
@@ -66,9 +67,10 @@ var SideNav = exports.SideNav = function (_Component) {
             var _props = this.props,
                 highlightColor = _props.highlightColor,
                 highlightBgColor = _props.highlightBgColor,
-                hoverBgColor = _props.hoverBgColor;
+                hoverBgColor = _props.hoverBgColor,
+                hoverColor = _props.hoverColor;
 
-            return { highlightColor: highlightColor, highlightBgColor: highlightBgColor, hoverBgColor: hoverBgColor };
+            return { highlightColor: highlightColor, highlightBgColor: highlightBgColor, hoverBgColor: hoverBgColor, hoverColor: hoverColor };
         }
     }, {
         key: 'render',

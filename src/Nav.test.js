@@ -24,7 +24,7 @@ describe('Nav', () => {
                 <NavText><span className='textCls'>icon</span></NavText>
             </Nav>
         );
-        wrapper.find(Nav).simulate('click');
+        wrapper.find('.__rsnav___item').simulate('click');
         expect(listener).toHaveBeenCalled();
         expect(listener.mock.calls[0][0]).toEqual('nav');
     });
@@ -40,7 +40,7 @@ describe('Nav', () => {
                 </Nav>
             </Nav>
         );
-        wrapper.find(Nav).simulate('click');
+        wrapper.find('.__rsnav___item').simulate('click');
         expect(wrapper.find('.__rsnav___item').length).toBe(1);
         expect(wrapper.find('.__rsnav___itemchild').length).toBe(1);
     });

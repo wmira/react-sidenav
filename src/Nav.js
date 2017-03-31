@@ -31,7 +31,7 @@ const NavItemStyled = styled.div`
      color: ${props => props.isHighlighted ? props.highlightColor : 'inherit'};
 
      &:hover {
-        color: ${ props => props.highlightColor || 'inherit'} !important;
+        color: ${ props => props.hoverColor || props.highlightColor || 'inherit' } !important;
         background: ${ props => props.hoverBgColor || props.highlightBgColor || 'inherit' } !important;
      }
 `;
@@ -76,7 +76,8 @@ export class Nav extends Component {
     static contextTypes = {
         highlightColor: PropTypes.string,
         highlightBgColor: PropTypes.string,
-        hoverBgColor: PropTypes.string
+        hoverBgColor: PropTypes.string,
+        hoverColor: PropTypes.string
     }
 
     static propTypes = {
@@ -88,7 +89,8 @@ export class Nav extends Component {
         onClick: PropTypes.func,
         highlightedId: PropTypes.string,
         renderSubNavIndicator: PropTypes.func,
-        hoverBgColor: PropTypes.string
+        hoverBgColor: PropTypes.string,
+        hoverColor: PropTypes.string
     }
 
     constructor(props) {
@@ -128,12 +130,13 @@ export class Nav extends Component {
 
 
     render() {
-        const { hoverBgColor, highlightColor, highlightBgColor, children, highlightedId, id } = this.props;
+        const { hoverBgColor, hoverColor, highlightColor, highlightBgColor, children, highlightedId, id } = this.props;
 
         const icon = findIcon(children);
         const text = findText(children);
         const itemProps = {
             hoverBgColor: hoverBgColor || this.context.hoverBgColor,
+            hoverColor: hoverColor || this.context.hoverColor,
             onClick: this.onNavItemClicked,
             isHighlighted: id === highlightedId,
             highlightColor: highlightColor || this.context.highlightColor,
@@ -141,7 +144,7 @@ export class Nav extends Component {
         };
 
         return (
-            <div onClick={this.onNavItemClicked}>
+            <div >
                 <NavItemStyled className='__rsnav___item' {...itemProps}>
                     <NavIconCont>{ icon.props.children }</NavIconCont>
                     <NavTextCont>{ text.props.children }</NavTextCont>

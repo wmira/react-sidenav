@@ -68,6 +68,22 @@ Register an **onItemSelection** props
 
 If its a top level nav, then parent is null.
 
+## Props
+
+### SideNav
+
+| Property        | Description           | Type  |
+| ------------- |:-------------:| -----:|
+| highlightColor      | color when an item is selected | string |
+| highlightBgColor      | background color when an item is selected   |   string |
+| hoverBgColor | background color on hover. Defaults to highlightBgColor     |    string |
+| hoverColor  | color on hover. Defaults to highlightColor or inherit | string |
+| selected  | selected item, will be stateless | string |
+| defaultSelected  | default id of selected item, will auto manage state | string |
+| onItemSelection  | function called when an item is clicked (id, parent) | function |
+
+ 
+
 ## Examples
 
 The source code for the screenshot is under playground/index.js
@@ -93,3 +109,7 @@ To change the port, pass --port
 ```shell
 npm run playground -- --port=8181 playground/index.js
 ```
+
+## Contributing
+
+Contributions are welcome in any form.
