@@ -56,6 +56,16 @@ or by passing **selected** property. If you pass the selected property then the 
 </SideNav>
 ```
 
+### Item Id
+
+Note that a sub nav id only needs to be unique within its siblings. SideNav automatically uses / to identify sub navigation.
+
+Nav id='sales'
+  --- Nav id='list'
+
+We can select list by setting the selected property to 'sales/list'
+
+
 ### Listening to item change
 
 Register an **onItemSelection** props
@@ -82,7 +92,28 @@ If its a top level nav, then parent is null.
 | defaultSelected  | default id of selected item, will auto manage state | string |
 | onItemSelection  | function called when an item is clicked (id, parent) | function |
 
- 
+
+## React Router 4 Integration
+
+To use with React Router 4, you can use the hoc withRR4 to create a SideNav. Please see playground folder for a full example
+
+```
+
+import { withRR4 } from 'react-sidenav;
+import { BrowserRouter as Router } from 'react-router';
+
+const SideNav = witRR4();
+
+```javascript
+
+    <Router>
+        <SideNav>
+            //nav items and route will automatically updated upon selection
+        </SideNav>
+    </Router>
+
+```
+
 
 ## Examples
 

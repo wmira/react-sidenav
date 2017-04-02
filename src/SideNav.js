@@ -35,16 +35,16 @@ export class SideNav extends Component {
         return { highlightColor, highlightBgColor, hoverBgColor, hoverColor };
     }
 
-    onNavClick = (id) => {
+    onNavClick = (id, parent = null) => {
         const { onItemSelection = identity } = this.props;
 
         if ( this.state.defaultSelected ) {
             //lets manage it
             this.setState({ selected: id }, () => {
-                onItemSelection(id);
+                onItemSelection(id, parent);
             });
         } else {
-            onItemSelection(id);
+            onItemSelection(id, parent);
         }
     }
 

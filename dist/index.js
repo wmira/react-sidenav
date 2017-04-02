@@ -3,7 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.NavText = exports.NavIcon = exports.Nav = exports.SideNav = undefined;
+exports.NavText = exports.NavIcon = exports.Nav = exports.SideNav = exports.withRR4 = undefined;
+
+var _withRR = require('./withRR4');
+
+Object.defineProperty(exports, 'withRR4', {
+  enumerable: true,
+  get: function get() {
+    return _withRR.withRR4;
+  }
+});
 
 var _Nav = require('./Nav');
 

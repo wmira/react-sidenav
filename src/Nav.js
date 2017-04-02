@@ -146,8 +146,8 @@ export class Nav extends Component {
         return (
             <div >
                 <NavItemStyled className='__rsnav___item' {...itemProps}>
-                    <NavIconCont>{ icon.props.children }</NavIconCont>
-                    <NavTextCont>{ text.props.children }</NavTextCont>
+                    <NavIconCont>{ icon && icon.props ? icon.props.children : null }</NavIconCont>
+                    <NavTextCont>{ text && text.props ? text.props.children : null }</NavTextCont>
                     { hasChildNav(children) ? <div style={{ position: 'absolute', right: '16px', bottom: '4px'}}>{ this.renderSubNavIndicator() } </div> : null }
                 </NavItemStyled>
                 <div ref={ this.setSubNavRef } style={{maxHeight: 0, transition: 'all 0.2s ease-in-out'}}>
@@ -156,7 +156,7 @@ export class Nav extends Component {
                         .map( (child,idx) => {
                             //const sicon = findIcon(child.props.children );
                             const stext = findText(child.props.children);
-                            const isItemHighlighted = highlightedId === child.props.id;
+                            const isItemHighlighted = highlightedId === `${id}/${child.props.id}`;
 
                             return (
                                 <NavItemStyled className={'__rsnav___itemchild'} key={idx} {...itemProps} onClick={ () => this.childClicked(child.props.id)} isHighlighted={isItemHighlighted}>

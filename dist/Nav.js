@@ -157,12 +157,12 @@ var Nav = exports.Nav = function (_Component) {
                     _react2.default.createElement(
                         NavIconCont,
                         null,
-                        icon.props.children
+                        icon && icon.props ? icon.props.children : null
                     ),
                     _react2.default.createElement(
                         NavTextCont,
                         null,
-                        text.props.children
+                        text && text.props ? text.props.children : null
                     ),
                     hasChildNav(children) ? _react2.default.createElement(
                         'div',
@@ -179,7 +179,7 @@ var Nav = exports.Nav = function (_Component) {
                     }).map(function (child, idx) {
                         //const sicon = findIcon(child.props.children );
                         var stext = findText(child.props.children);
-                        var isItemHighlighted = highlightedId === child.props.id;
+                        var isItemHighlighted = highlightedId === id + '/' + child.props.id;
 
                         return _react2.default.createElement(
                             NavItemStyled,

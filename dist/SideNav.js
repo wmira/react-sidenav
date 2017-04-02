@@ -43,6 +43,7 @@ var SideNav = exports.SideNav = function (_Component) {
         var _this = _possibleConstructorReturn(this, (SideNav.__proto__ || Object.getPrototypeOf(SideNav)).call(this, props));
 
         _this.onNavClick = function (id) {
+            var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
             var _this$props$onItemSel = _this.props.onItemSelection,
                 onItemSelection = _this$props$onItemSel === undefined ? identity : _this$props$onItemSel;
 
@@ -50,10 +51,10 @@ var SideNav = exports.SideNav = function (_Component) {
             if (_this.state.defaultSelected) {
                 //lets manage it
                 _this.setState({ selected: id }, function () {
-                    onItemSelection(id);
+                    onItemSelection(id, parent);
                 });
             } else {
-                onItemSelection(id);
+                onItemSelection(id, parent);
             }
         };
 

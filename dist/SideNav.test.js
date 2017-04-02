@@ -135,7 +135,7 @@ describe('SideNav', function () {
 
     it('when re-rendered with a new props, the selected is updated', function (done) {
         var onClick = function onClick(id) {
-            console.log('selected>> ', id);
+
             wrapper.setProps({ selected: id }, function () {
                 expect(wrapper.prop('selected')).toEqual('nav2');
                 done();

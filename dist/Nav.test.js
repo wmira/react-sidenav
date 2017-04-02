@@ -10,7 +10,7 @@ var _enzyme = require('enzyme');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-describe('Nav', function () {
+describe.only('Nav', function () {
 
     it('should take children of NavIcon and NavText and renders it but not NavIcon', function () {
         var wrapper = (0, _enzyme.mount)(_react2.default.createElement(
@@ -31,7 +31,7 @@ describe('Nav', function () {
                 _react2.default.createElement(
                     'span',
                     { className: 'textCls' },
-                    'icon'
+                    'text'
                 )
             )
         ));
@@ -59,7 +59,7 @@ describe('Nav', function () {
                 _react2.default.createElement(
                     'span',
                     { className: 'textCls' },
-                    'icon'
+                    'text'
                 )
             )
         ));
@@ -87,7 +87,7 @@ describe('Nav', function () {
                 _react2.default.createElement(
                     'span',
                     { className: 'textCls' },
-                    'icon'
+                    'text'
                 )
             ),
             _react2.default.createElement(
@@ -108,7 +108,7 @@ describe('Nav', function () {
                     _react2.default.createElement(
                         'span',
                         { className: 'textCls' },
-                        'icon'
+                        'text'
                     )
                 )
             )
@@ -116,5 +116,46 @@ describe('Nav', function () {
         wrapper.find('.__rsnav___item').simulate('click');
         expect(wrapper.find('.__rsnav___item').length).toBe(1);
         expect(wrapper.find('.__rsnav___itemchild').length).toBe(1);
+    });
+
+    it('NavIcon can be optional', function () {
+
+        //this should not throw error
+        var wrapper = (0, _enzyme.mount)(_react2.default.createElement(
+            _index.Nav,
+            { id: 'nav' },
+            _react2.default.createElement(
+                _index.NavText,
+                null,
+                _react2.default.createElement(
+                    'span',
+                    { className: 'textCls' },
+                    'text'
+                )
+            )
+        ));
+
+        wrapper.find('.__rsnav___item').simulate('click');
+        expect(wrapper.find('.__rsnav___item').length).toBe(1);
+    });
+    it('NavText can be optional', function () {
+
+        //this should not throw error
+        var wrapper = (0, _enzyme.mount)(_react2.default.createElement(
+            _index.Nav,
+            { id: 'nav' },
+            _react2.default.createElement(
+                _index.NavIcon,
+                null,
+                _react2.default.createElement(
+                    'span',
+                    { className: 'textCls' },
+                    'icon'
+                )
+            )
+        ));
+
+        wrapper.find('.__rsnav___item').simulate('click');
+        expect(wrapper.find('.__rsnav___item').length).toBe(1);
     });
 });
