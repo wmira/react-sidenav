@@ -72,7 +72,8 @@ Register an **onItemSelection** props
 
 ```javascript
 <SideNav selected='xyz' onItemSelection={ (id, parent) => {}}>
-  ...
+  <Nav />
+  <Nav />
 </SideNav>
 ```
 
@@ -104,14 +105,12 @@ import { BrowserRouter as Router } from 'react-router';
 
 const SideNav = witRR4();
 
-```javascript
 
     <Router>
         <SideNav>
             //nav items and route will automatically updated upon selection
         </SideNav>
     </Router>
-
 ```
 
 
