@@ -10,7 +10,7 @@ const contextTypes = {
     hoverColor: PropTypes.string
 };
 
-const identity = () => {};
+const noop = () => {};
 
 
 export class SideNav extends Component {
@@ -36,7 +36,7 @@ export class SideNav extends Component {
     }
 
     onNavClick = (id, parent = null) => {
-        const { onItemSelection = identity } = this.props;
+        const { onItemSelection = noop } = this.props;
 
         if ( this.state.defaultSelected ) {
             //lets manage it
