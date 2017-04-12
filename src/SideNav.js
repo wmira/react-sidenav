@@ -1,5 +1,6 @@
 
-import React, { cloneElement, Component, Children, PropTypes } from 'react';
+import React, { cloneElement, Component, Children } from 'react';
+import PropTypes from 'prop-types';
 
 import Nav from './Nav';
 

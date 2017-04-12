@@ -7,6 +7,7 @@ Side Navigation Component for React
 
 ![alt tag](https://raw.githubusercontent.com/wmira/react-sidenav/master/sidenav.png) 
 
+
 ## Usage
 
 Install via npm

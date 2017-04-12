@@ -1,5 +1,6 @@
 
-import React, { Children, Component, PropTypes } from 'react';
+import React, { Children, Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 export const NavIcon = () => {
