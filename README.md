@@ -109,17 +109,18 @@ To use with React Router 4, you can use the hoc withRR4 to create a SideNav. Ple
 
 ```javascript
 
-import { withRR4 } from 'react-sidenav;
+import { withRR4 } from 'react-sidenav';
 import { BrowserRouter as Router } from 'react-router';
 
 const SideNav = withRR4();
 
-
+export const Side = () => (
     <Router>
         <SideNav>
             //nav items and route will automatically updated upon selection
         </SideNav>
     </Router>
+);
 ```
 
 
