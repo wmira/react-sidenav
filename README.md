@@ -107,12 +107,12 @@ If its a top level nav, then parent is null.
 
 To use with React Router 4, you can use the hoc withRR4 to create a SideNav. Please see playground folder for a full example
 
-```
+```javascript
 
 import { withRR4 } from 'react-sidenav;
 import { BrowserRouter as Router } from 'react-router';
 
-const SideNav = witRR4();
+const SideNav = withRR4();
 
 
     <Router>
