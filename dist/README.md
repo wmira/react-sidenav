@@ -1,10 +1,12 @@
 # react-sidenav
 
 [![npm version](https://badge.fury.io/js/react-sidenav.svg)](https://badge.fury.io/js/react-sidenav)
+[![Travis](https://travis-ci.org/wmira/react-sidenav.svg?branch=master&style=flat-square)](https://travis-ci.org/wmira/react-sidenav.svg?branch=master)
 
 Side Navigation Component for React
 
-![alt tag](https://raw.githubusercontent.com/wmira/react-sidenav/master/sidenav.png)
+![alt tag](https://raw.githubusercontent.com/wmira/react-sidenav/master/sidenav.png) 
+
 
 ## Usage
 
@@ -19,16 +21,23 @@ Then import it using es6 modules
 ```javascript
 import React from 'react';
 import SideNav, { Nav, NavIcon, NavText } from 'react-sidenav';
+import SvgIcon from 'react-icons-kit';
+
+import { ic_aspect_ratio } from 'react-icons-kit/md/ic_aspect_ratio';
+import { ic_business } from 'react-icons-kit/md/ic_business';
+
 
 //specify the base color/background of the parent container if needed
 const MySideNav = () => (
     <div style={{background: '#2c3e50', color: '#FFF', width: 220}}> 
         <SideNav highlightColor='#E91E63' highlightBgColor='#00bcd4' defaultSelected='sales'>       
             <Nav id='dashboard'>
-                <NavIcon><Icon20 icon={ic_aspect_ratio}/></NavIcon><NavText> Dashboard </NavText>
+                <NavIcon><SvgIcon size={20} icon={ic_aspect_ratio}/></NavIcon>    
+                <NavText> Dashboard </NavText>
             </Nav>
             <Nav id='sales'>
-                <NavIcon><Icon20 icon={ic_business}/></NavIcon><NavText> Sales </NavText>
+                <NavIcon><SvgIcon size={20} icon={ic_business}/></NavIcon>
+                <NavText> Sales </NavText>
             </Nav>
         </SideNav>
     </div>
@@ -98,19 +107,20 @@ If its a top level nav, then parent is null.
 
 To use with React Router 4, you can use the hoc withRR4 to create a SideNav. Please see playground folder for a full example
 
-```
+```javascript
 
-import { withRR4 } from 'react-sidenav;
+import { withRR4 } from 'react-sidenav';
 import { BrowserRouter as Router } from 'react-router';
 
-const SideNav = witRR4();
+const SideNav = withRR4();
 
-
+export const Side = () => (
     <Router>
         <SideNav>
             //nav items and route will automatically updated upon selection
         </SideNav>
     </Router>
+);
 ```
 
 

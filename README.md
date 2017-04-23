@@ -122,6 +122,9 @@ export const Side = () => (
     </Router>
 );
 ```
+### NavIcon and NavText
+
+These 2 components now support style and className props
 
 
 ## Examples

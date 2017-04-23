@@ -13,6 +13,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _Nav = require('./Nav');
 
 var _Nav2 = _interopRequireDefault(_Nav);
@@ -26,13 +30,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var contextTypes = {
-    highlightColor: _react.PropTypes.string,
-    highlightBgColor: _react.PropTypes.string,
-    hoverBgColor: _react.PropTypes.string,
-    hoverColor: _react.PropTypes.string
+    highlightColor: _propTypes2.default.string,
+    highlightBgColor: _propTypes2.default.string,
+    hoverBgColor: _propTypes2.default.string,
+    hoverColor: _propTypes2.default.string
 };
 
-var identity = function identity() {};
+var noop = function noop() {};
 
 var SideNav = exports.SideNav = function (_Component) {
     _inherits(SideNav, _Component);
@@ -45,7 +49,7 @@ var SideNav = exports.SideNav = function (_Component) {
         _this.onNavClick = function (id) {
             var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
             var _this$props$onItemSel = _this.props.onItemSelection,
-                onItemSelection = _this$props$onItemSel === undefined ? identity : _this$props$onItemSel;
+                onItemSelection = _this$props$onItemSel === undefined ? noop : _this$props$onItemSel;
 
 
             if (_this.state.defaultSelected) {
@@ -99,8 +103,8 @@ var SideNav = exports.SideNav = function (_Component) {
 
 SideNav.childContextTypes = contextTypes;
 SideNav.propTypes = _extends({}, contextTypes, {
-    selected: _react.PropTypes.string,
-    defaultSelected: _react.PropTypes.string,
-    onItemSelection: _react.PropTypes.func
+    selected: _propTypes2.default.string,
+    defaultSelected: _propTypes2.default.string,
+    onItemSelection: _propTypes2.default.func
 });
 exports.default = SideNav;

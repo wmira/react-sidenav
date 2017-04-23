@@ -13,6 +13,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _SideNav = require('./SideNav');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -113,12 +117,12 @@ var withRR4 = function withRR4() {
 
         return SideNavWithRR4;
     }(_react2.default.Component), _class.propTypes = {
-        children: _react.PropTypes.node,
-        default: _react.PropTypes.string //if the path does not match, then use this as the selected
+        children: _propTypes2.default.node,
+        default: _propTypes2.default.string //if the path does not match, then use this as the selected
     }, _class.contextTypes = {
-        router: _react.PropTypes.shape({
-            history: _react.PropTypes.object.isRequired,
-            route: _react.PropTypes.object.isRequired
+        router: _propTypes2.default.shape({
+            history: _propTypes2.default.object.isRequired,
+            route: _propTypes2.default.object.isRequired
         })
     }, _temp;
 };

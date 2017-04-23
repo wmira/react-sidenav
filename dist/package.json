@@ -1,6 +1,6 @@
 {
   "name": "react-sidenav",
-  "version": "2.0.6",
+  "version": "2.1.1",
   "description": "A Simple SideBar Navigation written in React",
   "author": "Warren Mira",
   "scripts": {
@@ -26,6 +26,10 @@
     "vertical menu",
     "navigation"
   ],
+  "dependencies": {
+    "prop-types": "^15.5.8",
+    "styled-components": "*"
+  },
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.24.0",
@@ -34,7 +38,7 @@
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-2": "^6.22.0",
     "enzyme": "^2.8.0",
-    "jest": "^19.0.2",
+    "jest": "^19.0.2",    
     "react": "^15",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15",
@@ -44,12 +48,10 @@
     "react-test-renderer": "^15.4.2",
     "styled-components": "^1.4.4",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.2"
+    "webpack-dev-server": "^2.4.2"    
   },
   "peerDependencies": {
-    "react": "*",
-    "react-dom": "*",
-    "styled-components": "*"
+    "react": "^15"    
   },
   "jest": {
     "rootDir": "src"

@@ -18,6 +18,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _styledComponents = require('styled-components');
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
@@ -76,6 +80,16 @@ var hasChildNav = function hasChildNav(children) {
 var CollapsedIndicator = _styledComponents2.default.div(_templateObject4, function (props) {
     return props.collapsed ? '135deg' : '45deg';
 });
+
+var collectStyleAndClsName = function collectStyleAndClsName(comp) {
+    var _ref = comp && comp.props ? comp.props : {},
+        _ref$className = _ref.className,
+        className = _ref$className === undefined ? undefined : _ref$className,
+        _ref$style = _ref.style,
+        style = _ref$style === undefined ? {} : _ref$style;
+
+    return { className: className, style: style };
+};
 
 var Nav = exports.Nav = function (_Component) {
     _inherits(Nav, _Component);
@@ -156,12 +170,12 @@ var Nav = exports.Nav = function (_Component) {
                     _extends({ className: '__rsnav___item' }, itemProps),
                     _react2.default.createElement(
                         NavIconCont,
-                        null,
+                        collectStyleAndClsName(icon),
                         icon && icon.props ? icon.props.children : null
                     ),
                     _react2.default.createElement(
                         NavTextCont,
-                        null,
+                        collectStyleAndClsName(text),
                         text && text.props ? text.props.children : null
                     ),
                     hasChildNav(children) ? _react2.default.createElement(
@@ -177,7 +191,7 @@ var Nav = exports.Nav = function (_Component) {
                     _react.Children.toArray(children).filter(function (child) {
                         return child.type === Nav && _this2.state.collapsed;
                     }).map(function (child, idx) {
-                        //const sicon = findIcon(child.props.children );
+                        var sicon = findIcon(child.props.children);
                         var stext = findText(child.props.children);
                         var isItemHighlighted = highlightedId === id + '/' + child.props.id;
 
@@ -188,12 +202,12 @@ var Nav = exports.Nav = function (_Component) {
                                 }, isHighlighted: isItemHighlighted }),
                             _react2.default.createElement(
                                 NavIconCont,
-                                null,
+                                collectStyleAndClsName(sicon),
                                 null
                             ),
                             _react2.default.createElement(
                                 NavTextCont,
-                                null,
+                                collectStyleAndClsName(stext),
                                 stext ? stext.props.children : null
                             )
                         );
@@ -207,21 +221,21 @@ var Nav = exports.Nav = function (_Component) {
 }(_react.Component);
 
 Nav.contextTypes = {
-    highlightColor: _react.PropTypes.string,
-    highlightBgColor: _react.PropTypes.string,
-    hoverBgColor: _react.PropTypes.string,
-    hoverColor: _react.PropTypes.string
+    highlightColor: _propTypes2.default.string,
+    highlightBgColor: _propTypes2.default.string,
+    hoverBgColor: _propTypes2.default.string,
+    hoverColor: _propTypes2.default.string
 };
 Nav.propTypes = {
-    children: _react.PropTypes.node,
-    highlightColor: _react.PropTypes.string,
-    highlightBgColor: _react.PropTypes.string,
-    isHighlighted: _react.PropTypes.bool,
-    id: _react.PropTypes.string.isRequired,
-    onClick: _react.PropTypes.func,
-    highlightedId: _react.PropTypes.string,
-    renderSubNavIndicator: _react.PropTypes.func,
-    hoverBgColor: _react.PropTypes.string,
-    hoverColor: _react.PropTypes.string
+    children: _propTypes2.default.node,
+    highlightColor: _propTypes2.default.string,
+    highlightBgColor: _propTypes2.default.string,
+    isHighlighted: _propTypes2.default.bool,
+    id: _propTypes2.default.string.isRequired,
+    onClick: _propTypes2.default.func,
+    highlightedId: _propTypes2.default.string,
+    renderSubNavIndicator: _propTypes2.default.func,
+    hoverBgColor: _propTypes2.default.string,
+    hoverColor: _propTypes2.default.string
 };
 exports.default = Nav;

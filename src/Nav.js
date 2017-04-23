@@ -72,6 +72,11 @@ const CollapsedIndicator = styled.div`
     }
 `;
 
+const collectStyleAndClsName = (comp) => {
+    const { className = undefined, style = {} } = comp && comp.props ? comp.props : {};
+    return { className, style } ;
+};
+
 export class Nav extends Component {
 
     static contextTypes = {
@@ -144,25 +149,26 @@ export class Nav extends Component {
             highlightBgColor: highlightBgColor || this.context.highlightBgColor
         };
 
+
         return (
             <div >
                 <NavItemStyled className='__rsnav___item' {...itemProps}>
-                    <NavIconCont>{ icon && icon.props ? icon.props.children : null }</NavIconCont>
-                    <NavTextCont>{ text && text.props ? text.props.children : null }</NavTextCont>
+                    <NavIconCont {...collectStyleAndClsName(icon)}>{ icon && icon.props ? icon.props.children : null }</NavIconCont>
+                    <NavTextCont {...collectStyleAndClsName(text)}>{ text && text.props ? text.props.children : null }</NavTextCont>
                     { hasChildNav(children) ? <div style={{ position: 'absolute', right: '16px', bottom: '4px'}}>{ this.renderSubNavIndicator() } </div> : null }
                 </NavItemStyled>
                 <div ref={ this.setSubNavRef } style={{maxHeight: 0, transition: 'all 0.2s ease-in-out'}}>
                  { Children.toArray(children)
                         .filter(child => child.type === Nav && this.state.collapsed )
                         .map( (child,idx) => {
-                            //const sicon = findIcon(child.props.children );
+                            const sicon = findIcon(child.props.children );
                             const stext = findText(child.props.children);
                             const isItemHighlighted = highlightedId === `${id}/${child.props.id}`;
 
                             return (
                                 <NavItemStyled className={'__rsnav___itemchild'} key={idx} {...itemProps} onClick={ () => this.childClicked(child.props.id)} isHighlighted={isItemHighlighted}>
-                                    <NavIconCont>{ null }</NavIconCont>
-                                    <NavTextCont>{ stext ? stext.props.children : null }</NavTextCont>
+                                    <NavIconCont {...collectStyleAndClsName(sicon)}>{ null }</NavIconCont>
+                                    <NavTextCont {...collectStyleAndClsName(stext)}>{ stext ? stext.props.children : null }</NavTextCont>
                                 </NavItemStyled>
                             );
                         })
