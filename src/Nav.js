@@ -158,7 +158,7 @@ export class Nav extends Component {
                     <NavTextCont {...collectStyleAndClsName(text)}>{ text && text.props ? text.props.children : null }</NavTextCont>
                     { hasChildNav(children) ? <div style={{ position: 'absolute', right: '16px', bottom: '4px'}}>{ this.renderSubNavIndicator() } </div> : null }
                 </NavItemStyled>
-                <div ref={ this.setSubNavRef } style={{maxHeight: (this.state.collapsed ? 0 : '200pz'), transition: 'all 0.2s ease-in-out'}}>
+                <div ref={ this.setSubNavRef } style={{maxHeight: (this.state.collapsed ? 0 : '200px'), transition: 'all 0.2s ease-in-out'}}>
                  { Children.toArray(children)
                         .filter(child => child.type === Nav && !this.state.collapsed )
                         .map( (child,idx) => {
