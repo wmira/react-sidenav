@@ -66,7 +66,7 @@ const CollapsedIndicator = styled.div`
         left: 0;
         position: relative;
         top: 0.15em;
-        transform: rotate(${ props => props.collapsed ? '135deg' : '45deg'});
+        transform: rotate(${ props => !props.collapsed ? '135deg' : '45deg'});
         vertical-align: top;
         width: 0.25em;
     }
@@ -96,12 +96,13 @@ export class Nav extends Component {
         highlightedId: PropTypes.string,
         renderSubNavIndicator: PropTypes.func,
         hoverBgColor: PropTypes.string,
-        hoverColor: PropTypes.string
+        hoverColor: PropTypes.string,
+        expanded: PropTypes.bool,
     }
 
     constructor(props) {
         super(props);
-        this.state = { collapsed: false };
+        this.state = { collapsed: !props.expanded };
     }
 
     onNavItemClicked = () => {
@@ -109,7 +110,7 @@ export class Nav extends Component {
         this.setState({ collapsed: !this.state.collapsed }, () => {
             onClick(this.props.id, null);
             if ( this.subNavEl && !this.s ) {
-                this.subNavEl.style.maxHeight = this.state.collapsed ? '200px' : '0px';
+                this.subNavEl.style.maxHeight = !this.state.collapsed ? '200px' : '0px';
             }
         });
     }
@@ -157,9 +158,9 @@ export class Nav extends Component {
                     <NavTextCont {...collectStyleAndClsName(text)}>{ text && text.props ? text.props.children : null }</NavTextCont>
                     { hasChildNav(children) ? <div style={{ position: 'absolute', right: '16px', bottom: '4px'}}>{ this.renderSubNavIndicator() } </div> : null }
                 </NavItemStyled>
-                <div ref={ this.setSubNavRef } style={{maxHeight: 0, transition: 'all 0.2s ease-in-out'}}>
+                <div ref={ this.setSubNavRef } style={{maxHeight: (this.state.collapsed ? 0 : '200pz'), transition: 'all 0.2s ease-in-out'}}>
                  { Children.toArray(children)
-                        .filter(child => child.type === Nav && this.state.collapsed )
+                        .filter(child => child.type === Nav && !this.state.collapsed )
                         .map( (child,idx) => {
                             const sicon = findIcon(child.props.children );
                             const stext = findText(child.props.children);
