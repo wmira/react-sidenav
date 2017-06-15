@@ -97,29 +97,46 @@ export class Nav extends Component {
           PropTypes.number.isRequired
       ]),
       onClick: PropTypes.func,
-      highlightedId: PropTypes.string,
+      onNavClick: PropTypes.func,
+      highlightedId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       renderSubNavIndicator: PropTypes.func,
       hoverBgColor: PropTypes.string,
       hoverColor: PropTypes.string,
       expanded: PropTypes.bool
   };
 
+  static defaultProps = {
+      onNavClick: identity
+  };
+
   constructor(props) {
         super(props);
-        this.state = { collapsed: !props.expanded };
+        this.state = {
+            collapsed: !props.expanded
+        };
     }
 
   onNavItemClicked = () => {
-      const { onClick = identity } = this.props;
-      this.setState({ collapsed: !this.state.collapsed }, () => {
-          onClick(this.props.id, null);
-          if (this.subNavEl && !this.s) {
-              this.subNavEl.style.maxHeight = !this.state.collapsed ? '200px' : '0px';
+      const { onClick = identity, onNavClick } = this.props;
+      this.setState(
+          {
+              collapsed: !this.state.collapsed
+          },
+          () => {
+              onNavClick(this.props.id, null);
+              onClick(this.props.id, null);
+              if (this.subNavEl && !this.s) {
+                  this.subNavEl.style.maxHeight = !this.state.collapsed
+                      ? '200px'
+                      : '0px';
+              }
           }
-      });
+      );
   };
 
   childClicked = childId => {
+      const { onNavClick } = this.props;
+      onNavClick(childId, this.props.id);
       this.props.onClick(childId, this.props.id);
   };
 
@@ -147,15 +164,16 @@ export class Nav extends Component {
             highlightBgColor,
             children,
             highlightedId,
+            onNavClick = identity,
             id
         } = this.props;
-
         const icon = findIcon(children);
         const text = findText(children);
         const itemProps = {
             hoverBgColor: hoverBgColor || this.context.hoverBgColor,
             hoverColor: hoverColor || this.context.hoverColor,
             onClick: this.onNavItemClicked,
+            onNavClick,
             isHighlighted: id === highlightedId,
             highlightColor: highlightColor || this.context.highlightColor,
             highlightBgColor: highlightBgColor || this.context.highlightBgColor
@@ -172,7 +190,11 @@ export class Nav extends Component {
                     </NavTextCont>
                     {hasChildNav(children)
                         ? <div
-                            style={{ position: 'absolute', right: '16px', bottom: '4px' }}
+                            style={{
+                                position: 'absolute',
+                                right: '16px',
+                                bottom: '4px'
+                            }}
                         >
                             {this.renderSubNavIndicator()}{' '}
                         </div>
@@ -198,7 +220,10 @@ export class Nav extends Component {
                                     className={'__rsnav___itemchild'}
                                     key={idx}
                                     {...itemProps}
-                                    onClick={() => this.childClicked(child.props.id)}
+                                    onClick={() => {
+                                        child.props.onNavClick(),
+                                        this.childClicked(`${id}/${child.props.id}`);
+                                    }}
                                     isHighlighted={isItemHighlighted}
                                 >
                                     <NavIconCont {...collectStyleAndClsName(sicon)}>

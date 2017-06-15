@@ -62,7 +62,10 @@ var SideNav = exports.SideNav = function (_Component) {
             }
         };
 
-        _this.state = { selected: props.defaultSelected, defaultSelected: props.defaultSelected };
+        _this.state = {
+            selected: props.defaultSelected,
+            defaultSelected: props.defaultSelected
+        };
         return _this;
     }
 
@@ -90,7 +93,10 @@ var SideNav = exports.SideNav = function (_Component) {
                 _react.Children.toArray(children).map(function (child) {
                     if (child !== null && child.type === _Nav2.default) {
                         var currentSelected = _this2.state.defaultSelected ? _this2.state.selected : _this2.props.selected;
-                        return (0, _react.cloneElement)(child, { highlightedId: currentSelected, onClick: _this2.onNavClick });
+                        return (0, _react.cloneElement)(child, {
+                            highlightedId: currentSelected,
+                            onClick: _this2.onNavClick
+                        });
                     }
                     return child;
                 })

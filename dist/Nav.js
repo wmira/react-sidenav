@@ -78,7 +78,7 @@ var hasChildNav = function hasChildNav(children) {
 };
 
 var CollapsedIndicator = _styledComponents2.default.div(_templateObject4, function (props) {
-    return props.collapsed ? '135deg' : '45deg';
+    return !props.collapsed ? '135deg' : '45deg';
 });
 
 var collectStyleAndClsName = function collectStyleAndClsName(comp) {
@@ -100,18 +100,26 @@ var Nav = exports.Nav = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
 
         _this.onNavItemClicked = function () {
-            var _this$props$onClick = _this.props.onClick,
-                onClick = _this$props$onClick === undefined ? identity : _this$props$onClick;
+            var _this$props = _this.props,
+                _this$props$onClick = _this$props.onClick,
+                onClick = _this$props$onClick === undefined ? identity : _this$props$onClick,
+                onNavClick = _this$props.onNavClick;
 
-            _this.setState({ collapsed: !_this.state.collapsed }, function () {
+            _this.setState({
+                collapsed: !_this.state.collapsed
+            }, function () {
+                onNavClick(_this.props.id, null);
                 onClick(_this.props.id, null);
                 if (_this.subNavEl && !_this.s) {
-                    _this.subNavEl.style.maxHeight = _this.state.collapsed ? '200px' : '0px';
+                    _this.subNavEl.style.maxHeight = !_this.state.collapsed ? '200px' : '0px';
                 }
             });
         };
 
         _this.childClicked = function (childId) {
+            var onNavClick = _this.props.onNavClick;
+
+            onNavClick(childId, _this.props.id);
             _this.props.onClick(childId, _this.props.id);
         };
 
@@ -132,7 +140,9 @@ var Nav = exports.Nav = function (_Component) {
             return _react2.default.createElement(CollapsedIndicator, { collapsed: _this.state.collapsed });
         };
 
-        _this.state = { collapsed: false };
+        _this.state = {
+            collapsed: !props.expanded
+        };
         return _this;
     }
 
@@ -148,8 +158,9 @@ var Nav = exports.Nav = function (_Component) {
                 highlightBgColor = _props.highlightBgColor,
                 children = _props.children,
                 highlightedId = _props.highlightedId,
+                _props$onNavClick = _props.onNavClick,
+                onNavClick = _props$onNavClick === undefined ? identity : _props$onNavClick,
                 id = _props.id;
-
 
             var icon = findIcon(children);
             var text = findText(children);
@@ -157,6 +168,7 @@ var Nav = exports.Nav = function (_Component) {
                 hoverBgColor: hoverBgColor || this.context.hoverBgColor,
                 hoverColor: hoverColor || this.context.hoverColor,
                 onClick: this.onNavItemClicked,
+                onNavClick: onNavClick,
                 isHighlighted: id === highlightedId,
                 highlightColor: highlightColor || this.context.highlightColor,
                 highlightBgColor: highlightBgColor || this.context.highlightBgColor
@@ -180,16 +192,28 @@ var Nav = exports.Nav = function (_Component) {
                     ),
                     hasChildNav(children) ? _react2.default.createElement(
                         'div',
-                        { style: { position: 'absolute', right: '16px', bottom: '4px' } },
+                        {
+                            style: {
+                                position: 'absolute',
+                                right: '16px',
+                                bottom: '4px'
+                            }
+                        },
                         this.renderSubNavIndicator(),
                         ' '
                     ) : null
                 ),
                 _react2.default.createElement(
                     'div',
-                    { ref: this.setSubNavRef, style: { maxHeight: 0, transition: 'all 0.2s ease-in-out' } },
+                    {
+                        ref: this.setSubNavRef,
+                        style: {
+                            maxHeight: this.state.collapsed ? 0 : '200px',
+                            transition: 'all 0.2s ease-in-out'
+                        }
+                    },
                     _react.Children.toArray(children).filter(function (child) {
-                        return child.type === Nav && _this2.state.collapsed;
+                        return child.type === Nav && !_this2.state.collapsed;
                     }).map(function (child, idx) {
                         var sicon = findIcon(child.props.children);
                         var stext = findText(child.props.children);
@@ -197,9 +221,15 @@ var Nav = exports.Nav = function (_Component) {
 
                         return _react2.default.createElement(
                             NavItemStyled,
-                            _extends({ className: '__rsnav___itemchild', key: idx }, itemProps, { onClick: function onClick() {
-                                    return _this2.childClicked(child.props.id);
-                                }, isHighlighted: isItemHighlighted }),
+                            _extends({
+                                className: '__rsnav___itemchild',
+                                key: idx
+                            }, itemProps, {
+                                onClick: function onClick() {
+                                    child.props.onNavClick(), _this2.childClicked(id + '/' + child.props.id);
+                                },
+                                isHighlighted: isItemHighlighted
+                            }),
                             _react2.default.createElement(
                                 NavIconCont,
                                 collectStyleAndClsName(sicon),
@@ -231,11 +261,16 @@ Nav.propTypes = {
     highlightColor: _propTypes2.default.string,
     highlightBgColor: _propTypes2.default.string,
     isHighlighted: _propTypes2.default.bool,
-    id: _propTypes2.default.string.isRequired,
+    id: _propTypes2.default.oneOfType([_propTypes2.default.string.isRequired, _propTypes2.default.number.isRequired]),
     onClick: _propTypes2.default.func,
-    highlightedId: _propTypes2.default.string,
+    onNavClick: _propTypes2.default.func,
+    highlightedId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
     renderSubNavIndicator: _propTypes2.default.func,
     hoverBgColor: _propTypes2.default.string,
-    hoverColor: _propTypes2.default.string
+    hoverColor: _propTypes2.default.string,
+    expanded: _propTypes2.default.bool
+};
+Nav.defaultProps = {
+    onNavClick: identity
 };
 exports.default = Nav;

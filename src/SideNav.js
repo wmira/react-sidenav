@@ -1,4 +1,3 @@
-
 import React, { cloneElement, Component, Children } from 'react';
 import PropTypes from 'prop-types';
 
@@ -13,54 +12,62 @@ const contextTypes = {
 
 const noop = () => {};
 
-
 export class SideNav extends Component {
+  static childContextTypes = contextTypes;
+  static propTypes = {
+      ...contextTypes,
+      selected: PropTypes.string,
+      defaultSelected: PropTypes.string,
+      onItemSelection: PropTypes.func
+  };
 
-
-    static childContextTypes = contextTypes
-    static propTypes = {
-        ...contextTypes,
-        selected: PropTypes.string,
-        defaultSelected: PropTypes.string,
-        onItemSelection: PropTypes.func
-    }
-
-    constructor(props) {
+  constructor(props) {
         super(props);
-        this.state = { selected: props.defaultSelected , defaultSelected: props.defaultSelected };
+        this.state = {
+            selected: props.defaultSelected,
+            defaultSelected: props.defaultSelected
+        };
     }
 
-
-    getChildContext() {
-        const { highlightColor, highlightBgColor, hoverBgColor, hoverColor } = this.props;
+  getChildContext() {
+        const {
+            highlightColor,
+            highlightBgColor,
+            hoverBgColor,
+            hoverColor
+        } = this.props;
         return { highlightColor, highlightBgColor, hoverBgColor, hoverColor };
     }
 
-    onNavClick = (id, parent = null) => {
-        const { onItemSelection = noop } = this.props;
+  onNavClick = (id, parent = null) => {
+      const { onItemSelection = noop } = this.props;
 
-        if ( this.state.defaultSelected ) {
-            //lets manage it
-            this.setState({ selected: id }, () => {
-                onItemSelection(id, parent);
-            });
-        } else {
-            onItemSelection(id, parent);
-        }
-    }
+      if (this.state.defaultSelected) {
+      //lets manage it
+          this.setState({ selected: id }, () => {
+              onItemSelection(id, parent);
+          });
+      } else {
+          onItemSelection(id, parent);
+      }
+  };
 
-    render() {
-
+  render() {
         const { children } = this.props;
         return (
             <div>
-                { Children.toArray(children).map( child => {
-                    if ( child !== null && child.type === Nav ) {
-                        const currentSelected = this.state.defaultSelected ? this.state.selected : this.props.selected;
-                        return cloneElement(child, { highlightedId: currentSelected, onClick: this.onNavClick });
+                {Children.toArray(children).map(child => {
+                    if (child !== null && child.type === Nav) {
+                        const currentSelected = this.state.defaultSelected
+                            ? this.state.selected
+                            : this.props.selected;
+                        return cloneElement(child, {
+                            highlightedId: currentSelected,
+                            onClick: this.onNavClick
+                        });
                     }
                     return child;
-                }) }
+                })}
             </div>
         );
     }
