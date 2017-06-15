@@ -12,7 +12,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _templateObject = _taggedTemplateLiteral(['\n     padding: 8px 12px;\n     cursor: pointer;\n     position: relative;\n     background: ', ';\n     color: ', ';\n\n     &:hover {\n        color: ', ' !important;\n        background: ', ' !important;\n     }\n'], ['\n     padding: 8px 12px;\n     cursor: pointer;\n     position: relative;\n     background: ', ';\n     color: ', ';\n\n     &:hover {\n        color: ', ' !important;\n        background: ', ' !important;\n     }\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    vertical-align: middle;\n    display: inline-flex;\n    width: 42px;\n'], ['\n    vertical-align: middle;\n    display: inline-flex;\n    width: 42px;\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n    vertical-align: middle;\n    display: inline-flex;\n    padding-right: 16px;\n'], ['\n    vertical-align: middle;\n    display: inline-flex;\n    padding-right: 16px;\n']),
-    _templateObject4 = _taggedTemplateLiteral(['\n    &:before {\n        border-style: solid;\n        border-width: 0.15em 0.15em 0 0;\n        content: \'\';\n        display: inline-block;\n        height: 0.25em;\n        left: 0;\n        position: relative;\n        top: 0.15em;\n        transform: rotate(', ');\n        vertical-align: top;\n        width: 0.25em;\n    }\n'], ['\n    &:before {\n        border-style: solid;\n        border-width: 0.15em 0.15em 0 0;\n        content: \'\';\n        display: inline-block;\n        height: 0.25em;\n        left: 0;\n        position: relative;\n        top: 0.15em;\n        transform: rotate(', ');\n        vertical-align: top;\n        width: 0.25em;\n    }\n']);
+    _templateObject4 = _taggedTemplateLiteral(['\n    &:before {\n        border-style: solid;\n        border-width: 0.15em 0.15em 0 0;\n        content: \'\';\n        display: inline-block;\n        height: ', ';\n        left: 0;\n        position: relative;\n        top: 0.15em;\n        transform: rotate(', ');\n        vertical-align: top;\n        width: ', ';\n    }\n'], ['\n    &:before {\n        border-style: solid;\n        border-width: 0.15em 0.15em 0 0;\n        content: \'\';\n        display: inline-block;\n        height: ', ';\n        left: 0;\n        position: relative;\n        top: 0.15em;\n        transform: rotate(', ');\n        vertical-align: top;\n        width: ', ';\n    }\n']);
 
 var _react = require('react');
 
@@ -78,7 +78,11 @@ var hasChildNav = function hasChildNav(children) {
 };
 
 var CollapsedIndicator = _styledComponents2.default.div(_templateObject4, function (props) {
+    return props.size;
+}, function (props) {
     return !props.collapsed ? '135deg' : '45deg';
+}, function (props) {
+    return props.size;
 });
 
 var collectStyleAndClsName = function collectStyleAndClsName(comp) {
@@ -111,7 +115,7 @@ var Nav = exports.Nav = function (_Component) {
                 onNavClick(_this.props.id, null);
                 onClick(_this.props.id, null);
                 if (_this.subNavEl && !_this.s) {
-                    _this.subNavEl.style.maxHeight = !_this.state.collapsed ? '200px' : '0px';
+                    _this.subNavEl.style.maxHeight = !_this.state.collapsed ? null : '0px';
                 }
             });
         };
@@ -137,7 +141,7 @@ var Nav = exports.Nav = function (_Component) {
                 }
                 return subNavInd || null;
             }
-            return _react2.default.createElement(CollapsedIndicator, { collapsed: _this.state.collapsed });
+            return _react2.default.createElement(CollapsedIndicator, { collapsed: _this.state.collapsed, size: _this.props.collapseIndicatorSize });
         };
 
         _this.state = {
@@ -208,7 +212,7 @@ var Nav = exports.Nav = function (_Component) {
                     {
                         ref: this.setSubNavRef,
                         style: {
-                            maxHeight: this.state.collapsed ? 0 : '200px',
+                            maxHeight: this.state.collapsed ? 0 : null,
                             transition: 'all 0.2s ease-in-out'
                         }
                     },
@@ -268,9 +272,11 @@ Nav.propTypes = {
     renderSubNavIndicator: _propTypes2.default.func,
     hoverBgColor: _propTypes2.default.string,
     hoverColor: _propTypes2.default.string,
-    expanded: _propTypes2.default.bool
+    expanded: _propTypes2.default.bool,
+    collapseIndicatorSize: _propTypes2.default.string
 };
 Nav.defaultProps = {
-    onNavClick: identity
+    onNavClick: identity,
+    collapseIndicatorSize: '0.25em'
 };
 exports.default = Nav;

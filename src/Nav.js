@@ -62,13 +62,13 @@ const CollapsedIndicator = styled.div`
         border-width: 0.15em 0.15em 0 0;
         content: '';
         display: inline-block;
-        height: 0.25em;
+        height: ${props => props.size};
         left: 0;
         position: relative;
         top: 0.15em;
         transform: rotate(${props => (!props.collapsed ? '135deg' : '45deg')});
         vertical-align: top;
-        width: 0.25em;
+        width: ${props => props.size};
     }
 `;
 
@@ -102,11 +102,13 @@ export class Nav extends Component {
       renderSubNavIndicator: PropTypes.func,
       hoverBgColor: PropTypes.string,
       hoverColor: PropTypes.string,
-      expanded: PropTypes.bool
+      expanded: PropTypes.bool,
+      collapseIndicatorSize: PropTypes.string
   };
 
   static defaultProps = {
-      onNavClick: identity
+      onNavClick: identity,
+      collapseIndicatorSize: '0.25em'
   };
 
   constructor(props) {
@@ -127,7 +129,7 @@ export class Nav extends Component {
               onClick(this.props.id, null);
               if (this.subNavEl && !this.s) {
                   this.subNavEl.style.maxHeight = !this.state.collapsed
-                      ? '200px'
+                      ? null
                       : '0px';
               }
           }
@@ -153,7 +155,7 @@ export class Nav extends Component {
           }
           return subNavInd || null;
       }
-      return <CollapsedIndicator collapsed={this.state.collapsed} />;
+      return <CollapsedIndicator collapsed={this.state.collapsed} size={this.props.collapseIndicatorSize}/>;
   };
 
   render() {
@@ -203,7 +205,7 @@ export class Nav extends Component {
                 <div
                     ref={this.setSubNavRef}
                     style={{
-                        maxHeight: this.state.collapsed ? 0 : '200px',
+                        maxHeight: this.state.collapsed ? 0 : null,
                         transition: 'all 0.2s ease-in-out'
                     }}
                 >
