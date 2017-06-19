@@ -13,7 +13,7 @@ Side Navigation Component for React
 Install via npm
 
 ```shell
-npm install --save-dev react-sidenav
+npm install --save react-sidenav
 ```
 
 Then import it using es6 modules
