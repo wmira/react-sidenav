@@ -42,7 +42,7 @@ export const withRR4 = () => {
         componentDidMount() {
             const { history } = this.context.router;
             history.listen( this.onHistoryChanged );
-            const { pathname } = history;
+            const { pathname } = history.location;
             this.setPathAsSelectedId(pathname, this.props.default );
         }
 
