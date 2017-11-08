@@ -103,7 +103,8 @@ export class Nav extends Component {
       hoverBgColor: PropTypes.string,
       hoverColor: PropTypes.string,
       expanded: PropTypes.bool,
-      collapseIndicatorSize: PropTypes.string
+      collapseIndicatorSize: PropTypes.string,
+      tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   };
 
   static defaultProps = {
@@ -112,11 +113,11 @@ export class Nav extends Component {
   };
 
   constructor(props) {
-        super(props);
-        this.state = {
-            collapsed: !props.expanded
-        };
-    }
+      super(props);
+      this.state = {
+          collapsed: !props.expanded
+      };
+  }
 
   onNavItemClicked = () => {
       const { onClick = identity, onNavClick } = this.props;
@@ -158,89 +159,103 @@ export class Nav extends Component {
       return <CollapsedIndicator collapsed={this.state.collapsed} size={this.props.collapseIndicatorSize}/>;
   };
 
-  render() {
-        const {
-            hoverBgColor,
-            hoverColor,
-            highlightColor,
-            highlightBgColor,
-            children,
-            highlightedId,
-            onNavClick = identity,
-            id
-        } = this.props;
-        const icon = findIcon(children);
-        const text = findText(children);
-        const itemProps = {
-            hoverBgColor: hoverBgColor || this.context.hoverBgColor,
-            hoverColor: hoverColor || this.context.hoverColor,
-            onClick: this.onNavItemClicked,
-            onNavClick,
-            isHighlighted: id === highlightedId,
-            highlightColor: highlightColor || this.context.highlightColor,
-            highlightBgColor: highlightBgColor || this.context.highlightBgColor
-        };
+  handleButtonKeyDown(e, id) {
+      if (e.keyCode === 13) {
+          e.preventDefault();
+          e.stopPropagation();
+          const { onClick = identity, onNavClick } = this.props;
+          onNavClick(id, null);
+          onClick(id, null);
+      }
+  }
 
-        return (
-            <div>
-                <NavItemStyled className="__rsnav___item" {...itemProps}>
-                    <NavIconCont {...collectStyleAndClsName(icon)}>
-                        {icon && icon.props ? icon.props.children : null}
-                    </NavIconCont>
-                    <NavTextCont {...collectStyleAndClsName(text)}>
-                        {text && text.props ? text.props.children : null}
-                    </NavTextCont>
-                    {hasChildNav(children)
-                        ? <div
-                            style={{
-                                position: 'absolute',
-                                right: '16px',
-                                bottom: '4px'
-                            }}
-                        >
-                            {this.renderSubNavIndicator()}{' '}
-                        </div>
-                        : null}
-                </NavItemStyled>
-                <div
-                    ref={this.setSubNavRef}
-                    style={{
-                        maxHeight: this.state.collapsed ? 0 : null,
-                        transition: 'all 0.2s ease-in-out'
-                    }}
-                >
-                    {Children.toArray(children)
-                        .filter(child => child.type === Nav && !this.state.collapsed)
-                        .map((child, idx) => {
-                            const sicon = findIcon(child.props.children);
-                            const stext = findText(child.props.children);
-                            const isItemHighlighted =
+  render() {
+      const {
+          hoverBgColor,
+          hoverColor,
+          highlightColor,
+          highlightBgColor,
+          children,
+          highlightedId,
+          onNavClick = identity,
+          id,
+          tabIndex: tabindex,
+      } = this.props;
+      const icon = findIcon(children);
+      const text = findText(children);
+      const itemProps = {
+          hoverBgColor: hoverBgColor || this.context.hoverBgColor,
+          hoverColor: hoverColor || this.context.hoverColor,
+          onClick: this.onNavItemClicked,
+          onNavClick,
+          isHighlighted: id === highlightedId,
+          highlightColor: highlightColor || this.context.highlightColor,
+          highlightBgColor: highlightBgColor || this.context.highlightBgColor,
+          tabIndex: tabindex,
+          onKeyDown: (e => {
+              this.handleButtonKeyDown(e, id);
+          })
+      };
+      return (
+          <div>
+              <NavItemStyled className="__rsnav___item" {...itemProps}>
+                  <NavIconCont {...collectStyleAndClsName(icon)}>
+                      {icon && icon.props ? icon.props.children : null}
+                  </NavIconCont>
+                  <NavTextCont {...collectStyleAndClsName(text)}>
+                      {text && text.props ? text.props.children : null}
+                  </NavTextCont>
+                  {hasChildNav(children)
+                      ? <div
+                          style={{
+                              position: 'absolute',
+                              right: '16px',
+                              bottom: '4px'
+                          }}
+                      >
+                          {this.renderSubNavIndicator()}{' '}
+                      </div>
+                      : null}
+              </NavItemStyled>
+              <div
+                  ref={this.setSubNavRef}
+                  style={{
+                      maxHeight: this.state.collapsed ? 0 : null,
+                      transition: 'all 0.2s ease-in-out'
+                  }}
+              >
+                  {Children.toArray(children)
+                      .filter(child => child.type === Nav && !this.state.collapsed)
+                      .map((child, idx) => {
+                          const sicon = findIcon(child.props.children);
+                          const stext = findText(child.props.children);
+                          const isItemHighlighted =
                 highlightedId === `${id}/${child.props.id}`;
 
-                            return (
-                                <NavItemStyled
-                                    className={'__rsnav___itemchild'}
-                                    key={idx}
-                                    {...itemProps}
-                                    onClick={() => {
-                                        child.props.onNavClick(),
-                                        this.childClicked(`${id}/${child.props.id}`);
-                                    }}
-                                    isHighlighted={isItemHighlighted}
-                                >
-                                    <NavIconCont {...collectStyleAndClsName(sicon)}>
-                                        {null}
-                                    </NavIconCont>
-                                    <NavTextCont {...collectStyleAndClsName(stext)}>
-                                        {stext ? stext.props.children : null}
-                                    </NavTextCont>
-                                </NavItemStyled>
-                            );
-                        })}
-                </div>
-            </div>
-        );
-    }
+                          return (
+                              <NavItemStyled
+                                  className={'__rsnav___itemchild'}
+                                  key={idx}
+                                  {...itemProps}
+                                  onClick={() => {
+                                      child.props.onNavClick(),
+                                      this.childClicked(`${id}/${child.props.id}`);
+                                  }}
+                                  isHighlighted={isItemHighlighted}
+                              >
+                                  <NavIconCont {...collectStyleAndClsName(sicon)}>
+                                      {null}
+                                  </NavIconCont>
+                                  <NavTextCont {...collectStyleAndClsName(stext)}>
+                                      {stext ? stext.props.children : null}
+                                  </NavTextCont>
+                              </NavItemStyled>
+                          );
+                      })}
+              </div>
+          </div>
+      );
+  }
 }
 
 export default Nav;

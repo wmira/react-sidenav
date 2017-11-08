@@ -5,6 +5,24 @@ import { mount } from 'enzyme';
 
 describe.only('Nav', () => {
 
+    it('should not have a tabIndex when not provided', () => {
+        const wrapper = mount(
+            <Nav id='nav'>
+                <NavIcon><span className='iconCls'>icon</span></NavIcon>
+                <NavText><span className='textCls'>text</span></NavText>
+            </Nav>
+        );
+        expect(wrapper.find('[tabIndex]').length).toBe(0);
+    });
+
+    it('should have a tabIndex when provided', () => {
+        const wrapper = mount(
+            <Nav id='nav' tabIndex="1">
+            </Nav>
+        );
+        expect(wrapper.find('[tabIndex]').length).toBe(1);
+    });
+
     it('should take children of NavIcon and NavText and renders it but not NavIcon', () => {
         const wrapper = mount(
             <Nav id='nav'>
