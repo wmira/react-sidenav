@@ -163,7 +163,6 @@ export class Nav extends Component {
       if (e.keyCode === 13) {
           e.preventDefault();
           e.stopPropagation();
-          debugger;
           const { onClick = identity, onNavClick } = this.props;
           onNavClick(id, null);
           onClick(id, null);
