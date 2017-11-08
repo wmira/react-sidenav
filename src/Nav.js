@@ -159,6 +159,17 @@ export class Nav extends Component {
       return <CollapsedIndicator collapsed={this.state.collapsed} size={this.props.collapseIndicatorSize}/>;
   };
 
+  handleButtonKeyDown(e, id) {
+      if (e.keyCode === 13) {
+          e.preventDefault();
+          e.stopPropagation();
+          debugger;
+          const { onClick = identity, onNavClick } = this.props;
+          onNavClick(id, null);
+          onClick(id, null);
+      }
+  }
+
   render() {
       const {
           hoverBgColor,
@@ -182,6 +193,9 @@ export class Nav extends Component {
           highlightColor: highlightColor || this.context.highlightColor,
           highlightBgColor: highlightBgColor || this.context.highlightBgColor,
           tabIndex: tabindex,
+          onKeyDown: (e => {
+              this.handleButtonKeyDown(e, id);
+          })
       };
       return (
           <div>
