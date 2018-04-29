@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.withRR4 = undefined;
+exports.withRR4 = exports.pathReducer = exports.pathToArray = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -34,7 +34,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  *
  * @param {*} path
  */
-var pathToArray = function pathToArray() {
+var pathToArray = exports.pathToArray = function pathToArray() {
     var path = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
     //remove first char
@@ -42,7 +42,7 @@ var pathToArray = function pathToArray() {
     return sanitizedPath.split('/');
 };
 
-var pathReducer = function pathReducer(acc, partial) {
+var pathReducer = exports.pathReducer = function pathReducer(acc, partial) {
     return acc + '/' + partial;
 };
 
@@ -58,31 +58,29 @@ var withRR4 = function withRR4() {
             var _this = _possibleConstructorReturn(this, (SideNavWithRR4.__proto__ || Object.getPrototypeOf(SideNavWithRR4)).call(this, props));
 
             _this.setPathAsSelectedId = function (pathname, defaultSelection) {
-                var pathAsId = pathToArray(pathname).reduce(pathReducer);
-                _this.setState({ selected: pathAsId ? pathAsId : defaultSelection });
+                var pathArr = pathToArray(pathname);
+                var pathArrToUse = pathArr.length === 0 ? [defaultSelection] : pathArr;
+
+                var pathAsId = pathArrToUse.reduce(pathReducer);
+                _this.setState({ selected: pathAsId });
             };
 
             _this.onHistoryChanged = function (e) {
                 var pathname = e.pathname;
 
-                _this.setPathAsSelectedId(pathname);
+                _this.setPathAsSelectedId(pathname, _this.props.default);
             };
 
-            _this.onItemSelection = function (itemId, parent) {
+            _this.onItemSelection = function (itemId) {
                 var history = _this.context.router.history;
 
                 //do not push history if the resulting click is the same as the current id
 
                 var selected = _this.state.selected;
 
-                var newPossiblePathAsId = parent ? parent + '/' + itemId : itemId;
 
-                if (newPossiblePathAsId !== selected) {
-                    if (itemId && parent) {
-                        history.push('/' + parent + '/' + itemId);
-                    } else {
-                        history.push('/' + itemId);
-                    }
+                if (itemId !== selected) {
+                    history.push('/' + itemId);
                 }
             };
 
@@ -96,7 +94,7 @@ var withRR4 = function withRR4() {
                 var history = this.context.router.history;
 
                 history.listen(this.onHistoryChanged);
-                var pathname = history.pathname;
+                var pathname = history.location.pathname;
 
                 this.setPathAsSelectedId(pathname, this.props.default);
             }

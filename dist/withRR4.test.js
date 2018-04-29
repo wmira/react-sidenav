@@ -10,6 +10,8 @@ var _index = require('./index');
 
 var _enzyme = require('enzyme');
 
+var _withRR = require('./withRR4');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var SideNav = (0, _index.withRR4)();
@@ -113,5 +115,13 @@ describe('withRR4 test', function () {
             expect(wrapper.instance().history.location.pathname).toBe('/sales');
             done();
         }, 0);
+    });
+
+    it('pathToArray exclude / when path starts with /', function () {
+        var path = '/a/b';
+        var arrPath = (0, _withRR.pathToArray)(path);
+        expect(arrPath[0]).toBe('a');
+        expect(arrPath[1]).toBe('b');
+        expect(arrPath.length).toBe(2);
     });
 });
