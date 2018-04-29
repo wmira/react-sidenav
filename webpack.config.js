@@ -2,19 +2,23 @@
 const path = require('path');
 
 module.exports = {
+    entry: './src/playground/index.tsx',
+    resolve: {
+        extensions: [".ts", ".tsx", ".js"]
+    },    
     module: {
         rules: [
-            { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader'] }
+            { test: /\.tsx?$/, loader: "ts-loader" }
         ]
     },
     devtool: 'source-map',
-    resolve: {
-        alias: {
-            'react-sidenav': path.resolve(__dirname, 'src')
-        }
+    
+    devServer: {
+        inline: true        
     },
 
-    devServer: {
-        inline: true
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM"
     }
 };
