@@ -1,12 +1,13 @@
 {
   "name": "react-sidenav",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A Simple SideBar Navigation written in React",
   "author": "Warren Mira",
   "scripts": {
     "playground": "webpack-dev-server --content-base playground ",
     "dist": "cp package.json dist && cp README.md dist && babel -D -d dist/ ./src ",
     "test": "jest",
+    "test:watch": "npm run test -- --watch",
     "lint": "eslint src/*"
   },
   "repository": {

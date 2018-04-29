@@ -13,15 +13,15 @@ const contextTypes = {
 const noop = () => {};
 
 export class SideNav extends Component {
-  static childContextTypes = contextTypes;
-  static propTypes = {
-      ...contextTypes,
-      selected: PropTypes.string,
-      defaultSelected: PropTypes.string,
-      onItemSelection: PropTypes.func
-  };
+    static childContextTypes = contextTypes;
+    static propTypes = {
+        ...contextTypes,
+        selected: PropTypes.string,
+        defaultSelected: PropTypes.string,
+        onItemSelection: PropTypes.func
+    };
 
-  constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
             selected: props.defaultSelected,
@@ -29,7 +29,7 @@ export class SideNav extends Component {
         };
     }
 
-  getChildContext() {
+    getChildContext() {
         const {
             highlightColor,
             highlightBgColor,
@@ -39,25 +39,25 @@ export class SideNav extends Component {
         return { highlightColor, highlightBgColor, hoverBgColor, hoverColor };
     }
 
-  onNavClick = (id, parent = null) => {
-      const { onItemSelection = noop } = this.props;
+    onNavClick = (id, parent = null) => {
+        const { onItemSelection = noop } = this.props;
 
-      if (this.state.defaultSelected) {
-      //lets manage it
-          this.setState({ selected: id }, () => {
-              onItemSelection(id, parent);
-          });
-      } else {
-          onItemSelection(id, parent);
-      }
-  };
+        if (this.state.defaultSelected) {
+        //lets manage it
+            this.setState({ selected: id }, () => {
+                onItemSelection(id, parent);
+            });
+        } else {
+            onItemSelection(id, parent);
+        }
+    };
 
-  render() {
+    render() {
         const { children } = this.props;
         return (
             <div>
                 {Children.toArray(children).map(child => {
-                    if (child !== null && child.type === Nav) {
+                    if (child && child.type === Nav) {
                         const currentSelected = this.state.defaultSelected
                             ? this.state.selected
                             : this.props.selected;
