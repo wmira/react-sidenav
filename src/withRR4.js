@@ -8,14 +8,14 @@ import { SideNav } from './SideNav';
  *
  * @param {*} path
  */
-const pathToArray = (path = '') => {
+export const pathToArray = (path = '') => {
     //remove first char
     const sanitizedPath = path.indexOf('/') === 0 ? path.substring(1) : path;
     return sanitizedPath.split('/');
 
 };
 
-const pathReducer = (acc, partial) =>  `${acc}/${partial}`;
+export const pathReducer = (acc, partial) =>  `${acc}/${partial}`;
 
 export const withRR4 = () => {
 
@@ -47,27 +47,25 @@ export const withRR4 = () => {
         }
 
         setPathAsSelectedId = (pathname, defaultSelection) => {
-            const pathAsId = pathToArray(pathname).reduce(pathReducer );
-            this.setState({ selected: pathAsId ? pathAsId : defaultSelection });
+            const pathArr = pathToArray(pathname)
+            const pathArrToUse = pathArr.length === 0 ? [defaultSelection] : pathArr
+
+            const pathAsId = pathArrToUse.reduce(pathReducer )
+            this.setState({ selected: pathAsId });
         }
         onHistoryChanged = (e) => {
             const { pathname } = e;
-            this.setPathAsSelectedId(pathname);
+            this.setPathAsSelectedId(pathname, this.props.default);
         }
 
-        onItemSelection = (itemId, parent) => {
+        onItemSelection = (itemId) => {
             const { history } = this.context.router;
 
             //do not push history if the resulting click is the same as the current id
             const { selected } = this.state;
-            const newPossiblePathAsId = parent ? `${parent}/${itemId}` : itemId ;
 
-            if ( newPossiblePathAsId !== selected ) {
-                if ( itemId && parent ) {
-                    history.push(`/${parent}/${itemId}`);
-                } else {
-                    history.push(`/${itemId}`);
-                }
+            if ( itemId !== selected ) {
+                history.push(`/${itemId}`);
             }
         }
 

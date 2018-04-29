@@ -3,6 +3,7 @@ import React from 'react';
 import { MemoryRouter, Route } from 'react-router';
 import { withRR4, Nav, NavText } from './index';
 import { mount } from 'enzyme';
+import { pathToArray } from './withRR4';
 
 const SideNav = withRR4();
 
@@ -56,4 +57,13 @@ describe('withRR4 test', () => {
             done();
         }, 0);
     });
+
+    it('pathToArray exclude / when path starts with /', () => {
+        const path = '/a/b'
+        const arrPath = pathToArray(path)
+        expect(arrPath[0]).toBe('a')
+        expect(arrPath[1]).toBe('b')
+        expect(arrPath.length).toBe(2)
+
+    })
 });
