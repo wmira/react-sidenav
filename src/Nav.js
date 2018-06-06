@@ -214,8 +214,8 @@ export class Nav extends Component {
                         .map((child, idx) => {
                             const sicon = findIcon(child.props.children);
                             const stext = findText(child.props.children);
-                            const isItemHighlighted =
-                highlightedId === `${id}/${child.props.id}`;
+                            const childId = id ? highlightedId === `${id}/${child.props.id}` : child.props.id;
+                            const isItemHighlighted = highlightedId === childId;
 
                             return (
                                 <NavItemStyled
@@ -224,7 +224,7 @@ export class Nav extends Component {
                                     {...itemProps}
                                     onClick={() => {
                                         child.props.onNavClick(),
-                                        this.childClicked(`${id}/${child.props.id}`);
+                                        this.childClicked(childId);
                                     }}
                                     isHighlighted={isItemHighlighted}
                                 >
