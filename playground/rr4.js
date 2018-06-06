@@ -58,6 +58,15 @@ class RR4 extends React.Component {
                             <Nav id='products'>
                                 <NavText>  Products </NavText>
                             </Nav>
+                            <Nav>
+                                <NavText> No id </NavText>
+                                <Nav id='path'>
+                                    <NavText> path </NavText>
+                                </Nav>
+                                <Nav id='path/to/something'>
+                                    <NavText> path to something </NavText>
+                                </Nav>
+                            </Nav>
                         </SideNav>
                     </div>
                     <div style={{padding: 20}}>

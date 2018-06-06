@@ -64,6 +64,7 @@ export const withRR4 = () => {
             //do not push history if the resulting click is the same as the current id
             const { selected } = this.state;
 
+            if ( itemId === undefined ) return;
             if ( itemId !== selected ) {
                 history.push(`/${itemId}`);
             }
