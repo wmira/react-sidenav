@@ -1,5 +1,6 @@
 import React, { cloneElement, Component, Children } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import Nav from './Nav';
 
@@ -55,7 +56,7 @@ export class SideNav extends Component {
     render() {
         const { children, className } = this.props;
         return (
-            <div className={ className }>
+            <div className={ classnames(className) }>
                 {Children.toArray(children).map(child => {
                     if (child && child.type === Nav) {
                         const currentSelected = this.state.defaultSelected
