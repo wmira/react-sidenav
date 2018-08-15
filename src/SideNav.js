@@ -53,9 +53,9 @@ export class SideNav extends Component {
     };
 
     render() {
-        const { children } = this.props;
+        const { children, className } = this.props;
         return (
-            <div>
+            <div className={ className }>
                 {Children.toArray(children).map(child => {
                     if (child && child.type === Nav) {
                         const currentSelected = this.state.defaultSelected
