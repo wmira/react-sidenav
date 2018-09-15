@@ -7,7 +7,7 @@
         "target": "es5",
         "jsx": "react",
         "moduleResolution": "node",
-        "lib": ["es5", "es6", "dom"],        
+        "lib": ["es5", "es6", "dom"]        
     },
     "include": [
         "./src/**/*"

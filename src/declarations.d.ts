@@ -8,6 +8,6 @@ declare module "react-icons-kit" {
 
 }
 
-declare module "react-icons-kit/icomoon" {
+// declare module "react-icons-kit/icomoon" {
 
-}
+// }

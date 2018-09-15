@@ -7,18 +7,18 @@ export const SideNavContainer = styled.div`
     flex-direction: column;
 `
 
-export interface NavItemContainerProps {
-    hoverBackground?: string
-    height?: string
-}
+// export interface NavItemContainerProps {
+//     hoverBackground?: string
+//     height?: string
+// }
 
-export const NavItemContainer = styled.div`
-    padding: 6px 14px;
-    cursor: pointer;
-    width: 100%;
-    vertical-align: middle;
-    &:hover {
-        background: ${(props:NavItemContainerProps) => props.hoverBackground ? props.hoverBackground : 'blue'}
-    }
-`
+// export const NavItemContainer = styled.div`
+//     padding: 6px 14px;
+//     cursor: pointer;
+//     width: 100%;
+//     vertical-align: middle;
+//     &:hover {
+//         background: ${(props:NavItemContainerProps) => props.hoverBackground ? props.hoverBackground : 'blue'}
+//     }
+// `
 
