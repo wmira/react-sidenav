@@ -14,7 +14,7 @@ const SideNavCnt = styled.div`
     border-right: 1px solid #E5E5E5;
     flex: 2
 `
-const Body = styled.div`    
+const Body = styled.div`
     flex: 3;
     width: 100%;
 `
@@ -36,7 +36,7 @@ export class Basic extends React.Component<{},{ selectionPath?: string, selected
     }
 
     public render() {
-        
+
         return (
             <Container>
                 <InnerCnt>
@@ -53,7 +53,7 @@ export class Basic extends React.Component<{},{ selectionPath?: string, selected
                                 <Nav id={'2'}>
                                     Item 1.2
                                 </Nav>
-                            
+
                             </Nav>
                             <Nav id='2'>Item 2</Nav>
                             <Nav id='3'>Item 3</Nav>
@@ -68,7 +68,7 @@ export class Basic extends React.Component<{},{ selectionPath?: string, selected
         )
     }
 
-    
+
 }
 
 
@@ -84,12 +84,12 @@ export class Basic extends React.Component<{},{ selectionPath?: string, selected
 // import { SideNavProps } from '../types';
 
 
-// export const SideNav = styled<SideNavProps>(BaseSideNav)`    
+// export const SideNav = styled<SideNavProps>(BaseSideNav)`
 //     width: 180px;
 //     height: 100%;
 //     background: #EDF2F4;
 //     color: #2B2D42;
-//     font-size: 0.9em;    
+//     font-size: 0.9em;
 // `
 
 
@@ -103,8 +103,8 @@ export class Basic extends React.Component<{},{ selectionPath?: string, selected
 // `
 
 // const NavItem = styled(BaseNavItemContainer)`
-    
-//     padding: 8px 12px;   
+
+//     padding: 8px 12px;
 //     background: ${ (props:ContainerProp) => props.isSelected ? '#D90429': 'transparent'};
 //     color: ${ ( props: ContainerProp) => props.isSelected ? '#FFF' : 'inherit'};
 //     transition: all 250ms ease-out;
@@ -118,20 +118,20 @@ export class Basic extends React.Component<{},{ selectionPath?: string, selected
 //     margin: 4px 12px;
 //     padding: 8px 12px;
 //     text-align: center;
-//     background: ${ (props:ContainerProp) => props.isSelected ? '#d2d4d5': 'transparent'};    
-//     transition: all 250ms ease-out;    
+//     background: ${ (props:ContainerProp) => props.isSelected ? '#d2d4d5': 'transparent'};
+//     transition: all 250ms ease-out;
 //     &:hover {
-//         background: #d2d4d5;             
+//         background: #d2d4d5;
 //     }
 // `
 
 // export const NavItem3 = styled(BaseNavItemContainer)`
 //     margin: 4px 12px;
-//     padding: 8px 12px;    
-//     border-bottom: 1px solid ${ (props:ContainerProp) => props.isSelected ? '#1985A1': 'transparent'};    
+//     padding: 8px 12px;
+//     border-bottom: 1px solid ${ (props:ContainerProp) => props.isSelected ? '#1985A1': 'transparent'};
 //     transition: all 250ms ease-out;
 //     &:hover {
-//         border-bottom: 1px solid ${ (props:ContainerProp) => props.isSelected ? '#1985A1': 'transparent'};        
+//         border-bottom: 1px solid ${ (props:ContainerProp) => props.isSelected ? '#1985A1': 'transparent'};
 //     }
 // `
 // export const SimpleText = styled(BaseNavItemContainer)`
@@ -147,7 +147,7 @@ export class Basic extends React.Component<{},{ selectionPath?: string, selected
 
 // export default class BasicSideNav extends React.PureComponent<{ itemContainer?: React.ReactType, sideNavContainer?: BaseSideNav }, { selectedId: string }> {
 
-//     public state: { selectedId: string } 
+//     public state: { selectedId: string }
 
 //     constructor(props: {}) {
 //         super(props)
@@ -156,30 +156,30 @@ export class Basic extends React.Component<{},{ selectionPath?: string, selected
 //         }
 //     }
 
-//     private onItemSelection = (id: string) => {            
+//     private onItemSelection = (id: string) => {
 //         this.setState({ selectedId: id })
 //     }
 
 //     render() {
 //         const SideNavToUse: React.ReactType<SideNavProps> = (this.props.sideNavContainer ? this.props.sideNavContainer : SideNav) as React.ReactType<SideNavProps>
-//         const NavItemToUse = (this.props.itemContainer ? this.props.itemContainer : NavItem ) 
+//         const NavItemToUse = (this.props.itemContainer ? this.props.itemContainer : NavItem )
 //         return (
-//             <SideNavToUse 
-//                 selectedItem={this.state.selectedId}                
+//             <SideNavToUse
+//                 selectedItem={this.state.selectedId}
 //                 onItemSelection={this.onItemSelection}
 //                 itemContainer={NavItemToUse}>
-//                 <Nav id='item1'> 
-//                     <Item>                            
+//                 <Nav id='item1'>
+//                     <Item>
 //                         <Icon icon={fileEmpty} />
-//                         <ItemText>Item 1</ItemText>                            
-//                     </Item> 
-//                 </Nav>                    
-//                 <Nav id='item2'> 
-//                     <Item>                            
+//                         <ItemText>Item 1</ItemText>
+//                     </Item>
+//                 </Nav>
+//                 <Nav id='item2'>
+//                     <Item>
 //                         <Icon icon={stack} />
-//                         <ItemText>Item 2</ItemText>                  
-//                     </Item> 
-//                 </Nav>                    
+//                         <ItemText>Item 2</ItemText>
+//                     </Item>
+//                 </Nav>
 //             </SideNavToUse>
 //         )
 //     }
@@ -187,7 +187,7 @@ export class Basic extends React.Component<{},{ selectionPath?: string, selected
 
 // export class SideNavTextItem extends React.PureComponent<{ }, { selectedId: string }> {
 
-//     public state: { selectedId: string } 
+//     public state: { selectedId: string }
 
 //     constructor(props: {}) {
 //         super(props)
@@ -196,23 +196,23 @@ export class Basic extends React.Component<{},{ selectionPath?: string, selected
 //         }
 //     }
 
-//     private onItemSelection = (id: string) => {            
+//     private onItemSelection = (id: string) => {
 //         this.setState({ selectedId: id })
 //     }
 
 //     render() {
-        
+
 //         return (
-//             <SideNav 
-//                 selectedItem={this.state.selectedId}      
-//                 itemContainer={SimpleText}          
+//             <SideNav
+//                 selectedItem={this.state.selectedId}
+//                 itemContainer={SimpleText}
 //                 onItemSelection={this.onItemSelection}>
-//                 <Nav id='item1'>                    
+//                 <Nav id='item1'>
 //                     <ItemText>Item 1</ItemText>
-//                 </Nav>                    
-//                 <Nav id='item2'>                     
-//                     <ItemText>Item 2</ItemText>                                      
-//                 </Nav>                    
+//                 </Nav>
+//                 <Nav id='item2'>
+//                     <ItemText>Item 2</ItemText>
+//                 </Nav>
 //             </SideNav>
 //         )
 //     }

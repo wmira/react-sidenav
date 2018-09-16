@@ -1,6 +1,6 @@
 
 export interface IOnItemSelectionArg<P = {}> {
-    id?: string    
+    id?: string
     path: string
     payload?: P
 }

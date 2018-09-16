@@ -18,28 +18,28 @@ export class SideNav extends React.Component<ISideNavProp> {
         super(props)
     }
 
+    public render() {
+        const { selectedPath } = this.props
+        const propsTemplate = { ...this.props.template }
+        const template = { ...defaultTemplate, propsTemplate }
+
+        const value: ISideNavContext = {
+            selectedPath,
+            onItemSelection: this.onItemSelection,
+            template,
+        }
+        return (
+            <Provider
+                value={value}>
+                <Container>{ this.props.children || null }</Container>
+            </Provider>
+        )
+    }
+
     private onItemSelection = (arg: IOnItemSelectionArg) => {
 
         if ( this.props.onItemSelection ) {
             this.props.onItemSelection(arg)
         }
-    }
-
-    public render() {  
-        const { selectedPath } = this.props
-        const propsTemplate = { ...this.props.template }        
-        const template = { ...defaultTemplate, propsTemplate }
-
-        const value: ISideNavContext = {
-            selectedPath, 
-            onItemSelection: this.onItemSelection,
-            template,        
-        }
-        return (
-            <Provider 
-                value={value}>
-                <Container>{ this.props.children || null }</Container>
-            </Provider>
-        )
     }
 }

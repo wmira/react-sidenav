@@ -3,7 +3,7 @@ import { ISideNavContext } from './types/ISideNavContext';
 
 import { template } from './templates/Basic'
 
-const { Provider, Consumer }= React.createContext<ISideNavContext>({    
+const { Provider, Consumer }= React.createContext<ISideNavContext>({
     selectedPath: '',
     template
 })

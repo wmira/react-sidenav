@@ -5,9 +5,11 @@
   "author": "Warren Mira",
   "scripts": {
     "playground": "webpack-dev-server --mode development --content-base playground ",
-    "dist": "cp package.json dist && cp README.md dist && babel -D -d dist/ ./src ",
+    "predist": "rimraf dist",
+    "dist-build": "tsc && cp package.json dist && cp README.md dist ",
+    "dist": "npm run lint && npm run test && npm run dist-build",
     "test": "jest",
-    "lint": "eslint src/*"
+    "lint": "tslint --project tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -44,11 +46,14 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-test-renderer": "^15.4.2",
+    "rimraf": "^2.6.2",
     "source-map-loader": "^0.2.3",
     "styled-components": "^3.4.6",
     "ts-jest": "^23.1.4",
     "ts-loader": "^4.4.1",
     "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-react": "^3.6.0",
     "typescript": "^3.0.3",
     "webpack": "^4.12.0",
     "webpack-cli": "^2.1.5",
@@ -78,7 +83,9 @@
     },
     "testMatch": [
       "**/*.test.+(ts|tsx|js)"
-    ]
+    ],
+    "moduleNameMapper": {
+      "react-sidenav": "<rootDir>/src"
+    }
   }
-
 }

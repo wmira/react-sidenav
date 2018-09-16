@@ -17,31 +17,31 @@ export class Nav extends React.PureComponent<INavProp> {
                                     .filter( child => !isNavType(child as React.ReactElement<any>))
         const navViewChildren = mapNavChildren(context, this.props )
         const hasChildren = navViewChildren.length > 0
-        
+
         const argProps = {
             id: this.props.id,
             className: this.props.className,
             payload: this.props.payload,
             onClick: this.props.onClick,
-            context: context
+            context
         }
 
         if ( hasChildren ) {
-            return(                
-                <NavViewWithChildren {...argProps}>    
+            return(
+                <NavViewWithChildren {...argProps}>
                     { [ ...childrenWithoutNav, ...navViewChildren ] }
-                </NavViewWithChildren>                
+                </NavViewWithChildren>
             )
-        } else {            
+        } else {
             return (
                 <NavView {...argProps}>
-                    { childrenWithoutNav }                
+                    { childrenWithoutNav }
                 </NavView>
             )
         }
-        
+
     }
-  
+
     public render() {
 
         return (
@@ -56,15 +56,15 @@ export class Nav extends React.PureComponent<INavProp> {
 
 // const navChildren: ReactChild[] = Children.toArray(children)
         //                     .filter( child => isNavType(child as React.ReactElement<any>))
-        //                     .map( (child: React.ReactElement<INavProp & { children?: React.ReactNode }>) => {                                
+        //                     .map( (child: React.ReactElement<INavProp & { children?: React.ReactNode }>) => {
         //                         return (
         //                             <NavView
         //                                 key={`${this.props.id}|${child.props.id}`}
         //                                 parentId={this.props.id}
-        //                                 id={child.props.id} 
-        //                                 payload={this.props.payload}  
+        //                                 id={child.props.id}
+        //                                 payload={this.props.payload}
         //                                 context={context}
-        //                                 onClick={this.props.onClick} 
+        //                                 onClick={this.props.onClick}
         //                             >{ child.props.children }</NavView>
         //                         )
         //                     })

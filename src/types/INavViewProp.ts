@@ -3,5 +3,5 @@ import { ISideNavContext } from "./ISideNavContext";
 
 export interface INavViewProp extends INavProp {
     context: ISideNavContext
-    parentId?: string    
+    parentId?: string
 }

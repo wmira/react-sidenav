@@ -1,6 +1,6 @@
 
 
-import styled from 'styled-components'    
+import styled from 'styled-components'
 import { INavTheme, ISideNavStateProp, ITemplate } from "../types";
 
 export const NavTemplate = styled.div`
@@ -17,16 +17,16 @@ export const NavTemplate = styled.div`
 
 export const ChildrenTemplate = styled.div`
     max-height: ${ (props: ISideNavStateProp) => props.isExpanded?  '1000px' : '0px' };
-    transition: all 0.2s ease-in-out;    
+    transition: all 0.2s ease-in-out;
     overflow: hidden;
 `
 
-export const theme: INavTheme = {    
+export const theme: INavTheme = {
     color: 'inherit',
     bgColor: 'inherit',
     className: '',
     selectionColor: 'deepskyblue',
-    selectionBgColor: '#F5F5F5',    
+    selectionBgColor: '#F5F5F5',
     hoverColor: 'deepskyblue',
     hoverBgColor: '#F5F5F5'
 }
@@ -35,5 +35,5 @@ export const template: ITemplate = {
     nav: NavTemplate,
     children: ChildrenTemplate,
     navChild: NavTemplate,
-    theme,    
+    theme,
 }

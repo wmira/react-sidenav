@@ -7,6 +7,6 @@ export interface ISideNavStateProp {
     isExpanded: boolean | undefined
     parentId?: string | undefined
     navProp: INavProp
-    theme: INavTheme 
+    theme: INavTheme
     level: number
 }

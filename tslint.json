@@ -8,15 +8,14 @@
     },
     "rules": {
       "ordered-imports": false,
-      "no-console": false,
+      "no-console": true,
       "object-literal-sort-keys": false,
       "no-unused-expression": false,
       "interface-name": true,      
       "interface-over-type-literal": true,
       "no-empty-interface": false,
       "max-classes-per-file": false,
-      "no-trailing-whitespace": true,
-      "no-unused-variable": true
+      "no-trailing-whitespace": true      
     }
   
   }

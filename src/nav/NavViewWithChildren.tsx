@@ -4,7 +4,6 @@ import { INavViewProp } from 'react-sidenav/types/INavViewProp';
 import { isExpanded } from 'react-sidenav/nav/isExpanded';
 import { NavView } from 'react-sidenav/nav/NavView';
 import { ChildrenTemplate, theme } from 'react-sidenav/templates/Basic';
-import { PATH_SEPARATOR } from 'react-sidenav/constats';
 import { ISideNavStateProp } from 'react-sidenav/types';
 import { createPath } from 'react-sidenav/nav/createPath';
 
@@ -13,7 +12,7 @@ interface INavChildrenState {
 }
 
 export class NavViewWithChildren extends React.Component<INavViewProp, INavChildrenState > {
-    
+
     constructor(props: INavViewProp) {
         super(props)
         this.state = {
@@ -28,16 +27,16 @@ export class NavViewWithChildren extends React.Component<INavViewProp, INavChild
         })
     }
 
-    
-    public render() {       
+
+    public render() {
 
         const childrenNodes: React.ReactChild[] = React.Children.toArray(this.props.children)
         const parentNode = childrenNodes[0]
-        
+
         const { id, context } = this.props
         const path = createPath(this.props)
         const navStateProp: ISideNavStateProp = {
-            theme: context.template.theme || theme,            
+            theme: context.template.theme || theme,
             isSelectedPath: id !== undefined && context.selectedPath === path, // FIXME, parent should be considered
             isExpanded: undefined,
             navProp: this.props,
@@ -45,10 +44,9 @@ export class NavViewWithChildren extends React.Component<INavViewProp, INavChild
         }
 
         const ChildrenContainer = this.props.context.template.children || ChildrenTemplate
-        console.log(ChildrenContainer)
-        console.log('Children C', ChildrenContainer)
+
         return (
-            <>                       
+            <>
                 <NavView
                     {...this.props}
                     onClick={this.onClick}>
@@ -56,8 +54,8 @@ export class NavViewWithChildren extends React.Component<INavViewProp, INavChild
                 </NavView>
                 <ChildrenContainer
                     {...navStateProp}
-                    isSelectedPath={undefined} 
-                    isExpanded={this.state.isExpanded}> 
+                    isSelectedPath={undefined}
+                    isExpanded={this.state.isExpanded}>
                     { childrenNodes.slice(1) }
                 </ChildrenContainer>
             </>

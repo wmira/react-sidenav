@@ -3,7 +3,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 const View = styled.div`
-    
+
     border-top: 2em solid #425452;
     box-shadow: 0 0.1em 1em 0 rgba(0, 0, 0, 0.4);
     position: relative;
@@ -26,7 +26,7 @@ const View = styled.div`
 `
 
 export class Container extends React.Component {
-    
+
     public render() {
         return (
             <View>{ this.props.children }</View>
