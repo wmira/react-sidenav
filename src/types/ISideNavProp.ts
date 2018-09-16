@@ -7,6 +7,13 @@ export interface ISideNavProp {
     onItemSelection?: OnItemSelectionListener
     selectedPath?: string
     defaultSelectedPath?: string
-    navTemplate?: ComponentType<ISideNavStateProp>
-    theme?: INavTheme
+    template?: {
+        nav?: ComponentType<ISideNavStateProp>
+        children: ComponentType<ISideNavStateProp>
+        navChild?: ComponentType<ISideNavStateProp>
+        theme?: INavTheme
+        extras?: {
+            [key: string]: any
+        }
+    }
 }

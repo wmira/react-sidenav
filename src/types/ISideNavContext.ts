@@ -1,11 +1,9 @@
 import { OnItemSelectionListener } from "./OnItemSelectionListener";
-import { ComponentType } from "react";
-import { INavTheme } from "./INavTheme";
+import { ITemplate } from "./ITemplate";
 
 
 export interface ISideNavContext<P = {}> {
     onItemSelection?: OnItemSelectionListener<P>
     selectedPath: string
-    navTemplate: ComponentType
-    theme: INavTheme
+    template: ITemplate
 }

@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { ISideNavContext } from './types/ISideNavContext';
-import { BasicTemplate, BasicTheme } from './BasicTemplate';
+
+import { template } from './templates/Basic'
 
 const { Provider, Consumer }= React.createContext<ISideNavContext>({    
     selectedPath: '',
-    navTemplate: BasicTemplate,
-    theme: BasicTheme
+    template
 })
 
 export { Provider }

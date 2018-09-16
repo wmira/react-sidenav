@@ -2,8 +2,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { Provider } from './Context';
-import { ISideNavProp, OnItemSelectionListener, IOnItemSelectionArg } from './types';
-import { BasicTemplate, BasicTheme } from './BasicTemplate';
+import { ISideNavProp, IOnItemSelectionArg, ISideNavContext } from './types';
+import { template as defaultTemplate } from './templates/Basic';
 
 
 const Container = styled.div`
@@ -27,11 +27,13 @@ export class SideNav extends React.Component<ISideNavProp> {
 
     public render() {  
         const { selectedPath } = this.props
-        const value = {
+        const propsTemplate = { ...this.props.template }        
+        const template = { ...defaultTemplate, propsTemplate }
+
+        const value: ISideNavContext = {
             selectedPath, 
             onItemSelection: this.onItemSelection,
-            navTemplate: this.props.navTemplate || BasicTemplate,
-            theme: this.props.theme || BasicTheme
+            template,        
         }
         return (
             <Provider 

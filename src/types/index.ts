@@ -3,3 +3,5 @@ export { OnItemSelectionListener, IOnItemSelectionArg } from './OnItemSelectionL
 export { INavProp } from './INavProp'
 export { ISideNavProp } from './ISideNavProp'
 export { ISideNavStateProp } from './ISideNavState'
+export { INavTheme } from './INavTheme'
+export { ITemplate } from './ITemplate'

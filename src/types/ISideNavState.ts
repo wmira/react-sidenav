@@ -8,4 +8,5 @@ export interface ISideNavStateProp {
     parentId?: string | undefined
     navProp: INavProp
     theme: INavTheme 
+    level: number
 }

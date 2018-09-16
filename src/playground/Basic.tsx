@@ -4,31 +4,12 @@ import styled from 'styled-components'
 import { Center } from 'react-containers'
 
 import { SideNav } from '../SideNav'
-import { Nav } from '../Nav';
+import { Nav } from 'react-sidenav';
 import { Container } from './Container';
-import { IOnItemSelectionArg, ISideNavStateProp } from '../types';
+import { IOnItemSelectionArg } from 'react-sidenav/types';
 
-
-
-const Padding = styled.div`
-    padding: 10px 0px;
-`
-const Separator = styled.div`
-    border-bottom: 1px solid #E5E5E5;
-    width: 60%;
-    margin: auto;    
-`
-// const Template = styled.div`
-//     color: ${ (props: ISideNavStateProp ) => props.isSelectedPath ? 'skyblue' : 'inherit' } ;
-//     background: ${ (props: ISideNavStateProp) => props.isSelectedPath ? '#E5E5E5': 'inherit'};
-
-//     &:hover {
-//         background: ${ (props: ISideNavStateProp) => props.navProp.id === '1' ? 'blue' : '#F2F2F2'};
-//         color: ${ (props: ISideNavStateProp) => props.navProp.id === '1' ? 'white' : '#444'};
-//     }
-// `
 const SideNavCnt = styled.div`
-
+    padding: 12px 0px;
     height: 100%;
     border-right: 1px solid #E5E5E5;
     flex: 2
@@ -63,14 +44,20 @@ export class Basic extends React.Component<{},{ selectionPath?: string, selected
                         <SideNav
                             selectedPath={this.state.selectionPath}
                             onItemSelection={this.onItemSelection}>
-                            <Padding/>
-                                <Nav id='1'>Item 1</Nav>
-                                <Nav id='2'>Item 2</Nav>
-                            <Padding/>
-                            <Separator/>
-                            <Padding/>
-                                <Nav id='3'>Item 3</Nav>
-                                <Nav id='4'>Item 4</Nav>
+
+                            <Nav id='1'>
+                                Item 1
+                                <Nav id={'1'}>
+                                    Item 1.1
+                                </Nav>
+                                <Nav id={'2'}>
+                                    Item 1.2
+                                </Nav>
+                            
+                            </Nav>
+                            <Nav id='2'>Item 2</Nav>
+                            <Nav id='3'>Item 3</Nav>
+                            <Nav id='4'>Item 4</Nav>
                         </SideNav>
                     </SideNavCnt>
                     <Body>

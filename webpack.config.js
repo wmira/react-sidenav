@@ -4,7 +4,10 @@ const path = require('path');
 module.exports = {
     entry: './src/playground/index.tsx',
     resolve: {
-        extensions: [".ts", ".tsx", ".js"]
+        extensions: [".ts", ".tsx", ".js"],
+        alias: {
+            "react-sidenav": path.resolve(__dirname,"src")
+        }
     },    
     module: {
         rules: [

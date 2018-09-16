@@ -7,7 +7,17 @@
         "target": "es5",
         "jsx": "react",
         "moduleResolution": "node",
-        "lib": ["es5", "es6", "dom"]        
+        "lib": ["es5", "es6", "dom"],
+        "baseUrl": ".",
+        "paths": {
+            "react-sidenav": ["src"],
+            "react-sidenav/*": ["src/*"]
+        },
+        "declaration": true,
+        "types": [
+            "jest",
+            "node"
+        ]
     },
     "include": [
         "./src/**/*"
