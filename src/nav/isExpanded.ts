@@ -1,4 +1,4 @@
-import { PATH_SEPARATOR } from "../constats";
+import { PATH_SEPARATOR } from "../constants";
 
 
 export const isExpanded = (parentId: string, selectedPath: string): boolean | undefined => {
