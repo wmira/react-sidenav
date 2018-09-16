@@ -7,4 +7,7 @@ export interface INavTheme {
     selectionBgColor?: string
     hoverBgColor?: string
     hoverColor?: string
+    iconColor?: string
+    selectionIconColor?: string
+    hoverIconColor?: string
 }

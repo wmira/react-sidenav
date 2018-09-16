@@ -4,7 +4,7 @@
   "description": "A Simple SideBar Navigation written in React",
   "author": "Warren Mira",
   "scripts": {
-    "playground": "webpack-dev-server --mode development --content-base playground ",
+    "playground": "webpack-dev-server --mode development --content-base playground src/playground/index.tsx ",
     "predist": "rimraf dist",
     "dist-build": "tsc && cp package.json dist && cp README.md dist ",
     "dist": "npm run lint && npm run test && npm run dist-build",
@@ -39,7 +39,8 @@
   "devDependencies": {
     "@types/jest": "^23.3.2",
     "awesome-typescript-loader": "^5.0.0",
-    "enzyme": "^2.8.0",
+    "enzyme": "^2.9.1",
+    "enzyme-adapter-react-16": "^1.5.0",
     "jest": "^23.6.0",
     "react-containers": "^15.2.3",
     "react-icons-kit": "^1.1.7",

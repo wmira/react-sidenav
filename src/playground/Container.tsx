@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const View = styled.div`
 
-    border-top: 2em solid #425452;
+    border-top: 2em solid #475252;
     box-shadow: 0 0.1em 1em 0 rgba(0, 0, 0, 0.4);
     position: relative;
     border-radius: 3px 3px 0 0;

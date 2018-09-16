@@ -15,20 +15,20 @@ export class NavView extends React.PureComponent<INavViewProp> {
     }
     public render() {
 
-        const { className, children, context, id } = this.props
+        const { children, context, id } = this.props
         const Template = this.props.context.template.nav || NavTemplate
         const path = this.createPath()
         const navStateProp: ISideNavStateProp = {
-            theme: context.template.theme || theme,
-            isSelectedPath: id !== undefined && context.selectedPath === path, // FIXME, parent should be considered
-            isExpanded: undefined,
+            theme: context.theme || theme,
+            selected: id !== undefined && context.selectedPath === path, // FIXME, parent should be considered
+            expanded: undefined,
             navProp: this.props,
-            level: this.props.parentId ? 1 : 0 // 1 level for now
+            level: this.props.parentId ? 1 : 0, // 1 level for now
+            template: this.props.context.template
         }
+
         return (
-            <div
-                onClick={this.dispatchOnClick}
-                className={className}>
+            <div onClick={this.dispatchOnClick}>
                 <Template { ...navStateProp }>
                     { children || null }
                 </Template>

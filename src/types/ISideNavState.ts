@@ -1,12 +1,14 @@
 import { INavProp } from "./INavProp";
 import { INavTheme } from "./INavTheme";
+import { ITemplateComponents } from "react-sidenav/types/ITemplateComponents";
 
 
 export interface ISideNavStateProp {
-    isSelectedPath: boolean
-    isExpanded: boolean | undefined
+    selected: boolean
+    expanded: boolean | undefined
     parentId?: string | undefined
     navProp: INavProp
-    theme: INavTheme
+    theme?: INavTheme
     level: number
+    template?: ITemplateComponents
 }

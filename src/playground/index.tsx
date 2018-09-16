@@ -4,10 +4,13 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 
-import { Basic } from './Basic'
+import { Basic } from 'react-sidenav/playground/SideNavView'
 
 import { injectGlobal } from 'styled-components'
 import styled from 'styled-components'
+import { TextOnly } from 'react-sidenav/playground/TextOnly';
+import { Custom } from 'react-sidenav/playground/Custom';
+import { WithTextAndIcons } from 'react-sidenav/playground/WithTextAndIcons';
 
 
 injectGlobal`
@@ -30,8 +33,8 @@ injectGlobal`
   }
 `
 const View = styled.div`
-  width: 420px;
-  height: 260px;
+  width: 460px;
+  height: 450px;
   padding: 12px;
 `
 
@@ -46,8 +49,9 @@ const Flex = styled.div`
 
 const RenderItems = () => (
     <Flex>
-        <View><Basic /></View>
-
+        <View><Basic sidenav={TextOnly}/></View>
+        <View><Basic sidenav={Custom}/></View>
+        <View><Basic bgColor={'#2B333E'} sidenav={WithTextAndIcons}/></View>
     </Flex>
 )
 
@@ -57,8 +61,3 @@ const start = (): void => { // effect much
 
 
 document.addEventListener("DOMContentLoaded", start)
-
-// <View><Container ><SubNavigation /></Container></View>
-{/* <View><Container ><BasicSideNav itemContainer={NavItem2}/></Container></View>
-<View><Container ><BasicSideNav itemContainer={NavItem3}/></Container></View>
-<View><Container ><SideNavTextItem /></Container></View> */}

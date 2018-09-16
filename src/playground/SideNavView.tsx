@@ -3,19 +3,20 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { Center } from 'react-containers'
 
-import { SideNav } from '../SideNav'
-import { Nav } from 'react-sidenav';
-import { Container } from './Container';
+import { Container } from 'react-sidenav/playground/Container';
 import { IOnItemSelectionArg } from 'react-sidenav/types';
+import { TextOnly } from 'react-sidenav/playground/TextOnly';
+import { IExampleProp } from 'react-sidenav/playground/IExampleProp';
 
 const SideNavCnt = styled.div`
     padding: 12px 0px;
     height: 100%;
     border-right: 1px solid #E5E5E5;
-    flex: 2
+    flex: 3;
+    background: ${ (props: { bgColor?: string }) => props.bgColor || 'inherit'};
 `
 const Body = styled.div`
-    flex: 3;
+    flex: 4;
     width: 100%;
 `
 const InnerCnt = styled.div`
@@ -26,7 +27,9 @@ const InnerCnt = styled.div`
 `
 
 
-export class Basic extends React.Component<{},{ selectionPath?: string, selectedId?: string }> {
+
+
+export class Basic extends React.Component<{ bgColor?: string, sidenav: React.ComponentType<IExampleProp>},{ selectionPath?: string, selectedId?: string }> {
 
     public state = { selectionPath: '1' }
 
@@ -36,29 +39,14 @@ export class Basic extends React.Component<{},{ selectionPath?: string, selected
     }
 
     public render() {
-
+        const SideNavEl = this.props.sidenav
         return (
             <Container>
                 <InnerCnt>
-                    <SideNavCnt>
-                        <SideNav
-                            selectedPath={this.state.selectionPath}
-                            onItemSelection={this.onItemSelection}>
-
-                            <Nav id='1'>
-                                Item 1
-                                <Nav id={'1'}>
-                                    Item 1.1
-                                </Nav>
-                                <Nav id={'2'}>
-                                    Item 1.2
-                                </Nav>
-
-                            </Nav>
-                            <Nav id='2'>Item 2</Nav>
-                            <Nav id='3'>Item 3</Nav>
-                            <Nav id='4'>Item 4</Nav>
-                        </SideNav>
+                    <SideNavCnt bgColor={this.props.bgColor}>
+                        <SideNavEl
+                            selectionPath={this.state.selectionPath}
+                            onItemSelection={this.onItemSelection}/>
                     </SideNavCnt>
                     <Body>
                         <Center>{ this.state.selectionPath || '' }</Center>

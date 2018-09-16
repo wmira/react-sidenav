@@ -8,5 +8,5 @@ export {
     ISideNavProp,
     ISideNavStateProp,
     INavTheme,
-    ITemplate
+    ITemplateComponents
 } from './types'
