@@ -20,6 +20,6 @@
         ]
     },
     "include": [
-        "./src/**/*", "declarations.d.ts"
+        "./src/**/*", "src/declarations.d.ts"
     ]    
 }
