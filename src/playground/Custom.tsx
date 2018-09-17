@@ -13,8 +13,7 @@ import {
 
 
 const NavTemplate = styled(BaseNavTemplate)`
-    border-left: ${ (props: ISideNavStateProp & INavProp) => props.selected ? '3px solid #028090' : '3px solid transparent' };
-    background: inherit;
+    background: ${ (props: ISideNavStateProp) => props.selected ? props.theme.selectionBgColor : 'inherit' };
 `
 const template: ITemplateComponents = {
     ...baseTemplate,
@@ -24,19 +23,39 @@ const template: ITemplateComponents = {
 
 const theme = {
     ...baseTheme,
-    selectionColor: 'inherit',
+    selectionColor: '#FFF',
+    selectionBgColor: '#028090',
     hoverBgColor: '#028090',
     hoverColor: '#FFF'
 }
 
+const Item = styled.div`
+    display: flex;
+`
+const Icon = styled.i`
+    width: 44px;
+`
+const Label = styled.div`
+    line-height: 28px;
+`
+
+const NavItem = (props: {label: string, icon: string }) => {
+    return (
+        <Item>
+            <Icon className={`fab fa-2x ${props.icon}`}/>
+            <Label>{ props.label }</Label>
+        </Item>
+    )
+}
 export const Custom = (props:  IExampleProp ) => (
     <SideNav
+        theme={theme}
         template={template}
         selectedPath={props.selectionPath}
         onItemSelection={props.onItemSelection}>
 
         <Nav id='1'>
-            Item 1
+            <NavItem icon={'fa-angular'} label={'Angular'}/>
             <Nav id={'1'}>
                 Item 1.1
             </Nav>
@@ -45,8 +64,14 @@ export const Custom = (props:  IExampleProp ) => (
             </Nav>
 
         </Nav>
-        <Nav id='2'>Item 2</Nav>
-        <Nav id='3'>Item 3</Nav>
-        <Nav id='4'>Item 4</Nav>
+        <Nav id='2'>
+            <NavItem icon={'fa-react'} label={'React'}/>
+        </Nav>
+        <Nav id='3'>
+            <NavItem icon={'fa-ember'} label={'Ember'}/>
+        </Nav>
+        <Nav id='4'>
+            <NavItem icon={'fa-vuejs'} label={'Vuejs'}/>
+        </Nav>
     </SideNav>
 )

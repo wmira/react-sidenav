@@ -5,7 +5,6 @@ import { Center } from 'react-containers'
 
 import { Container } from 'react-sidenav/playground/Container';
 import { IOnItemSelectionArg } from 'react-sidenav/types';
-import { TextOnly } from 'react-sidenav/playground/TextOnly';
 import { IExampleProp } from 'react-sidenav/playground/IExampleProp';
 
 const SideNavCnt = styled.div`
@@ -29,7 +28,7 @@ const InnerCnt = styled.div`
 
 
 
-export class Basic extends React.Component<{ bgColor?: string, sidenav: React.ComponentType<IExampleProp>},{ selectionPath?: string, selectedId?: string }> {
+export class SideNavView extends React.Component<{ bgColor?: string, sidenav: React.ComponentType<IExampleProp>},{ selectionPath?: string, selectedId?: string }> {
 
     public state = { selectionPath: '1' }
 

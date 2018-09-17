@@ -10,7 +10,7 @@ export const TextOnly = (props:  IExampleProp ) => (
         onItemSelection={props.onItemSelection}>
 
         <Nav id='1'>
-            Item 1
+            <span>Item 1</span>
             <Nav id={'1'}>
                 Item 1.1
             </Nav>
@@ -19,8 +19,14 @@ export const TextOnly = (props:  IExampleProp ) => (
             </Nav>
         </Nav>
 
-        <Nav id='2'>Item 2</Nav>
-        <Nav id='3'>Item 3</Nav>
-        <Nav id='4'>Item 4</Nav>
+        <Nav id='2'>
+            <span>Item 2</span>
+        </Nav>
+        <Nav id='3'>
+            <span>Item 3</span>
+        </Nav>
+        <Nav id='4'>
+            <span>Item 4</span>
+        </Nav>
     </SideNav>
 )

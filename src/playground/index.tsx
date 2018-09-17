@@ -4,7 +4,7 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 
-import { Basic } from 'react-sidenav/playground/SideNavView'
+import { SideNavView } from 'react-sidenav/playground/SideNavView'
 
 import { injectGlobal } from 'styled-components'
 import styled from 'styled-components'
@@ -49,9 +49,9 @@ const Flex = styled.div`
 
 const RenderItems = () => (
     <Flex>
-        <View><Basic sidenav={TextOnly}/></View>
-        <View><Basic sidenav={Custom}/></View>
-        <View><Basic bgColor={'#2B333E'} sidenav={WithTextAndIcons}/></View>
+        <View><SideNavView sidenav={TextOnly}/></View>
+        <View><SideNavView sidenav={Custom}/></View>
+        <View><SideNavView bgColor={'#2B333E'} sidenav={WithTextAndIcons}/></View>
     </Flex>
 )
 

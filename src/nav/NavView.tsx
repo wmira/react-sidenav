@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { INavViewProp } from '../types/INavViewProp';
 import { ISideNavStateProp } from '../types';
-import { theme, NavTemplate } from '../templates/Basic';
+import { theme, NavTemplate, NavChildTemplate } from '../templates/Basic';
 
 export class NavView extends React.PureComponent<INavViewProp> {
 
@@ -16,7 +16,9 @@ export class NavView extends React.PureComponent<INavViewProp> {
     public render() {
 
         const { children, context, id } = this.props
-        const Template = this.props.context.template.nav || NavTemplate
+        const { template } = this.props.context
+        const isChild = this.props.parentId !== undefined
+        const Template = isChild ? template.navChild || NavChildTemplate : ( template.nav || NavTemplate )
         const path = this.createPath()
         const navStateProp: ISideNavStateProp = {
             theme: context.theme || theme,

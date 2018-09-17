@@ -26,6 +26,7 @@ import styled from 'styled-components';
 const NavTemplate = styled(baseTemplate.nav)`
     border-left: ${ (props: ISideNavStateProp) => props.selected ? `4px solid ${props.theme.selectionColor}` : '4px solid transparent' };
     padding: ${ (props: ISideNavStateProp) => props.level === 0 ? '12px 14px' : '12px 22px' };
+
 `
 
 const template = {
