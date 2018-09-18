@@ -10,9 +10,5 @@ Side Navigation Component for React
 
 # Rewrite / @next version
 
-Please note that react-sidenav has underwent a none-backwards compatible rewrite.
-
-This should enable the component to be non opinionated on how it renders the navigation.
-
 Please checkout @next version and the ts16 branch https://github.com/wmira/react-sidenav/tree/ts16
 
