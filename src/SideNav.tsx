@@ -22,7 +22,7 @@ export class SideNav extends React.Component<ISideNavProp, ISideNavState> {
     constructor(props: ISideNavProp) {
         super(props)
         if ( this.props.defaultSelectedPath ) {
-            this.setState({ selectedPath: this.props.defaultSelectedPath })
+            this.state = { selectedPath: this.props.defaultSelectedPath }
         }
     }
 
