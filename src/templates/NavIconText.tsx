@@ -1,7 +1,7 @@
 
 import * as React from 'react'
 import styled, { css } from 'styled-components'
-import { INavTheme, ISideNavStateProp, ITemplateComponents } from "../types";
+import { ISideNavStateProp, ITemplateComponents } from "../types";
 import { findChild } from 'react-sidenav/templates/findChild';
 import { ITemplateProp } from 'react-sidenav/types/ITemplateProp';
 
@@ -11,17 +11,6 @@ export const ChildrenTemplate = styled.div`
     transition: all 0.3s ease-in-out;
     overflow: hidden;
 `
-
-export const theme: INavTheme = {
-    color: 'inherit',
-    bgColor: 'inherit',
-    className: '',
-    selectionColor: 'deepskyblue',
-    selectionBgColor: '#F5F5F5',
-    hoverColor: 'deepskyblue',
-    hoverBgColor: '#F5F5F5'
-}
-
 
 export const NavIcon = (props: ITemplateProp): undefined => {
     return undefined

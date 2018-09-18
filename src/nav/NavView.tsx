@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { INavViewProp } from '../types/INavViewProp';
 import { ISideNavStateProp } from '../types';
-import { theme, NavTemplate, NavChildTemplate } from '../templates/Basic';
+import { NavTemplate, NavChildTemplate } from '../templates/Basic';
 
 export class NavView extends React.PureComponent<INavViewProp> {
 
@@ -21,7 +21,7 @@ export class NavView extends React.PureComponent<INavViewProp> {
         const Template = isChild ? template.navChild || NavChildTemplate : ( template.nav || NavTemplate )
         const path = this.createPath()
         const navStateProp: ISideNavStateProp = {
-            theme: context.theme || theme,
+            theme: context.theme || {},
             selected: id !== undefined && context.selectedPath === path, // FIXME, parent should be considered
             expanded: undefined,
             navProp: this.props,

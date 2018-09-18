@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { SideNav } from "react-sidenav/SideNav";
-import { Nav } from "react-sidenav/nav/Nav";
+import { SideNav, Nav } from "react-sidenav";
+
 import { IExampleProp } from 'react-sidenav/playground/IExampleProp';
 
 export const TextOnly = (props:  IExampleProp ) => (
