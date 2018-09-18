@@ -3,7 +3,7 @@ import * as React from 'react'
 import { INavViewProp } from 'react-sidenav/types/INavViewProp';
 import { isExpanded } from 'react-sidenav/nav/isExpanded';
 import { NavView } from 'react-sidenav/nav/NavView';
-import { ChildrenTemplate, theme } from 'react-sidenav/templates/Basic';
+import { ChildrenTemplate } from 'react-sidenav/templates/Basic';
 import { ISideNavStateProp } from 'react-sidenav/types';
 import { createPath } from 'react-sidenav/nav/createPath';
 
@@ -36,7 +36,7 @@ export class NavViewWithChildren extends React.Component<INavViewProp & { nav: R
         const { id, context } = this.props
         const path = createPath(this.props)
         const navStateProp: ISideNavStateProp = {
-            theme: context.theme || theme,
+            theme: context.theme,
             selected: id !== undefined && context.selectedPath === path, // FIXME, parent should be considered
             expanded: undefined,
             navProp: this.props,

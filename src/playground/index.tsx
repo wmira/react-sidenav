@@ -11,6 +11,9 @@ import styled from 'styled-components'
 import { TextOnly } from 'react-sidenav/playground/TextOnly';
 import { Custom } from 'react-sidenav/playground/Custom';
 import { WithTextAndIcons } from 'react-sidenav/playground/WithTextAndIcons';
+import { MemoryRouter, Route } from 'react-router';
+import { WithRR4 } from 'react-sidenav/playground/WithRR4';
+import { SideNavWithRouterView } from 'react-sidenav/playground/SideNavWithRouterView';
 
 
 injectGlobal`
@@ -46,12 +49,12 @@ const Flex = styled.div`
 `
 
 
-
 const RenderItems = () => (
     <Flex>
         <View><SideNavView sidenav={TextOnly}/></View>
         <View><SideNavView sidenav={Custom}/></View>
         <View><SideNavView bgColor={'#2B333E'} sidenav={WithTextAndIcons}/></View>
+        <View><SideNavWithRouterView /></View>
     </Flex>
 )
 

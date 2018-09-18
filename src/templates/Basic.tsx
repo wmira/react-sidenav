@@ -23,15 +23,6 @@ export const ChildrenTemplate = styled.div`
     transition: all 0.3s ease-in-out;
     overflow: hidden;
 `
-
-export const theme: INavTheme = {
-    color: 'inherit',
-    bgColor: 'inherit',
-    className: '',
-    selectionColor: 'blue',
-    selectionBgColor: 'inherit'
-}
-
 export const template: ITemplateComponents = {
     nav: NavTemplate,
     children: ChildrenTemplate,

@@ -36,6 +36,8 @@
     "@types/jest": "^23.3.2",
     "@types/react": "^16.3.17",
     "@types/react-dom": "^16.0.6",
+    "@types/react-router": "^4.0.31",
+    "@types/react-router-dom": "^4.3.1",
     "awesome-typescript-loader": "^5.0.0",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",

@@ -10,3 +10,4 @@ export {
     INavTheme,
     ITemplateComponents
 } from './types'
+export { withRR4 } from './withRR4'

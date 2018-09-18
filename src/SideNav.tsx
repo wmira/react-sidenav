@@ -3,8 +3,8 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { Provider } from './Context';
 import { ISideNavProp, IOnItemSelectionArg, ISideNavContext } from './types';
-import { template as defaultTemplate, theme as defaultTheme  } from './templates/Basic';
-
+import { template as defaultTemplate  } from './templates/Basic';
+import { baseTheme as defaultTheme } from './theme'
 
 const Container = styled.div`
     width: 100%;

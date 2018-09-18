@@ -27,8 +27,12 @@ const InnerCnt = styled.div`
 
 
 
-
-export class SideNavView extends React.Component<{ bgColor?: string, sidenav: React.ComponentType<IExampleProp>},{ selectionPath?: string, selectedId?: string }> {
+export interface ISideNavViewProp {
+    bgColor?: string
+    sidenav: React.ComponentType<IExampleProp>
+    children?: () => React.ReactElement<any>
+}
+export class SideNavView extends React.Component<ISideNavViewProp ,{ selectionPath?: string, selectedId?: string }> {
 
     public state = { selectionPath: '1' }
 
@@ -39,6 +43,7 @@ export class SideNavView extends React.Component<{ bgColor?: string, sidenav: Re
 
     public render() {
         const SideNavEl = this.props.sidenav
+
         return (
             <Container>
                 <InnerCnt>
@@ -48,7 +53,10 @@ export class SideNavView extends React.Component<{ bgColor?: string, sidenav: Re
                             onItemSelection={this.onItemSelection}/>
                     </SideNavCnt>
                     <Body>
-                        <Center>{ this.state.selectionPath || '' }</Center>
+                        <Center>
+                            { this.state.selectionPath || '' }
+                        </Center>
+
                     </Body>
                 </InnerCnt>
             </Container>

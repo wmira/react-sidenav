@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import { ISideNavStateProp, INavProp, ITemplateComponents } from 'react-sidenav/types';
 import {
     template as baseTemplate,
-    theme as baseTheme,
     NavTemplate as BaseNavTemplate
 } from 'react-sidenav/templates/Basic';
 
@@ -22,7 +21,6 @@ const template: ITemplateComponents = {
 }
 
 const theme = {
-    ...baseTheme,
     selectionColor: '#FFF',
     selectionBgColor: '#028090',
     hoverBgColor: '#028090',

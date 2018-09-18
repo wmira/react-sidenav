@@ -1,7 +1,7 @@
 import { PATH_SEPARATOR } from '../constants'
 
 import { createPath } from './createPath'
-import { theme } from '../templates/Basic'
+import { baseTheme as theme } from '../theme'
 describe('createPath', () => {
     it('creates path based on separator', () => {
         expect(
