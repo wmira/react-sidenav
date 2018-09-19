@@ -10,5 +10,4 @@ export interface ITemplateComponents<T extends INavTheme = INavTheme> {
     icon?: ComponentClass<ISideNavStateProp>
     label?: ComponentClass<ISideNavStateProp>
     indicator?: ComponentClass<ISideNavStateProp>
-    [key: string]: ComponentClass<ISideNavStateProp>
 }

@@ -1,6 +1,6 @@
 {
   "name": "react-sidenav",
-  "version": "3.0.0-pre1",
+  "version": "3.0.0-pre5",
   "description": "A Simple SideBar Navigation written in React",
   "author": "Warren Mira",
   "scripts": {
@@ -35,8 +35,7 @@
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/jest": "^23.3.2",
     "@types/react": "^16.3.17",
-    "@types/react-dom": "^16.0.6",
-    "@types/react-router": "^4.0.31",
+    "@types/react-dom": "^16.0.6",    
     "@types/react-router-dom": "^4.3.1",
     "awesome-typescript-loader": "^5.0.0",
     "enzyme": "^3.6.0",
@@ -46,8 +45,7 @@
     "react": "^16.5.1",
     "react-containers": "^15.2.3",
     "react-dom": "^16.5.1",
-    "react-icons-kit": "^1.1.9",
-    "react-router": "^4.3.1",
+    "react-icons-kit": "^1.1.9",    
     "react-router-dom": "^4.3.1",
     "react-test-renderer": "^15.6.2",
     "rimraf": "^2.6.2",
@@ -66,7 +64,8 @@
   "peerDependencies": {
     "react": "^16",
     "react-dom": "^16",
-    "styled-components": "^3"
+    "styled-components": "^3",
+    "react-router-dom": "^4.3.1"
   },
   "jest": {
     "moduleFileExtensions": [
