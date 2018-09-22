@@ -3,9 +3,14 @@ import * as React from 'react'
 import { SideNav, Nav } from "react-sidenav";
 
 import { IExampleProp } from 'react-sidenav/playground/IExampleProp';
+import { INavTheme } from 'react-sidenav/types';
 
+const theme:INavTheme = {
+    selectionColor: "#42b983"
+}
 export const TextOnly = (props:  IExampleProp ) => (
     <SideNav
+        theme={theme}
         selectedPath={props.selectionPath}
         onItemSelection={props.onItemSelection}>
 
@@ -16,6 +21,9 @@ export const TextOnly = (props:  IExampleProp ) => (
             </Nav>
             <Nav id={'2'}>
                 Item 1.2
+                <Nav id={'1'}>
+                    Item 1.2.1
+                </Nav>
             </Nav>
         </Nav>
 

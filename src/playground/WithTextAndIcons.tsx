@@ -6,33 +6,17 @@ import { SideNav } from "react-sidenav/SideNav";
 import { Nav } from "react-sidenav/nav/Nav";
 import { IExampleProp } from 'react-sidenav/playground/IExampleProp';
 
-import { Icon } from 'react-icons-kit'
+
+import { withBaseIcon } from 'react-icons-kit'
 import {
     ic_dashboard,
     ic_face,
     ic_assignment,
     ic_insert_chart
 } from 'react-icons-kit/md'
+import { INavTheme } from 'react-sidenav/types';
+import styled from 'styled-components';
 
-import {
-    template,
-    NavIcon,
-    NavText,
-} from  'react-sidenav/templates/NavIconText'
-import { INavTheme, ISideNavStateProp } from 'react-sidenav/types';
-
-// import styled from 'styled-components';
-
-// const NavTemplate = styled(baseTemplate.nav)`
-//     border-left: ${ (props: ISideNavStateProp) => props.selected ? `4px solid ${props.theme.selectionColor}` : '4px solid transparent' };
-//     padding: ${ (props: ISideNavStateProp) => props.level === 0 ? '12px 14px' : '12px 22px' };
-
-// `
-
-// const template = {
-//     ...baseTemplate,
-//     nav: NavTemplate
-// }
 
 const theme: INavTheme = {
     color: '#AEB7C2',
@@ -44,29 +28,38 @@ const theme: INavTheme = {
     hoverColor: '#00AAFF',
 
 }
-
+const BaseIcon = withBaseIcon({ size: 20 })
+// to center the children
+const Icon = styled(BaseIcon)`
+    margin-right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+`
 export const WithTextAndIcons = (props:  IExampleProp ) => (
     <SideNav
         theme={theme}
-        template={template}
         selectedPath={props.selectionPath}
         onItemSelection={props.onItemSelection}>
 
         <Nav id='1'>
-            <NavIcon><Icon size={20} icon={ic_dashboard}/> </NavIcon>
-            <NavText> Dashboard </NavText>
+            Dashboard
+            <Icon icon={ic_dashboard}/>
         </Nav>
         <Nav id='2'>
-            <NavIcon><Icon size={20} icon={ic_face}/> </NavIcon>
-            <NavText> Customers </NavText>
+            Customers
+            <Icon icon={ic_face}/>
         </Nav>
         <Nav id='3'>
-            <NavIcon><Icon size={20} icon={ic_assignment}/> </NavIcon>
-            <NavText> Orders </NavText>
+
+            Orders
+            <Icon  icon={ic_assignment}/>
         </Nav>
         <Nav id='4'>
-            <NavIcon><Icon size={20} icon={ic_insert_chart}/> </NavIcon>
-            <NavText> Statistics </NavText>
+
+            Statistics
+            <Icon icon={ic_insert_chart}/>
         </Nav>
     </SideNav>
 )

@@ -1,1 +1,1 @@
-export const PATH_SEPARATOR = '|'
+export const PATH_SEPARATOR = '$|$'

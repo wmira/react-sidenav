@@ -3,8 +3,10 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { Provider } from './Context';
 import { ISideNavProp, IOnItemSelectionArg, ISideNavContext } from './types';
-import { template as defaultTemplate  } from './templates/Basic';
+import{ template as defaultTemplate } from './template'
 import { baseTheme as defaultTheme } from './theme'
+import { walk } from 'react-sidenav/nav/walker';
+import { Scheme } from 'react-sidenav/types/Scheme';
 
 const Container = styled.div`
     width: 100%;
@@ -36,13 +38,16 @@ export class SideNav extends React.Component<ISideNavProp, ISideNavState> {
             selectedPath,
             onItemSelection: this.onItemSelection,
             template,
-            theme
+            theme,
+            scheme: this.props.scheme || Scheme.default
         }
         return (
-            <Provider
-                value={value}>
-                <Container>{ this.props.children || null }</Container>
+            <Provider value={value}>
+                <Container>
+                    { walk( React.Children.toArray(this.props.children) )}
+                </Container>
             </Provider>
+
         )
     }
 

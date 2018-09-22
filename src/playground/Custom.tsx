@@ -4,21 +4,8 @@ import { SideNav } from "react-sidenav/SideNav";
 import { Nav } from "react-sidenav/nav/Nav";
 import { IExampleProp } from 'react-sidenav/playground/IExampleProp';
 import styled from 'styled-components';
-import { ISideNavStateProp, INavProp, ITemplateComponents } from 'react-sidenav/types';
-import {
-    template as baseTemplate,
-    NavTemplate as BaseNavTemplate
-} from 'react-sidenav/templates/Basic';
+import { INavStateProp, INavProp, ITemplateComponents } from 'react-sidenav/types';
 
-
-const NavTemplate = styled(BaseNavTemplate)`
-    background: ${ (props: ISideNavStateProp) => props.selected ? props.theme.selectionBgColor : 'inherit' };
-`
-const template: ITemplateComponents = {
-    ...baseTemplate,
-    nav: NavTemplate,
-
-}
 
 const theme = {
     selectionColor: '#FFF',
@@ -48,7 +35,6 @@ const NavItem = (props: {label: string, icon: string }) => {
 export const Custom = (props:  IExampleProp ) => (
     <SideNav
         theme={theme}
-        template={template}
         selectedPath={props.selectionPath}
         onItemSelection={props.onItemSelection}>
 

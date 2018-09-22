@@ -1,38 +1,30 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import { Center } from 'react-containers'
 
 import { Container } from 'react-sidenav/playground/Container';
 import { IOnItemSelectionArg } from 'react-sidenav/types';
 import { IExampleProp } from 'react-sidenav/playground/IExampleProp';
+import { Scheme } from 'react-sidenav/types/Scheme';
 
 const SideNavCnt = styled.div`
     padding: 12px 0px;
     height: 100%;
-    border-right: 1px solid #E5E5E5;
-    flex: 3;
-    background: ${ (props: { bgColor?: string }) => props.bgColor || 'inherit'};
-`
-const Body = styled.div`
-    flex: 4;
     width: 100%;
 `
-const InnerCnt = styled.div`
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
-`
-
-
 
 export interface ISideNavViewProp {
-    bgColor?: string
+    className?: string
     sidenav: React.ComponentType<IExampleProp>
     children?: () => React.ReactElement<any>
+    scheme?: Scheme
 }
-export class SideNavView extends React.Component<ISideNavViewProp ,{ selectionPath?: string, selectedId?: string }> {
+
+interface IApState {
+    selectionPath?: string
+    selectedId?: string
+}
+export class SideNavView extends React.Component<ISideNavViewProp ,IApState> {
 
     public state = { selectionPath: '1' }
 
@@ -46,19 +38,12 @@ export class SideNavView extends React.Component<ISideNavViewProp ,{ selectionPa
 
         return (
             <Container>
-                <InnerCnt>
-                    <SideNavCnt bgColor={this.props.bgColor}>
-                        <SideNavEl
-                            selectionPath={this.state.selectionPath}
-                            onItemSelection={this.onItemSelection}/>
-                    </SideNavCnt>
-                    <Body>
-                        <Center>
-                            { this.state.selectionPath || '' }
-                        </Center>
-
-                    </Body>
-                </InnerCnt>
+                <SideNavCnt className={this.props.className}>
+                    <SideNavEl
+                        scheme={this.props.scheme}
+                        selectionPath={this.state.selectionPath}
+                        onItemSelection={this.onItemSelection}/>
+                </SideNavCnt>
             </Container>
         )
     }
