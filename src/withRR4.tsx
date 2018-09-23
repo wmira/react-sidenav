@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { SideNav } from 'react-sidenav'
 
-import { ISideNavProp, IOnItemSelectionArg } from "react-sidenav/types";
+import { ISideNavProp, INavSelectionArg } from "react-sidenav/types";
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { PATH_SEPARATOR } from './constants'
 type SideNavWithRR4Prop = ISideNavProp & RouteComponentProps<{}>
@@ -16,7 +16,7 @@ export const withRR4 = () => {
             this.state = { selectedPath: this.props.selectedPath }
         }
 
-        public onItemSelection = (arg: IOnItemSelectionArg) => {
+        public onItemSelection = (arg: INavSelectionArg) => {
             const { payload } = arg
             const withToPayload = payload as { to: string }
             if ( payload && withToPayload.to ) {

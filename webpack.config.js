@@ -1,6 +1,6 @@
-
+const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
 const path = require('path');
-
+const styledComponentsTransformer = createStyledComponentsTransformer();
 module.exports = {
     entry: './src/playground/index.tsx',
     resolve: {
@@ -11,7 +11,13 @@ module.exports = {
     },    
     module: {
         rules: [
-            { test: /\.tsx?$/, loader: "ts-loader" }
+            { 
+                test: /\.tsx?$/, loader: "ts-loader",  
+                options: {                 
+                    getCustomTransformers: () => ({ before: [styledComponentsTransformer] })
+                }
+        
+            }
         ]
     },
     devtool: 'source-map',

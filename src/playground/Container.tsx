@@ -2,10 +2,10 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-const View = styled.div`
+export const Container = styled.div`
 
-    border-top: 2em solid #475252;
-    box-shadow: 0 0.1em 1em 0 rgba(0, 0, 0, 0.4);
+    border-top: 2em solid #2B333E;
+    box-shadow: 0 0.1em 0.1em 0 rgba(0, 0, 0, 0.4);
     position: relative;
     border-radius: 3px 3px 0 0;
     height: 100%;
@@ -20,16 +20,7 @@ const View = styled.div`
         width: 0.5em;
         height: 0.5em;
         border-radius: 50%;
-        background-color: #6FB549;
-        box-shadow: 0 0 0 2px #6FB549, 1.5em 0 0 2px #DEAC54, 3em 0 0 2px #D8665D;
+        background-color: #2EC4B6;
+        box-shadow: 0 0 0 2px #2EC4B6, 1.5em 0 0 2px #FF9F1C, 3em 0 0 2px #E71D36;
     }
 `
-
-export class Container extends React.Component {
-
-    public render() {
-        return (
-            <View>{ this.props.children }</View>
-        )
-    }
-}

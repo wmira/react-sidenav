@@ -1,13 +1,14 @@
-import { ISideNavStateProp } from "react-sidenav/types/ISideNavState";
+
 import { ComponentClass } from "react";
 import { INavTheme } from "react-sidenav/types/INavTheme";
+import { ITemplateRendererProp } from "react-sidenav/types/ITemplateRendererProp";
 
 
 export interface ITemplateComponents<T extends INavTheme = INavTheme> {
-    nav?: ComponentClass<ISideNavStateProp>
-    children?: ComponentClass<ISideNavStateProp>
-    navChild?: ComponentClass<ISideNavStateProp>
-    icon?: ComponentClass<ISideNavStateProp>
-    label?: ComponentClass<ISideNavStateProp>
-    indicator?: ComponentClass<ISideNavStateProp>
+    item?: ComponentClass<ITemplateRendererProp>
+    children?: ComponentClass<ITemplateRendererProp>
+    child?: ComponentClass<ITemplateRendererProp>
+    icon?: ComponentClass<ITemplateRendererProp>
+    text?: ComponentClass<ITemplateRendererProp>
+    indicator?: ComponentClass<ITemplateRendererProp>
 }

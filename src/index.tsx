@@ -2,11 +2,11 @@
 export { SideNav } from './SideNav'
 export { Nav } from './nav/Nav'
 export {
-    OnItemSelectionListener,
-    IOnItemSelectionArg,
+    OnNavSelectionListener,
+    INavSelectionArg,
     INavProp,
     ISideNavProp,
-    ISideNavStateProp,
+    INavItemProp,
     INavTheme,
     ITemplateComponents
 } from './types'

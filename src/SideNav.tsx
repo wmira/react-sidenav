@@ -2,9 +2,9 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { Provider } from './Context';
-import { ISideNavProp, IOnItemSelectionArg, ISideNavContext } from './types';
-import { template as defaultTemplate  } from './templates/Basic';
-import { baseTheme as defaultTheme } from './theme'
+import { ISideNavProp, INavSelectionArg, ISideNavContext, INavProp } from './types';
+import{ template as defaultTemplate } from './template'
+import { Scheme } from 'react-sidenav/types/Scheme';
 
 const Container = styled.div`
     width: 100%;
@@ -31,22 +31,27 @@ export class SideNav extends React.Component<ISideNavProp, ISideNavState> {
         const selectedPath = this.state.defaultSelectedPath !== undefined ? this.state.selectedPath : this.props.selectedPath
         const propsTemplate = { ...this.props.template }
         const template = { ...defaultTemplate, ...propsTemplate }
-        const theme = { ...defaultTheme, ...this.props.theme }
+        const theme = this.props.theme || {}
+        const scheme = this.props.scheme || Scheme.default
         const value: ISideNavContext = {
             selectedPath,
             onItemSelection: this.onItemSelection,
             template,
-            theme
+            theme,
+            scheme
         }
+
         return (
-            <Provider
-                value={value}>
-                <Container>{ this.props.children || null }</Container>
+            <Provider value={value}>
+                <Container>
+                   { this.props.children }
+                </Container>
             </Provider>
+
         )
     }
 
-    private onItemSelection = (arg: IOnItemSelectionArg) => {
+    private onItemSelection = (arg: INavSelectionArg) => {
 
         if ( this.state.selectedPath ) {
             this.setState({ selectedPath: arg.path }, () => {
@@ -57,7 +62,7 @@ export class SideNav extends React.Component<ISideNavProp, ISideNavState> {
         }
     }
 
-    private dispatchItemSelection = (arg: IOnItemSelectionArg) => {
+    private dispatchItemSelection = (arg: INavSelectionArg) => {
         if ( this.props.onItemSelection ) {
             this.props.onItemSelection(arg)
         }
