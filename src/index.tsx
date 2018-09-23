@@ -6,7 +6,7 @@ export {
     INavSelectionArg,
     INavProp,
     ISideNavProp,
-    INavStateProp,
+    INavItemProp,
     INavTheme,
     ITemplateComponents
 } from './types'
