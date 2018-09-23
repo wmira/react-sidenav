@@ -12,7 +12,7 @@ describe('<SideNav/>', () => {
         const wrapper = mount((
             <SideNav
                 defaultSelectedPath='2'>
-                <Nav id="1" />
+                <Nav id="1">Nav</Nav>
             </SideNav>
         ))
 
@@ -25,7 +25,7 @@ describe('<SideNav/>', () => {
             <SideNav
                 onItemSelection={listener}
                 selectedPath='1'>
-                <Nav id="1" />
+                <Nav id="1">Nav</Nav>
             </SideNav>
         ))
 
@@ -45,7 +45,7 @@ describe('<SideNav/>', () => {
             <SideNav
                 onItemSelection={listener}
                 selectedPath='1'>
-                <Nav id="1" payload={"banana"}/>
+                <Nav id="1" payload={"banana"}>Nav</Nav>
             </SideNav>
         ))
 
@@ -65,7 +65,7 @@ describe('<SideNav/>', () => {
             <SideNav
                 onItemSelection={listener}
                 defaultSelectedPath='2'>
-                <Nav id="1" payload={"banana"}/>
+                <Nav id="1" payload={"banana"}>Nav</Nav>
             </SideNav>
         ))
 

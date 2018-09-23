@@ -2,10 +2,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { Provider } from './Context';
-import { ISideNavProp, IOnItemSelectionArg, ISideNavContext } from './types';
+import { ISideNavProp, INavSelectionArg, ISideNavContext, INavProp } from './types';
 import{ template as defaultTemplate } from './template'
-import { baseTheme as defaultTheme } from './theme'
-import { walk } from 'react-sidenav/nav/walker';
 import { Scheme } from 'react-sidenav/types/Scheme';
 
 const Container = styled.div`
@@ -33,25 +31,27 @@ export class SideNav extends React.Component<ISideNavProp, ISideNavState> {
         const selectedPath = this.state.defaultSelectedPath !== undefined ? this.state.selectedPath : this.props.selectedPath
         const propsTemplate = { ...this.props.template }
         const template = { ...defaultTemplate, ...propsTemplate }
-        const theme = { ...defaultTheme, ...this.props.theme }
+        const theme = this.props.theme || {}
+        const scheme = this.props.scheme || Scheme.default
         const value: ISideNavContext = {
             selectedPath,
             onItemSelection: this.onItemSelection,
             template,
             theme,
-            scheme: this.props.scheme || Scheme.default
+            scheme
         }
+
         return (
             <Provider value={value}>
                 <Container>
-                    { walk( React.Children.toArray(this.props.children) )}
+                   { this.props.children }
                 </Container>
             </Provider>
 
         )
     }
 
-    private onItemSelection = (arg: IOnItemSelectionArg) => {
+    private onItemSelection = (arg: INavSelectionArg) => {
 
         if ( this.state.selectedPath ) {
             this.setState({ selectedPath: arg.path }, () => {
@@ -62,7 +62,7 @@ export class SideNav extends React.Component<ISideNavProp, ISideNavState> {
         }
     }
 
-    private dispatchItemSelection = (arg: IOnItemSelectionArg) => {
+    private dispatchItemSelection = (arg: INavSelectionArg) => {
         if ( this.props.onItemSelection ) {
             this.props.onItemSelection(arg)
         }

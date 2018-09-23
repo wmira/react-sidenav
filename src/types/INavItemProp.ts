@@ -1,12 +1,19 @@
 import { INavProp } from "react-sidenav/types/INavProp";
 import { ReactNode } from "react";
-import { OnItemSelectionListener } from "react-sidenav/types/OnItemSelectionListener";
+import { OnNavItemSelectionListener } from "react-sidenav/types/OnNavItemSelectionListener";
+import { INavTheme } from "react-sidenav/types/INavTheme";
+import { ITemplateComponents } from "react-sidenav/types/ITemplateComponents";
+import { Scheme } from "react-sidenav/types/Scheme";
 
 export interface INavItemProp {
-    id: string
     navProp: INavProp
-    level?: number
-    pathId?: string
+    level: number
+    pathId: string
     children?: ReactNode[]
-    onClick?: OnItemSelectionListener
+    theme: INavTheme
+    template: ITemplateComponents // the template to use
+    scheme: Scheme
+    selected: boolean
+    expanded: boolean | undefined
+    parentPathId?: string
 }

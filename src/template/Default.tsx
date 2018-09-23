@@ -1,7 +1,7 @@
 
 import * as React from 'react'
 import styled from "styled-components";
-import { INavStateProp } from 'react-sidenav/types';
+import { INavItemProp, ITemplateComponents } from 'react-sidenav/types';
 
 import { NavText, NavIcon } from 'react-sidenav/template/components';
 import { Scheme } from 'react-sidenav/types/Scheme';
@@ -17,17 +17,23 @@ const createPadding = (level: number) => {
 const Container = styled.div`
     display: flex;
     position: relative;
-    padding: ${ (props: INavStateProp ) => createPadding(props.level)};
+    padding: ${ (props: INavItemProp ) => createPadding(props.level)};
     align-items: center;
     cursor: pointer;
-    background: ${ (props: INavStateProp) => props.selected ? props.theme.selectionBgColor : props.theme.bgColor || 'inherit' };
-    color: ${ (props: INavStateProp) => props.selected ? props.theme.selectionColor : props.theme.color  || 'inherit' };
+    background: ${ (props: INavItemProp) => props.selected ? props.theme.selectionBgColor : props.theme.bgColor || 'inherit' };
+    color: ${ (props: INavItemProp) => props.selected ? props.theme.selectionColor : props.theme.color  || 'inherit' };
     &:hover {
-        background: ${ (props: INavStateProp) => props.theme.hoverBgColor || props.theme.selectionBgColor };
-        color: ${ (props: INavStateProp) => props.theme.hoverColor || props.theme.selectionColor };
+        background: ${ (props: INavItemProp) => props.theme.hoverBgColor || props.theme.selectionBgColor };
+        color: ${ (props: INavItemProp) => props.theme.hoverColor || props.theme.selectionColor };
     }
 `
-const determineIconColor = (props: INavStateProp ) => {
+
+export const ChildrenTemplate = styled.div`
+    max-height: ${ (props: INavItemProp) => props.expanded ?  '1000px' : '0px' };
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+`
+const determineIconColor = (props: INavItemProp ) => {
     if ( props.selected ) {
         return props.theme.selectionIconColor || props.theme.selectionColor || 'inherit'
     }
@@ -36,11 +42,10 @@ const determineIconColor = (props: INavStateProp ) => {
 
 
 export const IconView = styled.div`
-    color: ${ (props: INavStateProp ) => determineIconColor(props)  };
+    color: ${ (props: INavItemProp ) => determineIconColor(props)  };
 `
 interface IViewProp {
     key: string
-    children?: React.ReactNode,
     className?: string
 }
 const createProps = (key: string, childProps: any): IViewProp => {
@@ -49,13 +54,13 @@ const createProps = (key: string, childProps: any): IViewProp => {
         propsToUse.className = propsToUse.children
     }
     if ( childProps.children ) {
-        propsToUse.children =childProps.children
+        propsToUse.children = childProps.children
     }
 
     return propsToUse
 }
 
-export class DefaultTemplate extends React.PureComponent<INavStateProp> {
+export class DefaultTemplate extends React.PureComponent<INavItemProp> {
 
     public render() {
         const { children, template: navTemplate, ...others } = this.props
@@ -66,17 +71,16 @@ export class DefaultTemplate extends React.PureComponent<INavStateProp> {
             .reduce( (partial: Array<React.ReactElement<any>>, child: React.ReactElement<any>, idx: number ) => { // reduce -- we will not display text in compact mode
                 if ( child.type === NavIcon  ) {
                     const NavIconTemplate = navTemplate ? navTemplate.icon : IconView
-                    const propsToUse: IViewProp & INavStateProp = { ...this.props, ...createProps(`${idx}`, child.props)  }
+                    const propsToUse: IViewProp & INavItemProp = { ...this.props, ...createProps(`${idx}`, child.props)  }
                     return partial.concat([ React.createElement( NavIconTemplate, propsToUse) ])
                 }
                 if ( child.type === NavText && props.scheme !== Scheme.compact ) {
                     const NavIconTemplate = navTemplate ? navTemplate.item : IconView
-                    const propsToUse: IViewProp & INavStateProp = { ...this.props, ...createProps(`${idx}`, child.props)  }
+                    const propsToUse: IViewProp & INavItemProp = { ...this.props, ...createProps(`${idx}`, child.props)  }
                     return partial.concat([ React.createElement( NavIconTemplate, propsToUse) ])
                 }
                 return partial.concat([child])
             }, [])
-
         return (
             <Container {...this.props}>
                { remappedChildren }
@@ -84,6 +88,7 @@ export class DefaultTemplate extends React.PureComponent<INavStateProp> {
         )
     }
 }
-export const template = {
-    item: DefaultTemplate
+export const template: ITemplateComponents = {
+    item: DefaultTemplate,
+    children: ChildrenTemplate
 }

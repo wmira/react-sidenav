@@ -2,8 +2,8 @@
 export { SideNav } from './SideNav'
 export { Nav } from './nav/Nav'
 export {
-    OnItemSelectionListener,
-    IOnItemSelectionArg,
+    OnNavSelectionListener,
+    INavSelectionArg,
     INavProp,
     ISideNavProp,
     INavStateProp,

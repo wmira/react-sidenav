@@ -5,7 +5,7 @@ import { Nav } from 'react-sidenav/nav/Nav';
 import { SideNav } from 'react-sidenav/SideNav';
 import { Center } from 'react-containers';
 import { Container as BaseContainer } from 'react-sidenav/playground/Container'
-import { INavTheme, IOnItemSelectionArg } from 'react-sidenav/types';
+import { INavTheme, INavSelectionArg } from 'react-sidenav/types';
 
 const Body = styled.div`
     display: flex;
@@ -42,7 +42,7 @@ const Text = styled.div`
 export class Simple extends React.Component<{}, IState> {
     public state: IState = { selectionPath: '1' }
 
-    public onItemSelection = (arg: IOnItemSelectionArg) => {
+    public onItemSelection = (arg: INavSelectionArg) => {
         this.setState({ selectionPath: arg.path })
     }
     public render() {
@@ -63,16 +63,25 @@ export class Simple extends React.Component<{}, IState> {
                                 </Nav>
                                 <Nav id={'2'}>
                                     Item 1.2
-                                </Nav>
-                                <Nav id={'3'}>
-                                    Item 1.3
                                     <Nav id={'1'}>
-                                        Item 1.3.1
+                                        Item 1.2.1
+                                    </Nav>
+                                    <Nav id={'2'}>
+                                        Item 1.2.2
                                     </Nav>
                                 </Nav>
                             </Nav>
                             <Nav id='2'>
                                 Item 2
+                                <Nav id={'1'}>
+                                    Item 2.1
+                                    <Nav id={'1'}>
+                                        Item 2.1.1
+                                    </Nav>
+                                    <Nav id={'2'}>
+                                        Item 2.2.2
+                                    </Nav>
+                                </Nav>
                             </Nav>
                             <Nav id='3'>
                                 Item 3
