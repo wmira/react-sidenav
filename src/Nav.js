@@ -1,6 +1,7 @@
 import React, { Children, Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import classnames from 'classnames';
 
 export const NavIcon = () => {
     throw new Error('Should not render');
@@ -167,7 +168,8 @@ export class Nav extends Component {
             children,
             highlightedId,
             onNavClick = identity,
-            id
+            id,
+            className
         } = this.props;
         const icon = findIcon(children);
         const text = findText(children);
@@ -183,7 +185,7 @@ export class Nav extends Component {
 
         return (
             <div>
-                <NavItemStyled className="__rsnav___item" {...itemProps}>
+                <NavItemStyled className={classnames('__rsnav___item', className)} {...itemProps}>
                     <NavIconCont {...collectStyleAndClsName(icon)}>
                         {icon && icon.props ? icon.props.children : null}
                     </NavIconCont>
@@ -219,7 +221,7 @@ export class Nav extends Component {
 
                             return (
                                 <NavItemStyled
-                                    className={'__rsnav___itemchild'}
+                                    className={classnames('__rsnav___itemchild', child.props.className)}
                                     key={idx}
                                     {...itemProps}
                                     onClick={() => {
