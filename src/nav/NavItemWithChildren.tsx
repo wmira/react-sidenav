@@ -35,11 +35,17 @@ export class NavItemWithChildren extends React.Component<NavItemWithChildrenProp
 
         const ChildrenContainer = context.template.children
 
-
-
         return (
             <>
-                <NavItem onClick={this.onClick} parentPathId={this.props.pathId} {...this.props}>{ this.props.nonNavChildren }</NavItem>
+                <NavItem
+                    {...this.props}
+                    onClick={this.onClick}
+                    parentPathId={this.props.pathId}
+                    expanded={this.state.isExpanded}
+                    isLeaf={false}
+                >
+                        { this.props.nonNavChildren }
+                </NavItem>
                 <ChildrenContainer
                     {...this.props }
                     expanded={this.state.isExpanded}>

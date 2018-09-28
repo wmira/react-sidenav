@@ -10,7 +10,7 @@ injectGlobal`
     padding: 12px;
     width: 100%;
     height: 100%;
-    font-size: 14px;
+    font-size: 13px;
     color: #333;
     font-family: 'Roboto Condensed', sans-serif;
     }

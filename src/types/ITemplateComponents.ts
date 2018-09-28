@@ -10,5 +10,5 @@ export interface ITemplateComponents<T extends INavTheme = INavTheme> {
     child?: ComponentClass<ITemplateRendererProp>
     icon?: ComponentClass<ITemplateRendererProp>
     text?: ComponentClass<ITemplateRendererProp>
-    indicator?: ComponentClass<ITemplateRendererProp>
+    expandIndicator?: ComponentClass<ITemplateRendererProp>
 }

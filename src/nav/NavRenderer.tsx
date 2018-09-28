@@ -28,11 +28,17 @@ export class NavRenderer extends React.Component<INavItemProp> {
 
         if ( navChildren.length === 0  ) {
             return (
-                <NavItem {...navItemProp} context={context}>{ this.props.children }</NavItem>
+                <NavItem {...navItemProp} context={context} isLeaf={true}>{ this.props.children }</NavItem>
             )
         } else {
             return (
-                <NavItemWithChildren parentPathId={parentPathId} nonNavChildren={nonNavChildren} {...navItemProp} context={context}>
+                <NavItemWithChildren
+                    nonNavChildren={nonNavChildren}
+                    {...navItemProp}
+                    parentPathId={parentPathId}
+                    context={context}
+                    isLeaf={false}
+                >
                     { navChildren }
                 </NavItemWithChildren>
             )

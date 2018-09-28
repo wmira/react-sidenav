@@ -20,7 +20,8 @@ export const createNavItemProp = (props: INavProp,
         template,
         scheme,
         selected: pathId === selectedPath,
-        expanded: undefined
+        expanded: undefined,
+        isLeaf: true
     }
 
 }

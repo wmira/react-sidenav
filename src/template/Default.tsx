@@ -16,6 +16,7 @@ const createPadding = (level: number) => {
 }
 const Container = styled.div`
     display: flex;
+    transition: all 0.3s ease;
     position: relative;
     padding: ${ (props: INavItemProp ) => createPadding(props.level)};
     align-items: center;
@@ -60,10 +61,25 @@ const createProps = (key: string, childProps: any): IViewProp => {
     return propsToUse
 }
 
+const ArrowRight = styled.div`
+    display: inline-block;
+    border-right: 1px solid ${(props: INavItemProp) => props.theme.color || 'currentColor'};
+    border-bottom: 1px solid ${(props: INavItemProp) => props.theme.color || 'currentColor'};
+    width: 8px; height: 8px;
+    transform: ${ (props:INavItemProp) => props.expanded ? 'rotate(45deg)' : 'rotate(-45deg)'};
+    transition: transform 0.3s ease;
+    position: absolute;
+    left: auto;
+    right: 0;
+    margin-right: 6px;
+`
+
+
 export class DefaultTemplate extends React.PureComponent<INavItemProp> {
 
     public render() {
         const { children, template: navTemplate, ...others } = this.props
+        const inav = others as INavItemProp
         const { props } = this
 
         // remap children, to be sure they are on the same order
@@ -81,9 +97,12 @@ export class DefaultTemplate extends React.PureComponent<INavItemProp> {
                 }
                 return partial.concat([child])
             }, [])
+        const IndicatorElement = props.isLeaf === false ? (template.expandIndicator || ArrowRight) : null
+
         return (
             <Container {...this.props}>
                { remappedChildren }
+               { IndicatorElement ? <IndicatorElement {...inav}/> : null }
             </Container>
         )
     }

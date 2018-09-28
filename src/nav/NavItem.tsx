@@ -13,7 +13,7 @@ export class NavItem extends React.PureComponent<NavItemViewProp, { isCollapsed:
     public render() {
 
         const { children, context, ...others } = this.props
-        const { template, scheme } = this.props.context
+        const { template } = this.props.context
         const Template = template.item //  isChild ? template.navChild || NavChildTemplate : ( template.nav || NavTemplate )
         const itemTemplateProp = {
             ...others,

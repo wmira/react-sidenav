@@ -24,3 +24,12 @@ export const Container = styled.div`
         box-shadow: 0 0 0 2px #2EC4B6, 1.5em 0 0 2px #FF9F1C, 3em 0 0 2px #E71D36;
     }
 `
+
+export const Body = styled.div`
+    display: flex;
+    height: 100%;
+`
+
+export const Text = styled.div`
+    text-align: center;
+`

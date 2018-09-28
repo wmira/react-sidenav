@@ -6,10 +6,11 @@ import { SideNav } from 'react-sidenav/SideNav';
 import { Center } from 'react-containers';
 import { Container as BaseContainer } from 'react-sidenav/playground/Container'
 import { INavTheme, INavSelectionArg } from 'react-sidenav/types';
+import {
+    Body,
+    Text
+} from './Container'
 
-const Body = styled.div`
-    display: flex;
-`
 const SideNavContainer = styled.div`
     width: 200px;
     height: 100%;
@@ -30,15 +31,14 @@ const theme: INavTheme = {
 
 const Content = styled.div`
     padding: 12px;
+    width: 100%;
 `
 
 interface IState {
     selectionPath: string
 
 }
-const Text = styled.div`
-    text-align: center;
-`
+
 export class Simple extends React.Component<{}, IState> {
     public state: IState = { selectionPath: '1' }
 

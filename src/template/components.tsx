@@ -6,6 +6,6 @@ export const NavIcon = (props: ITemplateProp) => {
 export const NavText = (props: ITemplateProp) => {
     throw new Error("This should not render")
 }
-export const ExpandIndicator = (props: ITemplateProp) => {
+export const ExpandToggle = (props: ITemplateProp) => {
     throw new Error("This should not render")
 }

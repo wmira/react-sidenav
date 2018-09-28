@@ -27,7 +27,7 @@ The following are peer dependencies of **react-sidenav**. You would need to have
 ```react-dom```
 ```styled-components```
 
-### Importing 
+### Basic Usage 
 
 At a minimum, SideNav can be used as per the example below:
 
@@ -45,11 +45,37 @@ At a minimum, SideNav can be used as per the example below:
 
 ```
 
+```javascript
+
+    import { SideNav, Nav } from 'react-sidenav'
+
+    const Navigation = () => (
+        <SideNav defaultSelectedPath="1">
+            <Nav id="1">
+                <Icon icon={item1}/>
+                Item 1
+            </Nav>
+            <Nav id="2">
+                <Icon icon={item2}/>
+                Item 2
+            </Nav>
+            <Nav id="3">
+                <Icon icon={item2}/>
+                Item 3
+            </Nav>
+        </SideNav>
+    )
+
+```
+
+### SideNav Properties
+
+| property   |      type      |  description |  isRequired |
+|------------|-------------:|------:|-----------------------|
+| onItemSelection | function: ({id, path, payload}) => void | a function that gets called when a navigation has been clicked | false |
+
+
 # Development
 
 Please checkout example on CodeSandbox and the src/playground directory for now while
 all the documentation/testing is being completed.
-
-https://codesandbox.io/s/1r9l3n49mq
-https://github.com/wmira/react-sidenav/tree/ts16/src/playground
-

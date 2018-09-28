@@ -16,4 +16,5 @@ export interface INavItemProp {
     selected: boolean
     expanded: boolean | undefined
     parentPathId?: string
+    isLeaf: boolean
 }
