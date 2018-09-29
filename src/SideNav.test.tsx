@@ -81,4 +81,26 @@ describe('<SideNav/>', () => {
         expect(wrapper.state('selectedPath')).toBe('1')
     })
 
+    it('calls onClick on Nav ', () => {
+        const sideNavListener = jest.fn()
+        const navListener = jest.fn()
+
+        const wrapper = mount<ISideNavProp, { selectedPath: string }>((
+            <SideNav
+                onItemSelection={sideNavListener}
+                defaultSelectedPath='2'>
+                <Nav id="1" onClick={navListener} payload={"banana"}>Nav</Nav>
+            </SideNav>
+        ))
+        wrapper.find(Nav).simulate("click")
+
+        const argMain = sideNavListener.mock.calls[0][0]
+        const argNav = navListener.mock.calls[0][0]
+        expect(argMain.path).toBe('1')
+        expect(argNav.path).toBe('1')
+        expect(argMain.payload).toBe("banana")
+        expect(argNav.payload).toBe("banana")
+
+    })
+
 })
