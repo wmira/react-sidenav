@@ -15,7 +15,9 @@ build:
         - npm install
         - npm run dist
         - tar -C `pwd`/dist -zcvf bundle.tar.gz .
+        - "CODECOV_TOKEN=$CODECOV_TOKEN npm run codecov"
     artifacts:
         paths:
             - bundle.tar.gz
         expire_in: 1 week
+
