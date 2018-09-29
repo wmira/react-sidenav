@@ -18,8 +18,11 @@ export class NavItem extends React.PureComponent<NavItemViewProp, { isCollapsed:
 
 
         return (
-            <div onClick={this.dispatchOnClick} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.props.onMouseLeave}>
-                <Template { ...others }>
+            <div
+                onClick={this.dispatchOnClick}
+                onMouseEnter={this.props.onMouseEnter}
+                onMouseLeave={this.props.onMouseLeave}>
+                <Template { ...others } className={this.props.navProp.className || ''}>
                     { children || null }
                 </Template>
             </div>

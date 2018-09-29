@@ -3,4 +3,5 @@ import { MouseEventHandler } from "react";
 
 export interface ITemplateRendererProp extends INavItemProp {
     onClick?: MouseEventHandler
+    className?: string
 }
