@@ -1,3 +1,5 @@
+
+import * as React from 'react'
 import { OnNavSelectionListener } from "./OnItemSelectionListener";
 import { ITemplateComponents } from "react-sidenav/types/ITemplateComponents";
 
@@ -8,4 +10,5 @@ export interface INavProp<P = {}> {
     onClick?: OnNavSelectionListener
     template?: ITemplateComponents // assign a template
     className?: string
+    style?: React.CSSProperties
 }

@@ -22,7 +22,7 @@ export class NavItem extends React.PureComponent<NavItemViewProp, { isCollapsed:
                 onClick={this.dispatchOnClick}
                 onMouseEnter={this.props.onMouseEnter}
                 onMouseLeave={this.props.onMouseLeave}>
-                <Template { ...others } className={this.props.navProp.className || ''}>
+                <Template { ...others } style={this.props.navProp.style || {}} className={this.props.navProp.className || ''}>
                     { children || null }
                 </Template>
             </div>
