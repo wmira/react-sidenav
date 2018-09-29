@@ -10,21 +10,48 @@ import { NavRenderer } from 'react-sidenav/nav/NavRenderer';
 
 interface INavChildrenState {
     isExpanded: boolean
+    isHovered: boolean
 }
 
 type NavItemWithChildrenProp = INavItemProp & { parentPathId: string, nonNavChildren: any, context: ISideNavContext }
 export class NavItemWithChildren extends React.Component<NavItemWithChildrenProp> {
 
-    public state = { isExpanded: false }
+    public state = { isExpanded: false, isHovered: false }
     constructor(props: NavItemWithChildrenProp) {
         super(props)
         this.state = {
-            isExpanded: Boolean(isExpanded(props.pathId, this.props.context.selectedPath))
+            isExpanded: Boolean(isExpanded(props.pathId, this.props.context.selectedPath)),
+            isHovered: false
         }
     }
 
     public onClick = () => {
 
+        this.setState((state: INavChildrenState) => {
+            return { isExpanded: !state.isExpanded }
+        })
+    }
+    public onMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+
+        e.stopPropagation()
+        this.toggleHovered()
+
+    }
+    public onMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+
+        e.stopPropagation()
+        this.toggleHovered()
+
+    }
+    public toggleHovered = () => {
+        if ( this.props.context.expandOnHover ) {
+            this.setState((state: INavChildrenState) => {
+                return { ...state, isHovered: !state.isHovered }
+            })
+        }
+
+    }
+    public toggleExpand = () => {
         this.setState((state: INavChildrenState) => {
             return { isExpanded: !state.isExpanded }
         })
@@ -41,14 +68,16 @@ export class NavItemWithChildren extends React.Component<NavItemWithChildrenProp
                     {...this.props}
                     onClick={this.onClick}
                     parentPathId={this.props.pathId}
-                    expanded={this.state.isExpanded}
+                    expanded={this.state.isExpanded || this.state.isHovered}
+                    onMouseEnter={this.onMouseEnter}
+                    onMouseLeave={this.onMouseEnter}
                     isLeaf={false}
                 >
                         { this.props.nonNavChildren }
                 </NavItem>
                 <ChildrenContainer
                     {...this.props }
-                    expanded={this.state.isExpanded}>
+                    expanded={this.state.isExpanded || this.state.isHovered}>
 
                         { React.Children.toArray(this.props.children).map( (child: React.ReactElement<any>, idx: number) => {
                             const navItemProp = createNavItemProp(child.props, props.theme, props.template, context.selectedPath, PATH_SEPARATOR, this.props.parentPathId)

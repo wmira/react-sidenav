@@ -39,7 +39,8 @@ export class SideNav extends React.Component<ISideNavProp, ISideNavState> {
             onItemSelection: this.onItemSelection,
             template,
             theme,
-            scheme
+            scheme,
+            expandOnHover: this.props.expandOnHover || false
         }
 
         return (
