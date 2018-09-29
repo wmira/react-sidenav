@@ -1,14 +1,15 @@
 {
   "name": "react-sidenav",
-  "version": "2.1.3",
+  "version": "3.0.0-pre7",
   "description": "A Simple SideBar Navigation written in React",
   "author": "Warren Mira",
   "scripts": {
-    "playground": "webpack-dev-server --content-base playground ",
-    "dist": "cp package.json dist && cp README.md dist && babel -D -d dist/ ./src ",
+    "playground": "webpack-dev-server --mode development --content-base playground src/playground/index.tsx  ",
+    "predist": "rimraf dist",
+    "dist-build": "tsc && cp package.json dist && cp README.md dist ",
+    "dist": "npm run lint && npm run test && npm run dist-build",
     "test": "jest",
-    "test:watch": "npm run test -- --watch",
-    "lint": "eslint src/*"
+    "lint": "tslint --project tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -27,38 +28,75 @@
     "vertical menu",
     "navigation"
   ],
-  "dependencies": {
-    "prop-types": "^15.5.8",
-    "styled-components": "*"
-  },
+  "dependencies": {},
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.24.0",
-    "babel-eslint": "^7.2.3",
-    "babel-loader": "^6.4.1",
-    "babel-preset-env": "^1.2.2",
-    "babel-preset-react": "^6.23.0",
-    "babel-preset-stage-2": "^6.22.0",
-    "enzyme": "^2.8.0",
-    "eslint": "^4.0.0",
-    "eslint-plugin-react": "^7.1.0",
-    "jest": "^19.0.2",
-    "react": "^15",
-    "react-addons-test-utils": "^15.4.2",
-    "react-dom": "^15",
-    "react-icons-kit": "^1.0.4",
-    "react-router": "^4.0.0",
-    "react-router-dom": "^4.0.0",
-    "react-test-renderer": "^15.4.2",
-    "styled-components": "^1.4.4",
-    "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.2"
+    "@types/enzyme": "^3.1.14",
+    "@types/enzyme-adapter-react-16": "^1.0.3",
+    "@types/jest": "^23.3.2",
+    "@types/react": "^16.3.17",
+    "@types/react-dom": "^16.0.6",
+    "@types/react-router-dom": "^4.3.1",
+    "awesome-typescript-loader": "^5.0.0",
+    "babel-plugin-styled-components": "^1.7.1",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "jest": "^23.6.0",
+    "jest-enzyme": "^6.0.4",
+    "react": "^16.5.1",
+    "react-containers": "^15.2.3",
+    "react-dom": "^16.5.1",
+    "react-icons-kit": "^1.1.12",
+    "react-router-dom": "^4.3.1",
+    "react-test-renderer": "^15.6.2",
+    "rimraf": "^2.6.2",
+    "source-map-loader": "^0.2.3",
+    "styled-components": "^3.4.6",
+    "ts-jest": "^23.1.4",
+    "ts-loader": "^4.4.1",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.0.3",
+    "typescript-plugin-styled-components": "^1.0.0",
+    "webpack": "^4.12.0",
+    "webpack-cli": "^2.1.5",
+    "webpack-dev-server": "^3.1.4"
   },
   "peerDependencies": {
-    "react": "^15"
+    "react": "^16",
+    "react-dom": "^16",
+    "styled-components": "^3",
+    "react-router-dom": "^4.3.1"
   },
   "jest": {
-    "rootDir": "src"
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/*.test.+(ts|tsx|js)"
+    ],
+    "moduleNameMapper": {
+      "react-sidenav/(.*)": "<rootDir>/src/$1"
+    },
+    "setupTestFrameworkScriptFile": "<rootDir>/setupTest.js",
+    "unmockedModulePathPatterns": [
+      "react",
+      "enzyme",
+      "jest-enzyme"
+    ]
   }
 }

@@ -1,0 +1,21 @@
+image: node:alpine
+
+cache:
+  paths:
+  - node_modules/
+
+
+stages:
+    - build
+
+
+build:    
+    stage: build    
+    script:
+        - npm install
+        - npm run dist
+        - tar -C `pwd`/dist -zcvf bundle.tar.gz .
+    artifacts:
+        paths:
+            - bundle.tar.gz
+        expire_in: 1 week
