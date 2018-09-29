@@ -2,7 +2,6 @@
 
 Side Navigation Component for React
 
-
 # Getting Started
 
 **react-sidenav** version is 3 is a complete rewrite of the react-sidenav library. The main intention
