@@ -10,4 +10,8 @@ describe('isExpanded', () => {
     it('returns false when path is from another parent', () => {
         expect(isExpanded('x',`z${PATH_SEPARATOR}1`)).toBe(false)
     })
+    it('does not die if paths and selection is empty', () => {
+        expect(isExpanded(undefined, undefined)).toBe(false)
+        expect(isExpanded('abc', undefined)).toBe(false)
+    })
 })
