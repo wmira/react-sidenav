@@ -22,7 +22,8 @@ export class NavRenderer extends React.Component<INavItemProp> {
                                 context.template,
                                 context.selectedPath,
                                 PATH_SEPARATOR,
-                                this.props.parentPathId)
+                                this.props.parentPathId,
+                                context.scheme)
 
         const parentPathId = this.props.navProp.id
 

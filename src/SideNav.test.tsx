@@ -80,4 +80,5 @@ describe('<SideNav/>', () => {
         expect(arg.payload).toBe("banana")
         expect(wrapper.state('selectedPath')).toBe('1')
     })
+
 })

@@ -20,6 +20,7 @@ const Container = styled.div`
     position: relative;
     padding: ${ (props: INavItemProp ) => createPadding(props.level)};
     align-items: center;
+    justify-content: ${ (props: INavItemProp) => props.scheme === Scheme.compact ? 'center' : 'flex-start' };
     cursor: pointer;
     background: ${ (props: INavItemProp) => props.selected ? props.theme.selectionBgColor : props.theme.bgColor || 'inherit' };
     color: ${ (props: INavItemProp) => props.selected ? props.theme.selectionColor : props.theme.color  || 'inherit' };
@@ -51,6 +52,7 @@ export const IconText = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-left: 8px;
 `
 interface IViewProp {
     key: string
@@ -88,7 +90,6 @@ export class DefaultTemplate extends React.PureComponent<INavItemProp> {
         const { children, template: navTemplate, ...others } = this.props
         const inav = others as INavItemProp
         const { props } = this
-
         // remap children, to be sure they are on the same order
         const remappedChildren = React.Children.toArray(children)
             .reduce( (partial: Array<React.ReactElement<any>>, child: React.ReactElement<any>, idx: number ) => { // reduce -- we will not display text in compact mode
@@ -97,12 +98,17 @@ export class DefaultTemplate extends React.PureComponent<INavItemProp> {
                     const propsToUse: IViewProp & INavItemProp = { ...this.props, ...createProps(`${idx}`, child.props)  }
                     return partial.concat([ React.createElement( NavIconTemplate as React.ComponentClass, propsToUse) ])
                 }
-                if ( child.type === NavText && props.scheme !== Scheme.compact ) {
-                    const NavTextTemplate = navTemplate && navTemplate.item ? navTemplate.item : IconText
-                    const propsToUse: IViewProp & INavItemProp = { ...this.props, ...createProps(`${idx}`, child.props)  }
-                    return partial.concat([ React.createElement( NavTextTemplate as React.ComponentClass, propsToUse) ])
+                if ( child.type === NavText  ) {
+                    if ( props.scheme === Scheme.compact ) {
+                        return partial.concat([ null ])
+                    } else {
+                        const NavTextTemplate = navTemplate && navTemplate.text ? navTemplate.text : IconText
+                        const propsToUse: IViewProp & INavItemProp = { ...this.props, ...createProps(`${idx}`, child.props)  }
+                        return partial.concat([ React.createElement( NavTextTemplate as React.ComponentClass, propsToUse) ])
+                    }
                 }
                 return partial.concat([child])
+
             }, [])
         const IndicatorElement = props.isLeaf === false ? (template.expandIndicator || ArrowRight) : null
 

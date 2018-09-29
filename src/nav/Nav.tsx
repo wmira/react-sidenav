@@ -11,7 +11,13 @@ export class Nav extends React.PureComponent<INavProp> {
 
     public renderNavView = (context: ISideNavContext) => {
 
-        const navItemProp = createNavItemProp(this.props, context.theme, context.template, context.selectedPath, PATH_SEPARATOR)
+        const navItemProp = createNavItemProp(
+                                this.props, context.theme,
+                                context.template,
+                                context.selectedPath,
+                                PATH_SEPARATOR,
+                                undefined,
+                                context.scheme)
 
         // we need 1 more layer so pass in our actual prop
         return (

@@ -33,6 +33,7 @@ export class SideNav extends React.Component<ISideNavProp, ISideNavState> {
         const template = { ...defaultTemplate, ...propsTemplate }
         const theme = this.props.theme || {}
         const scheme = this.props.scheme || Scheme.default
+
         const value: ISideNavContext = {
             selectedPath,
             onItemSelection: this.onItemSelection,

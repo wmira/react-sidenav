@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { SideNav } from 'react-sidenav'
+import { SideNav } from './SideNav'
 
 import { ISideNavProp, INavSelectionArg } from "react-sidenav/types";
 import { withRouter, RouteComponentProps } from 'react-router-dom'

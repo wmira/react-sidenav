@@ -10,6 +10,7 @@ import {
 import { Icon, IconProp } from "react-icons-kit";
 
 import { fileEmpty as ic_aspect_ratio } from "react-icons-kit/icomoon";
+import { Scheme } from 'react-sidenav/types/Scheme';
 // import { gear as ic_business } from "react-icons-kit/fa";
 // import { lock as ic_business_center } from "react-icons-kit/fa";
 // import { infoCircle as ic_format_list_bulleted } from "react-icons-kit/fa";
@@ -58,6 +59,7 @@ export class NavTextAndIcon extends React.Component<{}, IState> {
                 <Body>
                     <SideNavContainer>
                         <SideNav
+                            scheme={Scheme.compact}
                             selectedPath={this.state.selectionPath}
                             onItemSelection={this.onItemSelection}
                             theme={theme}>

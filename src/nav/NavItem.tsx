@@ -15,14 +15,11 @@ export class NavItem extends React.PureComponent<NavItemViewProp, { isCollapsed:
         const { children, context, ...others } = this.props
         const { template } = this.props.context
         const Template = template.item //  isChild ? template.navChild || NavChildTemplate : ( template.nav || NavTemplate )
-        const itemTemplateProp = {
-            ...others,
-            context
-        }
+
 
         return (
             <div onClick={this.dispatchOnClick}>
-                <Template { ...itemTemplateProp }>
+                <Template { ...others }>
                     { children || null }
                 </Template>
             </div>
