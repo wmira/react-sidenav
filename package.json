@@ -87,7 +87,7 @@
       }
     },
     "testMatch": [
-      "**/*.test.+(ts|tsx|js)"
+      "<rootDir>/src/**/*.test.+(ts|tsx|js)"
     ],
     "moduleNameMapper": {
       "react-sidenav/(.*)": "<rootDir>/src/$1"

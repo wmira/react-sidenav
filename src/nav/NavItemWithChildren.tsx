@@ -50,7 +50,7 @@ export class NavItemWithChildren extends React.Component<NavItemWithChildrenProp
                     {...this.props }
                     expanded={this.state.isExpanded}>
 
-                        { this.props.children.map( (child: React.ReactElement<any>, idx: number) => {
+                        { React.Children.toArray(this.props.children).map( (child: React.ReactElement<any>, idx: number) => {
                             const navItemProp = createNavItemProp(child.props, props.theme, props.template, context.selectedPath, PATH_SEPARATOR, this.props.parentPathId)
                             return (
                                 <NavRenderer

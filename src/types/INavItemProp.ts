@@ -9,7 +9,7 @@ export interface INavItemProp {
     navProp: INavProp
     level: number
     pathId: string
-    children?: ReactNode[]
+    children?: ReactNode[] | ReactNode
     theme: INavTheme
     template: ITemplateComponents // the template to use
     scheme: Scheme
