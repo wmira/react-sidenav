@@ -1,6 +1,6 @@
 # react-sidenav
 
-[![Build Status](https://gitlab.com/wmira/react-sidenav/badges/master/build.svg)](https://gitlab.com/wmira/react-sidenav/pipelines)[![codecov](https://codecov.io/gh/wmira/react-sidenav/branch/master/graph/badge.svg)](https://codecov.io/gh/wmira/react-sidenav)
+[![Build Status](https://gitlab.com/wmira/react-sidenav/badges/master/build.svg)](https://gitlab.com/wmira/react-sidenav/pipelines)[![codecov](https://codecov.io/gh/wmira/react-sidenav/branch/master/graph/badge.svg)](https://codecov.io/gh/wmira/react-sidenav)[![npm version](https://badge.fury.io/js/react-sidenav.svg)](https://badge.fury.io/js/react-sidenav)
 
 Side Navigation Component for React
 
@@ -34,7 +34,7 @@ The following are peer dependencies of **react-sidenav**. You would need to have
 
 ### Basic Usage 
 
-At a minimum, SideNav can be used as per the example below:
+At a minimum, SideNav can be used as per the example below. You can render any item you want.
 
 ```javascript
 
@@ -73,6 +73,33 @@ At a minimum, SideNav can be used as per the example below:
 
 ```
 
+For stateless mode, you can add a listener and set the value on selectedPath attribute
+
+```
+class Navigation extends React.Component {
+
+    state = { selectedPath: '' }
+
+    onItemSelection = (arg) => {
+        this.setState({ selectedPath: arg.path })
+    }
+
+    render() {
+
+        return (
+            <SideNav 
+                selectedPath={this.state.selectedPath} 
+                onItemSelection={this.onItemSelection}>
+                <Nav id={'1'2}>1</Nav>
+                <Nav id={'2'}>2</Nav>
+            </SideNav>
+        )
+    }
+
+}
+
+```
+
 ### SideNav Properties
 
 | property   |      type      |  description |  isRequired |
@@ -84,6 +111,16 @@ At a minimum, SideNav can be used as per the example below:
 | template | ITemplate | The template defines which Elements gets rendered. Defaults are used and you can use this to customize how navigations are rendered. More below | false |
 | scheme | Scheme | used to customize template behavior | false |
 | expandOnHover | boolean | expand a submenu on hover. defaults to false | false |
+
+
+### Nav Properties
+
+| property   |      type      |  description |  isRequired |
+|------------|-------------:|------:|-----------------------|
+| id | | a function that gets called when a navigation has been clicked | true |
+| payload | any | passed to the listener when this nav is clicked  | false |
+| className | string | the class name to assign to this nav's container | false |
+| style | css attribs object | The style to assign to this nav's container | false |
 
 
 # Development
