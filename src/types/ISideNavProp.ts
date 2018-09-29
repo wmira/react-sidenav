@@ -10,4 +10,5 @@ export interface ISideNavProp {
     template?: ITemplateComponents
     theme?: INavTheme
     scheme?: Scheme
+    expandOnHover?: boolean
 }

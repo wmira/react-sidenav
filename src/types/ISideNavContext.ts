@@ -9,4 +9,5 @@ export interface ISideNavContext<P = {}> {
     template: ITemplateComponents
     theme: INavTheme
     scheme: Scheme
+    expandOnHover?: boolean
 }

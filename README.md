@@ -76,6 +76,7 @@ At a minimum, SideNav can be used as per the example below:
 | theme | INavTheme | The theme used by templates for colors etc | false |
 | template | ITemplate | The template defines which Elements gets rendered. Defaults are used and you can use this to customize how navigations are rendered. More below | false |
 | scheme | Scheme | used to customize template behavior | false |
+| expandOnHover | boolean | expand a submenu on hover. defaults to false | false |
 
 
 # Development

@@ -63,6 +63,7 @@ export class WithIcons extends React.Component<{}, IState> {
                 <Body>
                     <SideNavContainer>
                         <SideNav
+                            expandOnHover={true}
                             selectedPath={this.state.selectionPath}
                             onItemSelection={this.onItemSelection}
                             theme={theme}>

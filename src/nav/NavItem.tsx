@@ -2,7 +2,7 @@ import * as React from 'react'
 import { INavItemProp } from "react-sidenav/types/INavItemProp";
 import { ISideNavContext } from 'react-sidenav/types';
 
-type NavItemViewProp = INavItemProp & { onClick?: React.MouseEventHandler, context: ISideNavContext, children?: any }
+type NavItemViewProp = INavItemProp & { onMouseEnter?: React.MouseEventHandler, onMouseLeave?: React.MouseEventHandler, onClick?: React.MouseEventHandler, context: ISideNavContext, children?: any }
 export class NavItem extends React.PureComponent<NavItemViewProp, { isCollapsed: boolean, isCollapsible: boolean }> {
     public state = { isCollapsed: false, isCollapsible: true }
 
@@ -18,7 +18,7 @@ export class NavItem extends React.PureComponent<NavItemViewProp, { isCollapsed:
 
 
         return (
-            <div onClick={this.dispatchOnClick}>
+            <div onClick={this.dispatchOnClick} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.props.onMouseLeave}>
                 <Template { ...others }>
                     { children || null }
                 </Template>
