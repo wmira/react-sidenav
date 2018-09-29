@@ -9,6 +9,7 @@ import { Simple } from 'react-sidenav/playground/Simple';
 
 import { init } from 'react-sidenav/playground/init'
 import { WithIcons } from 'react-sidenav/playground/WithIcons';
+import { NavTextAndIcon } from 'react-sidenav/playground/NavTextAndIcon';
 import styled from 'styled-components';
 
 init()
@@ -25,6 +26,7 @@ const RenderItems = () => (
     <Flex>
       <FlexItem><Simple /></FlexItem>
       <FlexItem><WithIcons /></FlexItem>
+      <FlexItem><NavTextAndIcon /></FlexItem>
     </Flex>
 )
 

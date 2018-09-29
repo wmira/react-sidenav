@@ -44,6 +44,8 @@ const determineIconColor = (props: INavItemProp ) => {
 export const IconView = styled.div`
     color: ${ (props: INavItemProp ) => determineIconColor(props)  };
 `
+export const IconText = styled.div`
+`
 interface IViewProp {
     key: string
     className?: string
@@ -85,12 +87,12 @@ export class DefaultTemplate extends React.PureComponent<INavItemProp> {
         const remappedChildren = React.Children.toArray(children)
             .reduce( (partial: Array<React.ReactElement<any>>, child: React.ReactElement<any>, idx: number ) => { // reduce -- we will not display text in compact mode
                 if ( child.type === NavIcon  ) {
-                    const NavIconTemplate = navTemplate ? navTemplate.icon : IconView
+                    const NavIconTemplate = navTemplate && navTemplate.icon ? navTemplate.icon : IconView
                     const propsToUse: IViewProp & INavItemProp = { ...this.props, ...createProps(`${idx}`, child.props)  }
                     return partial.concat([ React.createElement( NavIconTemplate, propsToUse) ])
                 }
                 if ( child.type === NavText && props.scheme !== Scheme.compact ) {
-                    const NavIconTemplate = navTemplate ? navTemplate.item : IconView
+                    const NavIconTemplate = navTemplate && navTemplate.item ? navTemplate.item : IconText
                     const propsToUse: IViewProp & INavItemProp = { ...this.props, ...createProps(`${idx}`, child.props)  }
                     return partial.concat([ React.createElement( NavIconTemplate, propsToUse) ])
                 }
