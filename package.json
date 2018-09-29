@@ -9,7 +9,9 @@
     "dist-build": "tsc && cp package.json dist && cp README.md dist ",
     "dist": "npm run lint && npm run test && npm run dist-build",
     "test": "jest",
-    "lint": "tslint --project tsconfig.json"
+    "test:watch": "jest --watch",    
+    "lint": "tslint --project tsconfig.json",
+    "codecov": "codecov"
   },
   "repository": {
     "type": "git",
@@ -39,6 +41,7 @@
     "@types/react-router-dom": "^4.3.1",
     "awesome-typescript-loader": "^5.0.0",
     "babel-plugin-styled-components": "^1.7.1",
+    "codecov": "^3.1.0",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "jest": "^23.6.0",
@@ -70,6 +73,12 @@
     "react-router-dom": "^4.3.1"
   },
   "jest": {
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
