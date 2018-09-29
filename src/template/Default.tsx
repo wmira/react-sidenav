@@ -43,8 +43,14 @@ const determineIconColor = (props: INavItemProp ) => {
 
 export const IconView = styled.div`
     color: ${ (props: INavItemProp ) => determineIconColor(props)  };
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 export const IconText = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 interface IViewProp {
     key: string
