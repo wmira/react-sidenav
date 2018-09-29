@@ -75,7 +75,7 @@ At a minimum, SideNav can be used as per the example below. You can render any i
 
 For stateless mode, you can add a listener and set the value on selectedPath attribute
 
-```
+```javascript
 class Navigation extends React.Component {
 
     state = { selectedPath: '' }
@@ -90,7 +90,7 @@ class Navigation extends React.Component {
             <SideNav 
                 selectedPath={this.state.selectedPath} 
                 onItemSelection={this.onItemSelection}>
-                <Nav id={'1'2}>1</Nav>
+                <Nav id={'1'}>1</Nav>
                 <Nav id={'2'}>2</Nav>
             </SideNav>
         )
