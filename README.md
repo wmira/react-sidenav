@@ -2,7 +2,6 @@
 
 Side Navigation Component for React
 
-*react-sidenav v3 is a complete rewrite and would not be backwards compatible*
 
 # Getting Started
 
@@ -73,6 +72,11 @@ At a minimum, SideNav can be used as per the example below:
 | property   |      type      |  description |  isRequired |
 |------------|-------------:|------:|-----------------------|
 | onItemSelection | function: ({id, path, payload}) => void | a function that gets called when a navigation has been clicked | false |
+| selectedPath | string | the identifier of the selection. Note that if your navigation is only 1 level then this just corresponds to an id.  | false |
+| defaultSelectedPath | string | SideNav component will manage state. Use defaultSelectedPath to set initial active item | false |
+| theme | INavTheme | The theme used by templates for colors etc | false |
+| template | ITemplate | The template defines which Elements gets rendered. Defaults are used and you can use this to customize how navigations are rendered. More below | false |
+| scheme | Scheme | used to customize template behavior | false |
 
 
 # Development

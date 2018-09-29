@@ -41,7 +41,6 @@ const determineIconColor = (props: INavItemProp ) => {
     return 'inherit'
 }
 
-
 export const IconView = styled.div`
     color: ${ (props: INavItemProp ) => determineIconColor(props)  };
 `
