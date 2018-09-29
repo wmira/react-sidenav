@@ -17,6 +17,11 @@ As such, **react-sidenav** aims to be a  library and can be used to build any si
 **react-sidenav** are exported as an es module thus you would need a bundler to use it. It is also written in
 Typescript so it can be directly used with a typescript project as well.
 
+## Examples
+
+https://codesandbox.io/dashboard/sandboxes/react-sidenav
+
+
 ### Dependencies
 
 The following are peer dependencies of **react-sidenav**. You would need to have the following installed:
