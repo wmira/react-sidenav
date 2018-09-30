@@ -5,9 +5,9 @@ import { SideNav } from './SideNav'
 import { ISideNavProp, INavSelectionArg } from "react-sidenav/types";
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { PATH_SEPARATOR } from './constants'
-import { IWithRR4Options } from 'react-sidenav/types/IWithRR4Options';
+
 type SideNavWithRR4Prop = ISideNavProp & RouteComponentProps<{}>
-export const withRR4 = (options: IWithRR4Options = { relative: true }) => {
+export const withRR4 = () => {
     class BaseSideNavWithRR4 extends React.Component<SideNavWithRR4Prop, { selectedPath: string }> {
 
         constructor(props: SideNavWithRR4Prop) {
@@ -18,14 +18,14 @@ export const withRR4 = (options: IWithRR4Options = { relative: true }) => {
         }
 
         public onItemSelection = (arg: INavSelectionArg) => {
+            const { match } = this.props
             const { payload } = arg
             const withToPayload = payload as { to: string }
             if ( payload && withToPayload.to ) {
-                this.props.history.push(`${withToPayload.to}`)
+                this.props.history.push(`${match.url}/${withToPayload.to}`)
             } else {
                 const path = arg.path.split(PATH_SEPARATOR).join('/')
-                const prefix = options.relative ? '' : '/'
-                this.props.history.push(`${prefix}${path}`)
+                this.props.history.push(`${match.url}/${path}`)
 
             }
             if ( this.props.onItemSelection ) {
