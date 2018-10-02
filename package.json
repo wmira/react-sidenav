@@ -12,7 +12,7 @@
     "test:watch": "jest --watch",
     "lint": "tslint --project tsconfig.json",
     "codecov": "codecov",
-    "patch": "npm version patch && git push --follow-tags"
+    "dist-patch": "npm version patch && git push --follow-tags"
   },
   "repository": {
     "type": "git",
