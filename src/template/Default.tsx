@@ -74,7 +74,8 @@ const ArrowRight = styled.div`
     display: inline-block;
     border-right: 1px solid ${(props: INavItemProp) => props.theme.color || 'currentColor'};
     border-bottom: 1px solid ${(props: INavItemProp) => props.theme.color || 'currentColor'};
-    width: 8px; height: 8px;
+    width: 4px;
+    height: 4px;
     transform: ${ (props:INavItemProp) => props.expanded ? 'rotate(45deg)' : 'rotate(-45deg)'};
     transition: transform 0.3s ease;
     position: absolute;
