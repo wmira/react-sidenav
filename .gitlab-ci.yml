@@ -3,10 +3,12 @@ image: node:alpine
 cache:
   paths:
   - node_modules/
+  - dist
 
 
 stages:
     - build
+    - publish
 
 
 build:    
@@ -21,3 +23,12 @@ build:
             - bundle.tar.gz
         expire_in: 1 week
 
+npm_publish:
+    stage: publish
+    only:
+        - tags
+    script:
+        - npm publish dist
+
+
+    
