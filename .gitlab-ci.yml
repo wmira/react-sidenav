@@ -24,6 +24,8 @@ build:
         expire_in: 1 week
 
 npm_publish:
+    variables:
+        CI_DEBUG_TRACE: "true"
     stage: publish
   #  only:
    #     - tags
