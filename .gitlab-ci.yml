@@ -1,5 +1,5 @@
 image: node:alpine
-environment: 'production'
+
 
 cache:
   paths:  
@@ -12,6 +12,7 @@ stages:
 
 
 build:    
+    environment: production
     stage: build    
     script:
         - npm install
@@ -20,6 +21,7 @@ build:
         - "CODECOV_TOKEN=${CODECOV_TOKEN} npm run codecov"
 
 npm_publish:    
+    environment: production
     stage: publish
     #only:
     #    - tags
