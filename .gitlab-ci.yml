@@ -1,4 +1,5 @@
 image: node:alpine
+environment: 'production'
 
 cache:
   paths:  
@@ -16,16 +17,16 @@ build:
         - npm install
         - npm run dist
         - tar -C `pwd`/dist -zcvf bundle.tar.gz .
-        - "CODECOV_TOKEN=$CODECOV_TOKEN npm run codecov"
+        - "CODECOV_TOKEN=${CODECOV_TOKEN} npm run codecov"
 
 npm_publish:    
     stage: publish
     #only:
     #    - tags
     script:
-        - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc        
+        - "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > ~/.npmrc"
         - cat ~/.npmrc
-        - npm publish dist
+#        - npm publish dist
 
 
     
