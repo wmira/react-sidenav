@@ -11,8 +11,7 @@ stages:
     - publish
 
 
-build:    
-    environment: production
+build:        
     stage: build    
     script:
         - npm install
@@ -20,8 +19,7 @@ build:
         - tar -C `pwd`/dist -zcvf bundle.tar.gz .
         - "CODECOV_TOKEN=${CODECOV_TOKEN} npm run codecov"
 
-npm_publish:    
-    environment: production
+npm_publish:        
     stage: publish
     #only:
     #    - tags
