@@ -1,6 +1,7 @@
 # react-sidenav
 
-[![Build Status](https://gitlab.com/wmira/react-sidenav/badges/master/build.svg)](https://gitlab.com/wmira/react-sidenav/pipelines)[![codecov](https://codecov.io/gh/wmira/react-sidenav/branch/master/graph/badge.svg)](https://codecov.io/gh/wmira/react-sidenav)[![npm version](https://badge.fury.io/js/react-sidenav.svg)](https://badge.fury.io/js/react-sidenav)
+[![Build Status](https://gitlab.com/wmira/react-sidenav/badges/master/build.svg)](https://gitlab.com/wmira/react-sidenav/pipelines)[![coverage report](https://gitlab.com/wmira/react-sidenav/badges/master/coverage.svg)](https://gitlab.com/wmira/react-sidenav/commits/master)
+[![npm version](https://badge.fury.io/js/react-sidenav.svg)](https://badge.fury.io/js/react-sidenav)
 
 Side Navigation Component for React
 

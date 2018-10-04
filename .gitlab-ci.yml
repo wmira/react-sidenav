@@ -15,9 +15,7 @@ build:
     stage: build    
     script:
         - npm install
-        - npm run dist
-        - tar -C `pwd`/dist -zcvf bundle.tar.gz .
-        - "CODECOV_TOKEN=${CODECOV_TOKEN} npm run codecov"
+        - npm run dist                
 
 npm_publish:        
     stage: publish

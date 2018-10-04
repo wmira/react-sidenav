@@ -10,8 +10,7 @@
     "dist": "npm run lint && npm run test && npm run dist-build",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "tslint --project tsconfig.json",
-    "codecov": "codecov",
+    "lint": "tslint --project tsconfig.json",    
     "dist-patch": "npm version patch && git push --follow-tags"
   },
   "repository": {
@@ -75,6 +74,11 @@
   },
   "jest": {
     "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "!src/playground/*.*"
+    ],    
     "coverageReporters": [
       "json",
       "lcov",

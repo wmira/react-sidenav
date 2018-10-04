@@ -9,12 +9,25 @@ import { PATH_SEPARATOR } from './constants'
 type SideNavWithRR4Prop = ISideNavProp & RouteComponentProps<{}> & { onHistoryChange?: (arg: INavSelectionArg) => void }
 export const withRR4 = () => {
     class BaseSideNavWithRR4 extends React.Component<SideNavWithRR4Prop, { selectedPath: string }> {
-
+        public state = { selectedPath: '' }
         constructor(props: SideNavWithRR4Prop) {
             super(props)
-            const path = this.props.location.pathname
+        }
 
-            this.state = { selectedPath: this.props.selectedPath }
+        public componentDidMount() {
+            const { location } = this.props
+            if ( location && location.pathname ) {
+                const pathsArr = location.pathname.split('/')
+                                    .filter( path => path)
+
+                const selectedPath = pathsArr.reduce((partial, path, index) => {
+                    if ( index + 1 === pathsArr.length ) {
+                        return `${partial}${path}`
+                    }
+                    return `${partial}${PATH_SEPARATOR}${path}`
+                }, "")
+                this.setState({ selectedPath })
+            }
         }
 
         public onItemSelection = (arg: INavSelectionArg) => {
