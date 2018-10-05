@@ -35,10 +35,7 @@
   "devDependencies": {
     "@types/enzyme": "^3.1.14",
     "@types/enzyme-adapter-react-16": "^1.0.3",
-    "@types/jest": "^23.3.2",
-    "@types/react": "^16.3.17",
-    "@types/react-dom": "^16.0.6",
-    "@types/react-router-dom": "^4.3.1",
+    "@types/jest": "^23.3.2",    
     "awesome-typescript-loader": "^5.0.0",
     "babel-plugin-styled-components": "^1.7.1",
     "codecov": "^3.1.0",
@@ -47,10 +44,8 @@
     "jest": "^23.6.0",
     "jest-enzyme": "^6.0.4",
     "react": "^16.5.1",
-    "react-containers": "^15.2.3",
-    "react-dom": "^16.5.1",
-    "react-icons-kit": "^1.1.12",
-    "react-router-dom": "^4.3.1",
+    "react-containers": "^15.2.3",    
+    "react-icons-kit": "^1.1.12",    
     "react-test-renderer": "^15.6.2",
     "rimraf": "^2.6.2",
     "source-map-loader": "^0.2.3",
@@ -70,7 +65,10 @@
     "react": "^16",
     "react-dom": "^16",
     "styled-components": "^3",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "@types/react": "^16.3.17",
+    "@types/react-dom": "^16.0.6",
+    "@types/react-router-dom": "^4.3.1"
   },
   "jest": {
     "collectCoverage": true,
