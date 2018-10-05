@@ -35,7 +35,10 @@
   "devDependencies": {
     "@types/enzyme": "^3.1.14",
     "@types/enzyme-adapter-react-16": "^1.0.3",
-    "@types/jest": "^23.3.2",    
+    "@types/jest": "^23.3.2",
+    "@types/react": "^16.3.17",
+    "@types/react-dom": "^16.0.6",
+    "@types/react-router-dom": "^4.3.1",
     "awesome-typescript-loader": "^5.0.0",
     "babel-plugin-styled-components": "^1.7.1",
     "codecov": "^3.1.0",
@@ -65,10 +68,7 @@
     "react": "^16",
     "react-dom": "^16",
     "styled-components": "^3",
-    "react-router-dom": "^4.3.1",
-    "@types/react": "^16.3.17",
-    "@types/react-dom": "^16.0.6",
-    "@types/react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1"
   },
   "jest": {
     "collectCoverage": true,

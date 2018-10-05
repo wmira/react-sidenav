@@ -3,7 +3,8 @@ import * as React from 'react'
 import { mount } from 'enzyme';
 
 
-import { Nav, withRR4 } from './';
+import { Nav } from './';
+import { withRR4 } from './withRR4'
 import { MemoryRouter as Router, MemoryRouter } from 'react-router-dom'
 import { SideNav } from 'react-sidenav/SideNav';
 
