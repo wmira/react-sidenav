@@ -47,7 +47,8 @@ export const withRR4 = () => {
 
             } else {
                 const path = arg.path.split(PATH_SEPARATOR).join('/')
-                this.props.history.push(createLocation(path, null, null, location))
+                // prepend a slash by default
+                this.props.history.push(createLocation(`/${path}`, null, null, location))
 
             }
         }
