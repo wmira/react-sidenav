@@ -1,6 +1,6 @@
 {
   "name": "react-sidenav",
-  "version": "3.0.21",
+  "version": "3.1.0",
   "description": "A Simple SideBar Navigation written in React",
   "author": "Warren Mira",
   "scripts": {
@@ -10,7 +10,7 @@
     "dist": "npm run lint && npm run test && npm run dist-build",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "tslint --project tsconfig.json",    
+    "lint": "tslint --project tsconfig.json",
     "dist:patch": "npm version patch && git push --follow-tags",
     "dist:minor": "npm version minor && git push --follow-tags"
   },
@@ -79,7 +79,7 @@
       "src/**/*.ts",
       "src/**/*.tsx",
       "!src/playground/*.*"
-    ],    
+    ],
     "coverageReporters": [
       "json",
       "lcov",
