@@ -22,8 +22,8 @@ Typescript so it can be directly used with a typescript project as well.
 
 ## Examples
 
-https://codesandbox.io/s/q9851xoymj
-https://codesandbox.io/dashboard/sandboxes/react-sidenav
+1. https://codesandbox.io/s/q9851xoymj
+2. https://codesandbox.io/dashboard/sandboxes/react-sidenav
 
 
 ### Dependencies
