@@ -43,7 +43,6 @@ export const withRR4 = () => {
             } else {
                 const path = arg.path.split(PATH_SEPARATOR).join('/')
                 this.props.history.push(createLocation(`${this.props.basePath}/${path}`, null, null, location))
-
             }
         }
 
