@@ -1,79 +1,96 @@
-
-import * as React from 'react'
-import styled from 'styled-components';
-import { SideNav, NavText, NavIcon, Nav } from 'react-sidenav';
+import * as React from "react";
+import { SideNav, Nav as BaseNav } from "react-sidenav";
+import styled from "styled-components";
 import { Container as BaseContainer } from 'react-sidenav/playground/Container'
-import { INavTheme, INavSelectionArg } from 'react-sidenav/types';
-import {
-    Body
-} from './Container'
-import { Icon, IconProp } from "react-icons-kit";
-
-import { fileEmpty as ic_aspect_ratio } from "react-icons-kit/icomoon";
-import { Scheme } from 'react-sidenav/types/Scheme';
-// import { gear as ic_business } from "react-icons-kit/fa";
-// import { lock as ic_business_center } from "react-icons-kit/fa";
-// import { infoCircle as ic_format_list_bulleted } from "react-icons-kit/fa";
-// import { users } from 'react-icons-kit/fa'
+import { Icon as BaseIcon } from "react-icons-kit";
 
 
-const SideNavContainer = styled.div`
-    width: 200px;
+import { dashboard } from "react-icons-kit/fa";
+import { users } from "react-icons-kit/fa";
+import { shoppingCart } from "react-icons-kit/fa";
+import { cubes } from "react-icons-kit/fa";
+import { circleO } from "react-icons-kit/fa";
+
+
+
+const Container = styled(BaseContainer)`
+    width: 100px;
     height: 100%;
     background: #2c3e50;
     color: #FFF;
 `
-const Container = styled(BaseContainer)`
-    width: 200px;
-    height: 440px;
-`
 
-const theme: INavTheme = {
-    hoverBgColor: '#00bcd4',
-    hoverColor: '#FFF',
-    selectionBgColor: '#00bcd4'
-}
-
-interface IState {
-    selectionPath: string
-
-}
-
-const Title = styled.div`
-    padding: 12px;
+const IconCnt = styled.div`
+  color: #FFF;
+  display: flex;
+  justify-content: center;
+  aligh-items: center;
 `;
-const Icon20 = (props: IconProp) =>  <Icon size={props.size || 20} icon={props.icon} />;
 
+const Nav = styled(BaseNav)`
+  flex-direction: column;
+`;
 
+const theme = {
+  selectionColor: "#FFF",
+  hoverBgColor: "#181b20",
+  selectionBgColor: "#E64A19"
+};
 
-export class NavTextAndIcon extends React.Component<{}, IState> {
-    public state: IState = { selectionPath: '1' }
+const Text = styled.div`
+  font-size: 0.72em;
+  text-transform: uppercase;
+`;
 
-    public onItemSelection = (arg: INavSelectionArg) => {
-        this.setState({ selectionPath: arg.path })
-    }
-    public render() {
+const Icon = (props: any) => <BaseIcon size={32} icon={props.icon} />;
 
-        return (
-            <Container>
-                <Body>
-                    <SideNavContainer>
-                        <SideNav
-                            scheme={Scheme.compact}
-                            selectedPath={this.state.selectionPath}
-                            onItemSelection={this.onItemSelection}
-                            theme={theme}>
-                            <Title> Basic SideNav </Title>
-                            <Nav id="dashboard">
-                                <NavIcon><Icon20 icon={ic_aspect_ratio} /></NavIcon>
-                                <NavText>Dashboard</NavText>
-                            </Nav>
+export class NavTextAndIcon extends React.Component {
+  public state = { selectedPath: "1" };
 
-                    </SideNav>
+  public onItemSelection = (arg: any) => {
+    this.setState({ selectedPath: arg.path });
+  };
 
-                    </SideNavContainer>
-                </Body>
-            </Container>
-        )
-    }
+  public render() {
+    return (
+      <Container>
+          <SideNav
+            defaultSelectedPath="1"
+            theme={theme}
+            onItemSelection={this.onItemSelection}
+          >
+            <Nav id="1">
+              <IconCnt>
+                <Icon icon={dashboard} />
+              </IconCnt>
+              <Text>Dashboard</Text>
+            </Nav>
+            <Nav id="2">
+              <IconCnt>
+                <Icon icon={users} />
+              </IconCnt>
+              <Text>Users</Text>
+            </Nav>
+            <Nav id="3">
+              <IconCnt>
+                <Icon icon={shoppingCart} />
+              </IconCnt>
+              <Text>Deliveries</Text>
+            </Nav>
+            <Nav id="4">
+              <IconCnt>
+                <Icon icon={circleO} />
+              </IconCnt>
+              <Text>Orders</Text>
+            </Nav>
+            <Nav id="5">
+              <IconCnt>
+                <Icon icon={cubes} />
+              </IconCnt>
+              <Text>Transactions</Text>
+            </Nav>
+          </SideNav>
+      </Container>
+    );
+  }
 }

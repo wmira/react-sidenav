@@ -67,7 +67,7 @@ export class WithIcons extends React.Component<{}, IState> {
                             selectedPath={this.state.selectionPath}
                             onItemSelection={this.onItemSelection}
                             theme={theme}>
-                            <Title> Basic SideNav </Title>
+                            <Title> React SideNav </Title>
                             <Nav id="dashboard">
                                 <Icon20 icon={ic_aspect_ratio} />
                                 <Label>Dashboard</Label>

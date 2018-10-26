@@ -7,7 +7,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { createLocation } from 'history'
 import { PATH_SEPARATOR } from './constants'
 
-type SideNavWithRR4Prop = ISideNavProp & RouteComponentProps<{}> & { onHistoryChange?: (arg: INavSelectionArg) => void }
+type SideNavWithRR4Prop = ISideNavProp & RouteComponentProps<{}> & { basePath: string, onHistoryChange?: (arg: INavSelectionArg) => void }
 export const withRR4 = () => {
     class BaseSideNavWithRR4 extends React.Component<SideNavWithRR4Prop, { selectedPath: string }> {
         public state = { selectedPath: '' }
@@ -32,23 +32,17 @@ export const withRR4 = () => {
         }
 
         public onItemSelection = (arg: INavSelectionArg) => {
-            const { match, location } = this.props
+            const { location } = this.props
             const { payload } = arg
             const withToPayload = payload as { to: string }
 
-            if ( this.props.onItemSelection ) {
-                this.props.onItemSelection(arg)
-            }
-            if ( this.props.onHistoryChange ) {
-                this.props.onHistoryChange(arg)
-            }
+
             if ( payload && withToPayload.to ) {
                 this.props.history.push(createLocation(withToPayload.to, null, null, location))
 
             } else {
                 const path = arg.path.split(PATH_SEPARATOR).join('/')
-                // prepend a slash by default
-                this.props.history.push(createLocation(`/${path}`, null, null, location))
+                this.props.history.push(createLocation(`${this.props.basePath}/${path}`, null, null, location))
 
             }
         }
