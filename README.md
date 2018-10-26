@@ -5,6 +5,8 @@
 
 Side Navigation Component for React
 
+![Alt vmware](https://github.com/wmira/react-sidenav/blob/master/sidenav.png)
+
 # Getting Started
 
 **react-sidenav** version is 3 is a complete rewrite of the react-sidenav library. The main intention
