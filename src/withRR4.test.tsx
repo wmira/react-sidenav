@@ -18,6 +18,7 @@ describe('withRR4', () => {
                 initialIndex={0}
                 >
                 <SideNavWithRR4
+                    basePath='/'
                     defaultSelectedPath='abc'>
                     <Nav id="abc">Nav</Nav>
                     <Nav id="def">Nav</Nav>
