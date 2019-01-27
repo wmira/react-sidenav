@@ -94,3 +94,5 @@ export class NavTextAndIcon extends React.Component {
     );
   }
 }
+
+export default NavTextAndIcon

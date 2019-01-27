@@ -7,8 +7,13 @@ import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { createLocation } from 'history'
 import { PATH_SEPARATOR } from './constants'
 
-type SideNavWithRR4Prop = ISideNavProp & RouteComponentProps<{}> & { basePath: string, onHistoryChange?: (arg: INavSelectionArg) => void }
+interface IBaseProp {
+    basePath?: string
+    onHistoryChange?: (arg: INavSelectionArg) => void
+}
+type SideNavWithRR4Prop = ISideNavProp & RouteComponentProps<{}> & IBaseProp
 export const withRR4 = () => {
+
     class BaseSideNavWithRR4 extends React.Component<SideNavWithRR4Prop, { selectedPath: string }> {
         public state = { selectedPath: '' }
         constructor(props: SideNavWithRR4Prop) {
@@ -41,8 +46,9 @@ export const withRR4 = () => {
                 this.props.history.push(createLocation(withToPayload.to, null, null, location))
 
             } else {
+                const basePath = this.props.basePath || '/'
                 const path = arg.path.split(PATH_SEPARATOR).join('/')
-                this.props.history.push(createLocation(`${this.props.basePath}/${path}`, null, null, location))
+                this.props.history.push(createLocation(`${basePath}${path}`, null, null, location))
             }
         }
 
@@ -70,6 +76,7 @@ export const withRR4 = () => {
 
             )
         }
+
     }
 
     return withRouter(BaseSideNavWithRR4)
