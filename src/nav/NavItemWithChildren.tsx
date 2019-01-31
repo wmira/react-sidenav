@@ -7,6 +7,7 @@ import { createNavItemProp } from 'react-sidenav/nav/createNavItemProp';
 import { NavItem } from 'react-sidenav/nav/NavItem';
 import { PATH_SEPARATOR } from 'react-sidenav/constants';
 import { NavRenderer } from 'react-sidenav/nav/NavRenderer';
+import { template as DefaultTemplate } from 'react-sidenav/template/Default';
 
 interface INavChildrenState {
     isExpanded: boolean
@@ -60,7 +61,7 @@ export class NavItemWithChildren extends React.Component<NavItemWithChildrenProp
         const { props } = this
         const { context } = props
 
-        const ChildrenContainer = context.template.children
+        const ChildrenContainer = context.template.children || DefaultTemplate.children!
 
         return (
             <>
@@ -79,8 +80,14 @@ export class NavItemWithChildren extends React.Component<NavItemWithChildrenProp
                     {...this.props }
                     expanded={this.state.isExpanded || this.state.isHovered}>
 
-                        { React.Children.toArray(this.props.children).map( (child: React.ReactElement<any>, idx: number) => {
-                            const navItemProp = createNavItemProp(child.props, props.theme, props.template, context.selectedPath, PATH_SEPARATOR, this.props.parentPathId)
+                        { React.Children.toArray(this.props.children).map( (childArg: any, idx: number) => {
+                            const child = childArg as React.ReactElement<any>
+                            const navItemProp = createNavItemProp(child.props,
+                                                                props.theme,
+                                                                props.template,
+                                                                context.selectedPath,
+                                                                PATH_SEPARATOR,
+                                                                this.props.parentPathId)
                             return (
                                 <NavRenderer
                                     {...navItemProp}

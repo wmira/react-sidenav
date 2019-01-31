@@ -43,18 +43,18 @@ export const withRR4 = () => {
 
 
             if ( payload && withToPayload.to ) {
-                this.props.history.push(createLocation(withToPayload.to, null, null, location))
+                this.props.history.push(createLocation(withToPayload.to, null, undefined, location))
 
             } else {
                 const basePath = this.props.basePath || '/'
                 const path = arg.path.split(PATH_SEPARATOR).join('/')
-                this.props.history.push(createLocation(`${basePath}${path}`, null, null, location))
+                this.props.history.push(createLocation(`${basePath}${path}`, null, undefined, location))
             }
         }
 
         public componentDidUpdate(prevProps: SideNavWithRR4Prop) {
             if ( this.props.selectedPath !== prevProps.selectedPath ) {
-                this.setState({ selectedPath: this.props.selectedPath })
+                this.setState({ selectedPath: this.props.selectedPath || '' })
             }
         }
 

@@ -93,11 +93,15 @@ export class DefaultTemplate extends React.PureComponent<INavItemProp> {
         const { props } = this
         // remap children, to be sure they are on the same order
         const remappedChildren = React.Children.toArray(children)
-            .reduce( (partial: Array<React.ReactElement<any>>, child: React.ReactElement<any>, idx: number ) => { // reduce -- we will not display text in compact mode
+            .reduce( (partial: Array<React.ReactElement<any> | null | string>, childArg: React.ReactNode, idx: number ) => { // reduce -- we will not display text in compact mode
+                if ( typeof childArg === 'string' ) {
+                    return partial.concat([ childArg ])
+                }
+                const child = childArg as React.ReactElement<any>
                 if ( child.type === NavIcon  ) {
                     const NavIconTemplate = ( navTemplate && navTemplate.icon ? navTemplate.icon : IconView )
                     const propsToUse: IViewProp & INavItemProp = { ...this.props, ...createProps(`${idx}`, child.props)  }
-                    return partial.concat([ React.createElement( NavIconTemplate as React.ComponentClass, propsToUse) ])
+                    return partial.concat([ React.createElement( NavIconTemplate, propsToUse) ])
                 }
                 if ( child.type === NavText  ) {
                     if ( props.scheme === Scheme.compact ) {
@@ -111,7 +115,7 @@ export class DefaultTemplate extends React.PureComponent<INavItemProp> {
                 return partial.concat([child])
 
             }, [])
-        const IndicatorElement = props.isLeaf === false ? (template.expandIndicator || ArrowRight) : null
+        const IndicatorElement = props.isLeaf === false ? (template.expandIndicator! || ArrowRight) : null
 
         return (
             <Container {...this.props}>
