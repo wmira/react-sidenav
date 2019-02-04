@@ -14,13 +14,12 @@
             "react-sidenav/*": ["src/*"]
         },
         "declaration": true,
-        "strict": true,
         "types": [
             "jest",
             "node"
         ]
     },
     "include": [
-        "./src/**/*"
+        "./src/**/*", "src/declarations.d.ts"
     ]    
 }
