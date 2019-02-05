@@ -1,19 +1,24 @@
 
 import * as React from 'react'
 import { INavItemProp } from "react-sidenav/types/INavItemProp";
-import { ISideNavContext } from "react-sidenav/types";
+import { ISideNavContext, INavProp } from "react-sidenav/types";
 import { isExpanded } from 'react-sidenav/nav/isExpanded';
 import { createNavItemProp } from 'react-sidenav/nav/createNavItemProp';
 import { NavItem } from 'react-sidenav/nav/NavItem';
 import { PATH_SEPARATOR } from 'react-sidenav/constants';
 import { NavRenderer } from 'react-sidenav/nav/NavRenderer';
 
+const { toArray: reactChildrenToArray } = React.Children
+
 interface INavChildrenState {
     isExpanded: boolean
     isHovered: boolean
 }
-
-type NavItemWithChildrenProp = INavItemProp & { parentPathId: string, nonNavChildren: any, context: ISideNavContext }
+export type NavPropWithChildren = INavProp & { children?: React.ReactNode | React.ReactNode[] }
+interface INavItemChildrenProp {
+  children: React.ReactElement<NavPropWithChildren> | Array<React.ReactElement<NavPropWithChildren>>
+}
+export type NavItemWithChildrenProp = INavItemProp & { parentPathId: string, nonNavChildren: any, context: ISideNavContext } & INavItemChildrenProp
 export class NavItemWithChildren extends React.Component<NavItemWithChildrenProp> {
 
     public state = { isExpanded: false, isHovered: false }
@@ -73,20 +78,19 @@ export class NavItemWithChildren extends React.Component<NavItemWithChildrenProp
                     onMouseLeave={this.onMouseEnter}
                     isLeaf={false}
                 >
-                        { this.props.nonNavChildren }
+                    { this.props.nonNavChildren }
                 </NavItem>
                 <ChildrenContainer
                     {...this.props }
                     expanded={this.state.isExpanded || this.state.isHovered}>
-
-                        { React.Children.toArray(this.props.children).map( (child: React.ReactElement<any>, idx: number) => {
+                        { reactChildrenToArray<React.ReactElement<NavPropWithChildren>>(this.props.children).map( (child, idx) => {
                             const navItemProp = createNavItemProp(child.props, props.theme, props.template, context.selectedPath, PATH_SEPARATOR, this.props.parentPathId)
                             return (
                                 <NavRenderer
                                     {...navItemProp}
                                     parentPathId={this.props.pathId}
                                     key={idx}>
-                                    { child.props.children }
+                                    { child.props.children ? child.props.children : null }
                                 </NavRenderer>
                             )
                         })}

@@ -63,7 +63,7 @@ interface IViewProp {
 const createProps = (key: string, childProps: any): IViewProp => {
     const propsToUse: any = { key }
     if ( childProps.className ) {
-        propsToUse.className = propsToUse.children
+        propsToUse.className = propsToUse.className
     }
     if ( childProps.children ) {
         propsToUse.children = childProps.children
@@ -86,39 +86,42 @@ const ArrowRight = styled.div`
     margin-right: 6px;
 `
 
+type NavRenderedTypeProp = IViewProp & INavItemProp
 
 export class DefaultTemplate extends React.PureComponent<INavItemProp> {
 
     public render() {
         const { children, template: navTemplate, className, ...others } = this.props
-        const inav = others as INavItemProp
+        const inav = { ...others, template: navTemplate }
         const { props } = this
         // remap children, to be sure they are on the same order
         const remappedChildren = React.Children.toArray(children)
-            .reduce( (partial: Array<React.ReactElement<any>>, child: React.ReactElement<any>, idx: number ) => { // reduce -- we will not display text in compact mode
-                if ( child.type === NavIcon  ) {
-                    const NavIconTemplate = ( navTemplate && navTemplate.icon ? navTemplate.icon : IconView )
-                    const propsToUse: IViewProp & Omit<INavItemProp, 'template'> = { ...others, ...createProps(`${idx}`, child.props)  }
-                    return partial.concat([ React.createElement( NavIconTemplate as React.ComponentClass, propsToUse) ])
+              .reduce( (partial: React.ReactNode[], child: React.ReactNode, idx: number) => {
+                const asElementType = child as React.ReactElement<NavRenderedTypeProp>
+                if ( asElementType.type === NavIcon ) {
+                  const NavIconTemplate = ( navTemplate && navTemplate.icon ? navTemplate.icon : IconView )
+                  const propsToUse = { ...inav, ...createProps(`${idx}`, asElementType.props)  }
+                  partial.push(React.createElement( NavIconTemplate, propsToUse))
+                  return partial
                 }
-                if ( child.type === NavText  ) {
-                    if ( props.scheme === Scheme.compact ) {
-                        return partial.concat([ null ])
-                    } else {
-                        const NavTextTemplate = navTemplate && navTemplate.text ? navTemplate.text : IconText
-                        const propsToUse: IViewProp & Omit<INavItemProp, 'template'> = { ...others, ...createProps(`${idx}`, child.props)  }
-                        return partial.concat([ React.createElement( NavTextTemplate as React.ComponentClass, propsToUse) ])
-                    }
+                if ( asElementType.type === NavText  ) {
+                  if ( props.scheme !== Scheme.compact ) {
+                    const NavTextTemplate = ( navTemplate && navTemplate.text ? navTemplate.text : IconText )
+                    const propsToUse = { ...inav, ...createProps(`${idx}`, asElementType.props)  }
+                    partial.push(React.createElement( NavTextTemplate as React.ComponentClass, propsToUse))
+                    return partial
+                  }
+                  return partial; // we need to return here to ensure it will not get added
                 }
-                return partial.concat([child])
-
-            }, [])
-        const IndicatorElement = props.isLeaf === false ? (template.expandIndicator || ArrowRight) : null
+                partial.push(child)
+                return partial
+              }, [])
+        const IndicatorElement = props.isLeaf === false ? (template.expandIndicator ? template.expandIndicator : ArrowRight) : null
 
         return (
             <Container {...this.props}>
                { remappedChildren }
-               { IndicatorElement ? <IndicatorElement {...inav}/> : null }
+               { IndicatorElement ? React.createElement(IndicatorElement, inav) : null }
             </Container>
         )
     }

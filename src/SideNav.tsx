@@ -30,7 +30,7 @@ export class SideNav extends React.Component<ISideNavProp, ISideNavState> {
     public render() {
         const selectedPath = this.state.defaultSelectedPath !== undefined ? this.state.selectedPath : this.props.selectedPath
         const propsTemplate = { ...this.props.template }
-        const template = { ...defaultTemplate, ...propsTemplate }
+        const template = { item: defaultTemplate.item!, children: defaultTemplate.children!, ...propsTemplate }
         const theme = this.props.theme || {}
         const scheme = this.props.scheme || Scheme.default
 
