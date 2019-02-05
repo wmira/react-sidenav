@@ -13,15 +13,15 @@ export const createNavItemProp = (props: INavProp,
     const pathId = parentPathId ? `${parentPathId}${pathSeparator}${props.id}` : `${props.id}`
 
     return {
-        navProp: props,
-        pathId,
-        level: pathArr.length,
-        theme,
-        template,
-        scheme,
-        selected: pathId === selectedPath,
-        expanded: undefined,
-        isLeaf: true
+      navProp: props,
+      pathId,
+      level: pathArr.length,
+      theme,
+      template,
+      scheme,
+      selected: pathId === selectedPath,
+      expanded: undefined,
+      isLeaf: true
     }
 
 }

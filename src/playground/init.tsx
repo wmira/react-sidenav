@@ -1,5 +1,6 @@
-
+/* tslint:disable  */
 import { injectGlobal } from 'styled-components'
+
 
 export const init = () => {
 

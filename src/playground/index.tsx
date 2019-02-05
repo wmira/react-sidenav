@@ -10,12 +10,12 @@ import { Simple } from 'react-sidenav/playground/Simple';
 import { init } from 'react-sidenav/playground/init'
 import { WithIcons } from 'react-sidenav/playground/WithIcons';
 import { NavTextAndIcon } from 'react-sidenav/playground/NavTextAndIcon';
+import { LhsIndicator } from 'react-sidenav/playground/LhsIndicator'
 import styled from 'styled-components';
 
 init()
 
 const Flex = styled.div`
-
     display: flex;
 `
 const FlexItem = styled.div`
@@ -24,9 +24,10 @@ const FlexItem = styled.div`
 
 const RenderItems = () => (
     <Flex>
-      <FlexItem><Simple /></FlexItem>
-      <FlexItem><WithIcons /></FlexItem>
-      <FlexItem><NavTextAndIcon /></FlexItem>
+      {/* <FlexItem><Simple /></FlexItem>
+      <FlexItem><WithIcons /></FlexItem> */}
+      <FlexItem><LhsIndicator /></FlexItem>
+      {/* <FlexItem><NavTextAndIcon /></FlexItem> */}
     </Flex>
 )
 

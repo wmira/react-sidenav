@@ -6,6 +6,8 @@ import { INavItemProp, ITemplateComponents } from 'react-sidenav/types';
 import { NavText, NavIcon } from 'react-sidenav/template/components';
 import { Scheme } from 'react-sidenav/types/Scheme';
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+
 const BASE_PADDING_LEFT = 12
 const PADDING_INCREMENT = 12
 const PADDING_RIGHT = BASE_PADDING_LEFT
@@ -88,7 +90,7 @@ const ArrowRight = styled.div`
 export class DefaultTemplate extends React.PureComponent<INavItemProp> {
 
     public render() {
-        const { children, template: navTemplate, ...others } = this.props
+        const { children, template: navTemplate, className, ...others } = this.props
         const inav = others as INavItemProp
         const { props } = this
         // remap children, to be sure they are on the same order
@@ -96,7 +98,7 @@ export class DefaultTemplate extends React.PureComponent<INavItemProp> {
             .reduce( (partial: Array<React.ReactElement<any>>, child: React.ReactElement<any>, idx: number ) => { // reduce -- we will not display text in compact mode
                 if ( child.type === NavIcon  ) {
                     const NavIconTemplate = ( navTemplate && navTemplate.icon ? navTemplate.icon : IconView )
-                    const propsToUse: IViewProp & INavItemProp = { ...this.props, ...createProps(`${idx}`, child.props)  }
+                    const propsToUse: IViewProp & Omit<INavItemProp, 'template'> = { ...others, ...createProps(`${idx}`, child.props)  }
                     return partial.concat([ React.createElement( NavIconTemplate as React.ComponentClass, propsToUse) ])
                 }
                 if ( child.type === NavText  ) {
@@ -104,7 +106,7 @@ export class DefaultTemplate extends React.PureComponent<INavItemProp> {
                         return partial.concat([ null ])
                     } else {
                         const NavTextTemplate = navTemplate && navTemplate.text ? navTemplate.text : IconText
-                        const propsToUse: IViewProp & INavItemProp = { ...this.props, ...createProps(`${idx}`, child.props)  }
+                        const propsToUse: IViewProp & Omit<INavItemProp, 'template'> = { ...others, ...createProps(`${idx}`, child.props)  }
                         return partial.concat([ React.createElement( NavTextTemplate as React.ComponentClass, propsToUse) ])
                     }
                 }

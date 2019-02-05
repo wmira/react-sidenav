@@ -1,5 +1,9 @@
 {
-    "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+    "extends": [
+      "tslint:recommended", 
+      "tslint-react", 
+      "tslint-config-prettier"
+    ],
     "linterOptions": {
       "exclude": [
         "config/**/*.js",
@@ -10,12 +14,11 @@
       "ordered-imports": false,
       "no-console": true,
       "object-literal-sort-keys": false,
-      "no-unused-expression": false,
+      "no-unused-expression": true,
       "interface-name": true,      
-      "interface-over-type-literal": true,
-      "no-empty-interface": false,
       "max-classes-per-file": false,
-      "no-trailing-whitespace": true      
+      "no-trailing-whitespace": true,
+      "indent": [true, "spaces", 2]      
     }
   
   }
