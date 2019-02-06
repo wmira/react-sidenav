@@ -88,32 +88,40 @@ type NavRenderedTypeProp = IViewProp & INavItemProp
 
 export class DefaultTemplate extends React.PureComponent<INavItemProp> {
 
+    public remapChildren = (partial: React.ReactNode[], child: React.ReactNode, idx: number) => {
+
+      const { children: elementChildren, template: navTemplate, className, ...others } = this.props
+      const { props } = this
+      const inav = { ...others, template: navTemplate }
+
+      const asElementType = child as React.ReactElement<NavRenderedTypeProp>
+
+      if ( asElementType.type === NavIcon ) {
+        const NavIconTemplate = ( navTemplate && navTemplate.icon ? navTemplate.icon : IconView )
+        const propsToUse = { ...inav, ...createProps(`${idx}`, asElementType.props)  }
+        partial.push(React.createElement( NavIconTemplate, propsToUse))
+        return partial
+      }
+      if ( asElementType.type === NavText  ) {
+        if ( props.scheme !== Scheme.compact ) {
+          const NavTextTemplate = ( navTemplate && navTemplate.text ? navTemplate.text : IconText )
+          const propsToUse = { ...inav, ...createProps(`${idx}`, asElementType.props)  }
+          partial.push(React.createElement( NavTextTemplate as React.ComponentClass, propsToUse))
+          return partial
+        }
+        return partial; // we need to return here to ensure it will not get added
+      }
+
+      partial.push(child)
+      return partial
+    }
+
     public render() {
         const { children: elementChildren, template: navTemplate, className, ...others } = this.props
         const inav = { ...others, template: navTemplate }
         const { props } = this
         // remap children, to be sure they are on the same order
-        const remappedChildren = React.Children.toArray(elementChildren)
-              .reduce( (partial: React.ReactNode[], child: React.ReactNode, idx: number) => {
-                const asElementType = child as React.ReactElement<NavRenderedTypeProp>
-                if ( asElementType.type === NavIcon ) {
-                  const NavIconTemplate = ( navTemplate && navTemplate.icon ? navTemplate.icon : IconView )
-                  const propsToUse = { ...inav, ...createProps(`${idx}`, asElementType.props)  }
-                  partial.push(React.createElement( NavIconTemplate, propsToUse))
-                  return partial
-                }
-                if ( asElementType.type === NavText  ) {
-                  if ( props.scheme !== Scheme.compact ) {
-                    const NavTextTemplate = ( navTemplate && navTemplate.text ? navTemplate.text : IconText )
-                    const propsToUse = { ...inav, ...createProps(`${idx}`, asElementType.props)  }
-                    partial.push(React.createElement( NavTextTemplate as React.ComponentClass, propsToUse))
-                    return partial
-                  }
-                  return partial; // we need to return here to ensure it will not get added
-                }
-                partial.push(child)
-                return partial
-              }, [])
+        const remappedChildren = React.Children.toArray(elementChildren).reduce( this.remapChildren, [])
         const IndicatorElement = props.isLeaf === false ? (template.expandIndicator ? template.expandIndicator : ArrowRight) : null
 
         return (

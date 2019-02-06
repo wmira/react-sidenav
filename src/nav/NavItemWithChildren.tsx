@@ -70,13 +70,13 @@ export class NavItemWithChildren extends React.Component<NavItemWithChildrenProp
         return (
             <>
                 <NavItem
-                    {...this.props}
-                    onClick={this.onClick}
-                    parentPathId={this.props.pathId}
-                    expanded={this.state.isExpanded || this.state.isHovered}
-                    onMouseEnter={this.onMouseEnter}
-                    onMouseLeave={this.onMouseEnter}
-                    isLeaf={false}
+                  {...this.props}
+                  onClick={this.onClick}
+                  parentPathId={this.props.pathId}
+                  expanded={this.state.isExpanded || this.state.isHovered}
+                  onMouseEnter={this.onMouseEnter}
+                  onMouseLeave={this.onMouseEnter}
+                  isLeaf={false}
                 >
                     { this.props.nonNavChildren }
                 </NavItem>
@@ -84,15 +84,15 @@ export class NavItemWithChildren extends React.Component<NavItemWithChildrenProp
                     {...this.props }
                     expanded={this.state.isExpanded || this.state.isHovered}>
                         { reactChildrenToArray<React.ReactElement<NavPropWithChildren>>(this.props.children).map( (child, idx) => {
-                            const navItemProp = createNavItemProp(child.props, props.theme, props.template, context.selectedPath, PATH_SEPARATOR, this.props.parentPathId)
-                            return (
-                                <NavRenderer
-                                    {...navItemProp}
-                                    parentPathId={this.props.pathId}
-                                    key={idx}>
-                                    { child.props.children ? child.props.children : null }
-                                </NavRenderer>
-                            )
+                          const navItemProp = createNavItemProp(child.props, props.theme, props.template, context.selectedPath, PATH_SEPARATOR, this.props.parentPathId)
+                          return (
+                              <NavRenderer
+                                  {...navItemProp}
+                                  parentPathId={this.props.pathId}
+                                  key={idx}>
+                                  { child.props.children ? child.props.children : null }
+                              </NavRenderer>
+                          )
                         })}
                 </ChildrenContainer>
             </>
