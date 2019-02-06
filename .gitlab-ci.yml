@@ -14,7 +14,7 @@ stages:
 build:        
     stage: build    
     script:
-        - npm install
+        - npm ci
         - npm run dist                
 
 npm_publish:        
