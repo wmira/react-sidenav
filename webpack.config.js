@@ -6,7 +6,7 @@ module.exports = {
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
         alias: {
-            "react-sidenav": path.resolve(__dirname,"src")
+            "react-sidenav": path.resolve(__dirname,"src")            
         }
     },    
     module: {
@@ -24,10 +24,5 @@ module.exports = {
     
     devServer: {
         inline: true        
-    },
-
-    externals: {
-        "react": "React",
-        "react-dom": "ReactDOM"
     }
 };
