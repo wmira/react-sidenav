@@ -24,10 +24,10 @@ const FlexItem = styled.div`
 
 const RenderItems = () => (
     <Flex>
-      {/* <FlexItem><Simple /></FlexItem>
-      <FlexItem><WithIcons /></FlexItem> */}
+      <FlexItem><Simple /></FlexItem>
+      <FlexItem><WithIcons /></FlexItem>
       <FlexItem><LhsIndicator /></FlexItem>
-      {/* <FlexItem><NavTextAndIcon /></FlexItem> */}
+      <FlexItem><NavTextAndIcon /></FlexItem>
     </Flex>
 )
 

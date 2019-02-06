@@ -52,7 +52,7 @@ const SubLabel = styled.span`
 
 const template = {
   ...baseTemplate,
-  item: styled(baseTemplate.item)`
+  item: styled(baseTemplate.item!)`
     border-left: ${ props => props.selected ? "2px solid pink" : "2px solid transparent"};
   `
 }

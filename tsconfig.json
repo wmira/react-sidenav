@@ -3,6 +3,7 @@
         "outDir": "./dist/",
         "sourceMap": false,
         "noImplicitAny": true,
+        "strict": true,
         "module": "commonjs",
         "target": "es5",
         "jsx": "react",
@@ -20,6 +21,6 @@
         ]
     },
     "include": [
-        "./src/**/*", "src/declarations.d.ts"
+        "./src/**/*"
     ]    
 }

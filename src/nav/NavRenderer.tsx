@@ -5,7 +5,7 @@ import { isNavType } from 'react-sidenav/nav/isNavType';
 import { createNavItemProp } from 'react-sidenav/nav/createNavItemProp';
 import { PATH_SEPARATOR } from 'react-sidenav/constants';
 import { NavItem } from 'react-sidenav/nav/NavItem';
-import { NavItemWithChildren } from 'react-sidenav/nav/NavItemWithChildren';
+import { NavItemWithChildren, NavPropWithChildren } from 'react-sidenav/nav/NavItemWithChildren';
 import { Consumer } from 'react-sidenav/Context';
 
 export class NavRenderer extends React.Component<INavItemProp> {
@@ -14,7 +14,7 @@ export class NavRenderer extends React.Component<INavItemProp> {
         const childrenArr = React.Children.toArray(this.props.children)
 
         const nonNavChildren = childrenArr.filter( child => !isNavType(child as React.ReactElement<any>))
-        const navChildren = childrenArr.filter(isNavType)
+        const navChildren = childrenArr.filter(isNavType) as Array<React.ReactElement<NavPropWithChildren>>
 
         const navItemProp = createNavItemProp(
                                 this.props.navProp,
@@ -28,8 +28,8 @@ export class NavRenderer extends React.Component<INavItemProp> {
         const parentPathId = this.props.navProp.id
 
         if ( navChildren.length === 0  ) {
-            return (
-                <NavItem {...navItemProp} context={context} isLeaf={true}>{ this.props.children }</NavItem>
+          return (
+              <NavItem {...navItemProp} context={context} isLeaf={true}>{ this.props.children }</NavItem>
             )
         } else {
             return (

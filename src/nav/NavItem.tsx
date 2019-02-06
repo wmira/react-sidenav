@@ -14,8 +14,7 @@ export class NavItem extends React.PureComponent<NavItemViewProp, { isCollapsed:
 
         const { children, context, ...others } = this.props
         const { template } = this.props.context
-        const Template = template.item //  isChild ? template.navChild || NavChildTemplate : ( template.nav || NavTemplate )
-
+        const Template = template.item
 
         return (
             <div
@@ -31,21 +30,23 @@ export class NavItem extends React.PureComponent<NavItemViewProp, { isCollapsed:
 
     private dispatchOnClick = () => {
 
-        const arg = {
-            id: this.props.navProp.id,
-            path: this.props.pathId,
-            payload: this.props.navProp.payload
-        }
-        if ( this.props.navProp.onClick ) {
-            try {
-                this.props.navProp.onClick({ ...arg })
-            } catch ( e ){
-                // ignored
-            }
-        }
+      const { navProp, pathId } = this.props
 
-        if ( this.props.context.onItemSelection  ) {
-            this.props.context.onItemSelection(arg)
-        }
+      const arg = {
+          id: navProp.id,
+          path: pathId,
+          payload: navProp.payload
+      }
+      if ( navProp.onClick ) {
+          try {
+            navProp.onClick({ ...arg })
+          } catch ( e ){
+              // ignored
+          }
+      }
+
+      if ( this.props.context.onItemSelection  ) {
+          this.props.context.onItemSelection(arg)
+      }
     }
 }

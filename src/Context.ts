@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { ISideNavContext } from './types/ISideNavContext';
 
-import { template } from './template'
+import { item, children } from './template/Default'
 import { Scheme } from 'react-sidenav/types/Scheme';
-const { Provider, Consumer }= React.createContext<ISideNavContext>({
+
+const { Provider, Consumer } = React.createContext<ISideNavContext>({
     selectedPath: '',
-    template,
+    template: { item, children },
     theme: {},
     scheme: Scheme.default
 })
