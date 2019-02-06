@@ -6,8 +6,6 @@ import { INavItemProp, ITemplateComponents } from 'react-sidenav/types';
 import { NavText, NavIcon } from 'react-sidenav/template/components';
 import { Scheme } from 'react-sidenav/types/Scheme';
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
-
 const BASE_PADDING_LEFT = 12
 const PADDING_INCREMENT = 12
 const PADDING_RIGHT = BASE_PADDING_LEFT
@@ -91,11 +89,11 @@ type NavRenderedTypeProp = IViewProp & INavItemProp
 export class DefaultTemplate extends React.PureComponent<INavItemProp> {
 
     public render() {
-        const { children, template: navTemplate, className, ...others } = this.props
+        const { children: elementChildren, template: navTemplate, className, ...others } = this.props
         const inav = { ...others, template: navTemplate }
         const { props } = this
         // remap children, to be sure they are on the same order
-        const remappedChildren = React.Children.toArray(children)
+        const remappedChildren = React.Children.toArray(elementChildren)
               .reduce( (partial: React.ReactNode[], child: React.ReactNode, idx: number) => {
                 const asElementType = child as React.ReactElement<NavRenderedTypeProp>
                 if ( asElementType.type === NavIcon ) {
@@ -130,3 +128,6 @@ export const template: ITemplateComponents = {
     item: DefaultTemplate,
     children: ChildrenTemplate
 }
+
+export const item = DefaultTemplate
+export const children = ChildrenTemplate
