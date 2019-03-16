@@ -14,8 +14,8 @@ interface IBaseProp {
 type SideNavWithRR4Prop = ISideNavProp & RouteComponentProps<{}> & IBaseProp
 export const withRR4 = () => {
 
-    class BaseSideNavWithRR4 extends React.Component<SideNavWithRR4Prop, { selectedPath: string }> {
-        public state = { selectedPath: '' }
+    class BaseSideNavWithRR4 extends React.Component<SideNavWithRR4Prop, { init: boolean, selectedPath: string }> {
+        public state = { selectedPath: '', init: false }
         constructor(props: SideNavWithRR4Prop) {
             super(props)
         }
@@ -23,17 +23,20 @@ export const withRR4 = () => {
         public componentDidMount() {
             const { location } = this.props
             if ( location && location.pathname ) {
-                const pathsArr = location.pathname.split('/')
-                                    .filter( path => path)
+              const pathsArr = location.pathname.split('/')
+                                  .filter( path => path)
+              const selectedPath = pathsArr.reduce((partial, path, index) => {
+                  if ( index + 1 === pathsArr.length ) {
+                      return `${partial}${path}`
+                  }
+                  return `${partial}${PATH_SEPARATOR}${path}`
+              }, "")
 
-                const selectedPath = pathsArr.reduce((partial, path, index) => {
-                    if ( index + 1 === pathsArr.length ) {
-                        return `${partial}${path}`
-                    }
-                    return `${partial}${PATH_SEPARATOR}${path}`
-                }, "")
-                this.setState({ selectedPath })
+              this.setState({ selectedPath, init: true })
+            } else {
+              this.setState({ init: true })
             }
+
         }
 
         public onItemSelection = (arg: INavSelectionArg) => {
@@ -59,19 +62,24 @@ export const withRR4 = () => {
         }
 
         public render() {
+
+            if ( !this.state.init ) {
+              return null
+            }
             const {
                 defaultSelectedPath,
                 template,
                 theme } = this.props
 
+            const { selectedPath } = this.state
+            const defaultSelection = selectedPath ? selectedPath : defaultSelectedPath
             return (
                 <SideNav
-                    onItemSelection={this.onItemSelection}
-                    selectedPath={this.state.selectedPath}
-                    defaultSelectedPath={defaultSelectedPath}
-                    template={template}
-                    theme={theme}>
-                    { this.props.children }
+                  onItemSelection={this.onItemSelection}
+                  defaultSelectedPath={defaultSelection}
+                  template={template}
+                  theme={theme}>
+                  { this.props.children }
                 </SideNav>
 
             )
