@@ -1,4 +1,4 @@
-image: node:alpine
+image: node:10.15-alpine
 
 
 cache:
