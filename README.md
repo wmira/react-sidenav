@@ -32,9 +32,7 @@ Typescript so it can be directly used with a typescript project as well.
 
 The following are peer dependencies of **react-sidenav**. You would need to have the following installed:
 
-```react```
-```react-dom```
-```styled-components```
+It needs React 16
 
 ### Basic Usage 
 
@@ -45,7 +43,7 @@ At a minimum, SideNav can be used as per the example below. You can render any i
     import { SideNav, Nav } from 'react-sidenav'
 
     const Navigation = () => (
-        <SideNav defaultSelectedPath="1">
+        <SideNav>
             <Nav id="1">Item 1</Nav>
             <Nav id="2">Item 2</Nav>
             <Nav id="3">Item 3</Nav>
@@ -59,7 +57,7 @@ At a minimum, SideNav can be used as per the example below. You can render any i
     import { SideNav, Nav } from 'react-sidenav'
 
     const Navigation = () => (
-        <SideNav defaultSelectedPath="1">
+        <SideNav>
             <Nav id="1">
                 <Icon icon={item1}/>
                 Item 1

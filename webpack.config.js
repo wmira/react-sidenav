@@ -1,29 +1,35 @@
-const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
-const path = require('path');
-const styledComponentsTransformer = createStyledComponentsTransformer();
+
+const babelOptions = require('./babel.config')
+
 module.exports = {
-    entry: './src/playground/index.tsx',
-    resolve: {
-        extensions: [".ts", ".tsx", ".js"],
-        alias: {
-            "react-sidenav": path.resolve(__dirname,"src")            
-        }
-    },    
-    module: {
-        rules: [
-            { 
-                test: /\.tsx?$/, loader: "ts-loader",  
-                options: {                 
-                    getCustomTransformers: () => ({ before: [styledComponentsTransformer] })
-                }
+  entry: './src/playground/index.tsx',
+  mode: "development",
+  resolve: {
+      extensions: [".js", ".jsx", ".ts", ".tsx"]
+  },  
+  module: {
+    rules: [
+      {
+        test: [/\.jsx?$/, /\.tsx?$/],
+        use: {
+            loader: 'babel-loader',
+            options: babelOptions,
+        },
+        exclude: /node_modules/
         
-            }
-        ]
-    },
-    devtool: 'source-map',
-    
-    devServer: {
-        inline: true,
-        historyApiFallback: true
-    }
+      },
+      {
+        test: /\.js$/,
+        use: ["source-map-loader"],
+        enforce: "pre",
+        exclude: /node_modules/
+      }
+    ]
+  },
+
+  devtool: 'source-map',
+
+  devServer: {
+      inline: true
+  }
 };
