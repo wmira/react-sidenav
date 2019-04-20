@@ -9,13 +9,7 @@ Side Navigation Component for React
 
 # Getting Started
 
-**react-sidenav** version is 3 is a complete rewrite of the react-sidenav library. The main intention
-of the re-write is to be able to make the rendering of the navigation items non opinionated.
-
-This will make it possible to render anything while the library takes care of handling the switching/rendering
-logic within the component.
-
-As such, **react-sidenav** aims to be a  library and can be used to build any side navigation component.
+**react-sidenav** 4.0 will not be backwards compatible and would need 
 
 ## Requirements
 
@@ -106,13 +100,8 @@ class Navigation extends React.Component {
 
 | property   |      type      |  description |  isRequired |
 |------------|-------------:|------:|-----------------------|
-| onItemSelection | function: ({id, path, payload}) => void | a function that gets called when a navigation has been clicked | false |
-| selectedPath | string | the identifier of the selection. Note that if your navigation is only 1 level then this just corresponds to an id.  | false |
-| defaultSelectedPath | string | SideNav component will manage state. Use defaultSelectedPath to set initial active item | false |
-| theme | INavTheme | The theme used by templates for colors etc | false |
-| template | ITemplate | The template defines which Elements gets rendered. Defaults are used and you can use this to customize how navigations are rendered. More below | false |
-| scheme | Scheme | used to customize template behavior | false |
-| expandOnHover | boolean | expand a submenu on hover. defaults to false | false |
+| onSelection | function: ({id, path, payload}) => void | a function that gets called when a navigation has been clicked | false |
+| 
 
 
 ### Nav Properties

@@ -5,6 +5,7 @@ import {
   SideNav,
   Nav,
   NavContext,
+  SideNavMode
 } from '../';
 
 import {
@@ -73,7 +74,7 @@ const Icon: React.FC<{icon: React.FC<IIconProp>}> = (props) => {
 render(
   <Flex>
     <Container width={140}>
-      <SideNav>
+      <SideNav >
         <Nav id='page1'>
           <Item>Page 1</Item>
         </Nav>
@@ -101,6 +102,31 @@ render(
         </Nav>
         <Nav id='icon4'>
           <Icon icon={Icon2}/>
+        </Nav>
+      </SideNav>
+    </Container>
+    <Container width={80}>
+      <SideNav mode={SideNavMode.compact}>
+        <Nav id='page1'>
+          <Item>Page1</Item>
+        </Nav>
+        <Nav id='page2'>
+          <Item>Page2</Item>
+          <Nav id='page1'>
+            <Item>Page2.1</Item>
+          </Nav>
+          <Nav id='page2'>
+            <Item>Page2.2</Item>
+            <Nav id='page1'>
+              <Item>Page2.2.1</Item>
+            </Nav>
+            <Nav id='page2.2'>
+              <Item>Page2.2.2</Item>
+            </Nav>
+          </Nav>
+        </Nav>
+        <Nav id='page3'>
+          <Item>Page3</Item>
         </Nav>
       </SideNav>
     </Container>
