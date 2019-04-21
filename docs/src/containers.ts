@@ -16,20 +16,41 @@ export const GlobalStyle = createGlobalStyle`
 
   #root {
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    overflow: auto;
+  }
+
+  * {
+    box-sizing: border-box;
   }
 `
 
-
+export const InnerCont = styled.div`
+  padding: 4px 8px;
+  width: 100%;
+  height: 100%;
+`
 
 export const Flex = styled.div`
-  position: relative;
   display: flex;
-  width: 600px;
+  flex-wrap: wrap;
 `;
 
-export const SideNavCont = styled.div`  
-  height: 220px;
-  flex: 1 0 auto;
-  max-width: 140px;
+export const SideNavCont = styled.div`
+  height: 260px;
+  padding: 8px;
+  width: 140px;
 `;
+
+export const TextContent = styled.div`
+
+`
+
+export const MainContent = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 2rem 2rem 0;
+  background: #FEFEFE;
+  overflow: auto;
+
+`
