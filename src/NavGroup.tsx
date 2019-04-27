@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Nav } from './Nav';
-import { SideNavMode, SideNavContext, ISideNavContext } from './';
+import { SideNavMode, SideNavContext } from './';
 
 enum NavGroupState {
   expanded = 'expanded',
@@ -15,6 +15,24 @@ interface INavGroupChildrenProp {
   state: NavGroupState
   rootRef: React.RefObject<HTMLDivElement>
   toggleCollapsed: () => void
+}
+
+const ChildrenIndicatorIcon: React.FC<{size?: number}> = (props) => {
+  const style = { width: props.size || 16, height: props.size || 16 }
+  return (
+    <i style={style}>
+      <svg
+        fill="currentColor"
+        style={style}
+        viewBox="0 0 24 24"
+        width="1em"
+        height="1em"
+        {...props}>
+        <path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z" />
+      </svg>
+    </i>
+  )
+
 }
 
 export const NavGroupChildren: React.FC<INavGroupChildrenProp> = (props) => {
@@ -42,18 +60,50 @@ export const NavGroupChildren: React.FC<INavGroupChildrenProp> = (props) => {
       return (
         <div
           ref={ref}
-          style={{background: 'pink', position: 'absolute', zIndex: 100, left: width, top: 0 }}>
+          style={{ background: ref.current ? ref.current.style.background: '#FFF', width, position: 'absolute', zIndex: 100, left: width+ 1, top: 0 } as any}>
           { props.children }
         </div>
       )
     }
   } else {
+    const styleCollapsed = {
+      maxHeight: 0,
+      transition: 'max-height 0.3s ease-out',
+      overflow: 'hidden',
+    }
+    const styleExpanded = {
+      overflow: 'hidden',
+      maxHeight: '1000px', // this should be enough
+      transition: 'max-height 0.5s ease-in'
+    }
+    const style = props.state === NavGroupState.collapsed ? styleCollapsed : styleExpanded
     return (
-      <div style={{display: props.state === NavGroupState.collapsed ? 'none' : 'block'}}>{ props.children }</div>
+      <div style={style}>{ props.children }</div>
     )
   }
 
   return null;
+}
+const ToggleIndicatorStyle = {
+  top: 0,
+  right: 8,
+  width: 4,
+  height: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: "absolute",
+  transition: "all 0.2s linear"
+}
+
+
+const ToggleIndicator: React.FC<{collapsed: NavGroupState}> = (props) => {
+  const transform = props.collapsed === NavGroupState.collapsed ? "rotate(0deg)" : "rotate(90deg)"
+  return (
+    <div style={{ ...ToggleIndicatorStyle, transform } as any} >
+      <ChildrenIndicatorIcon />
+    </div>
+  )
 }
 
 export const NavGroup: React.FC<INavGroupProp> = (props) => {
@@ -61,7 +111,7 @@ export const NavGroup: React.FC<INavGroupProp> = (props) => {
   const [state, setState] = React.useState(NavGroupState.collapsed)
   const rootRef = React.useRef<HTMLDivElement>(null)
 
-  const onHandleClick = (e: React.MouseEvent) => {
+  const onHandleClick = (e?: React.MouseEvent ) => {
 
     if ( e ) {
       e.stopPropagation()
@@ -86,12 +136,15 @@ export const NavGroup: React.FC<INavGroupProp> = (props) => {
   })
 
   return (
-    <div {...others} onClick={onHandleClick} ref={rootRef} style={{position: 'relative'}}>
-      <div>{ nonNavChildren }</div>
+    <div {...others} onClick={onHandleClick } ref={rootRef} style={{position: 'relative'}}>
+      <div style={{position: 'relative'}}>
+        { nonNavChildren }
+        <ToggleIndicator collapsed={state} />
+      </div>
       <NavGroupChildren
         toggleCollapsed={onHandleClick}
-        rootRef={rootRef} 
-        state={state}> 
+        rootRef={rootRef}
+        state={state}>
           { navChildren }
         </NavGroupChildren>
     </div>

@@ -31,15 +31,19 @@ const containerStyle = {
 }
 
 render(
-  <SideNavCont
-    style={containerStyle}
-  >
+  <SideNavCont style={containerStyle}>
     <SideNav>
       <Nav id="1">
         <Item>Link 1</Item>
       </Nav>
       <Nav id="2">
         <Item>Link 2</Item>
+        <Nav id="1">
+          <span>Sub 1</span>
+        </Nav>
+        <Nav id="2">
+          <span>Sub 1</span>
+        </Nav>
       </Nav>
       <Nav id="3">
         <Item>Link 3</Item>
@@ -53,7 +57,7 @@ const LiveContainer  = styled(Flex)`
   max-width: 800px;
 `
 
-export const Basic = () => {
+export const SubMenu = () => {
   return (
     <>
       <Flex>
@@ -63,7 +67,6 @@ export const Basic = () => {
               To render a sub menu, just render a Nav element as a child of a Nav
             </p>
             <p/>
-
           </TextContent>
         </InnerCont>
       </Flex>

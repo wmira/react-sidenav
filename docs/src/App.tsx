@@ -5,6 +5,8 @@ import { SideNav, Nav, NavContext } from 'react-sidenav'
 import { MenuIcon } from './icons'
 import { Basic } from './Basic'
 import { MainContent } from './containers'
+import { SubMenu } from './SubMenu';
+
 const Flex = styled.div`
   display: flex;
   position: relative;
@@ -46,9 +48,12 @@ const NavItemCont = styled.div<{ selected: boolean }>`
   &:hover {
     color: #fff !important;
   }
+  & > span {
+    padding: 0px 4px;
+  }
 `;
 
-const NavItem = props => {
+const NavItem: React.FC = props => {
   const context = React.useContext(NavContext);
 
   return (
@@ -66,7 +71,8 @@ const Center = styled.div`
 const Container = Flex;
 
 const Views = {
-  basic: Basic
+  basic: Basic,
+  sub: SubMenu
 };
 
 const IconCont: React.FC = (props) => {
@@ -102,6 +108,12 @@ export const App = () => {
             <NavItem>
               <MenuIcon size={10}/>
               <span>Usage and Concepts</span>
+            </NavItem>
+          </Nav>
+          <Nav id="sub">
+            <NavItem>
+              <MenuIcon size={10}/>
+              <span>Sub Menu</span>
             </NavItem>
           </Nav>
           <Heading>Examples</Heading>
