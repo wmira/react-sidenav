@@ -2,7 +2,7 @@
 const babelOptions = require('./babel.config')
 
 module.exports = {
-  entry: './src/playground/index.tsx',
+  entry: './src/index.tsx',
   mode: "development",
   resolve: {
       extensions: [".js", ".jsx", ".ts", ".tsx"]
@@ -30,6 +30,7 @@ module.exports = {
   devtool: 'source-map',
 
   devServer: {
-      inline: true
+      inline: true,
+      port: 8081
   }
 };

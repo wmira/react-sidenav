@@ -1,72 +1,66 @@
-
 import * as React from 'react'
-import styled from 'styled-components'
-import { Provider } from './Context';
-import { ISideNavProp, INavSelectionArg, ISideNavContext, INavProp } from './types';
-import{ template as defaultTemplate } from './template'
-import { Scheme } from 'react-sidenav/types/Scheme';
 
-const Container = styled.div`
-    width: 100%;
-    height: 100%;
-`
+export enum ViewMode {
+  normal = 'normal',
+  compact = 'compact'
+}
+interface ISelectionPathData<P = {}> {
+  id: string
+  level: number
+  isLeaf: boolean
+  payload?: P
+}
+type OnSelectionListener = (selectionPath: string, selectionPathData: ISelectionPathData) => void
 
-interface ISideNavState {
-    selectedPath: string | undefined
-    defaultSelectedPath: string | undefined
+export interface ISideNavContext {
+  selectedPath: string
+  mode?: ViewMode
+  /**
+   * Path separator to use for selectionPath
+   * Default is |
+   */
+  pathSeparator?: string
 }
 
-export class SideNav extends React.Component<ISideNavProp, ISideNavState> {
+export interface ISideNavActionContext {
+  onSelectionPathSelected: (path: string, selectionPathData: ISelectionPathData) => void
+}
 
-    public state: ISideNavState = { selectedPath: undefined, defaultSelectedPath: undefined }
+export const SideNavActionContext = React.createContext<ISideNavActionContext>(null as any as ISideNavActionContext)
+export const SideNavContext = React.createContext<ISideNavContext>(null as any as ISideNavContext)
 
-    constructor(props: ISideNavProp) {
-        super(props)
-        if ( this.props.defaultSelectedPath ) {
-            this.state = { selectedPath: this.props.defaultSelectedPath, defaultSelectedPath: this.props.defaultSelectedPath }
-        }
+interface ISideNavProp {
+  onSelection?: OnSelectionListener
+  mode?: ViewMode
+  defaultSelectedPath?: string
+}
+export const SideNav: React.FC<ISideNavProp> = (props) => {
+
+  const [state, setState] = React.useState<ISideNavContext>({ selectedPath: props.defaultSelectedPath || '', mode: props.mode || ViewMode.normal })
+
+  const onSelectionPathSelected = (path: string, selectionData: ISelectionPathData) => {
+    if ( props.onSelection ) {
+      props.onSelection(path, selectionData)
     }
+    setState((currentState) => {
+      return { ...currentState, selectedPath: path }
+    })
+  }
 
-    public render() {
-        const selectedPath = this.state.defaultSelectedPath !== undefined ? this.state.selectedPath : this.props.selectedPath
-        const propsTemplate = { ...this.props.template }
-        const template = { item: defaultTemplate.item!, children: defaultTemplate.children!, ...propsTemplate }
-        const theme = this.props.theme || {}
-        const scheme = this.props.scheme || Scheme.default
-
-        const value: ISideNavContext = {
-            selectedPath,
-            onItemSelection: this.onItemSelection,
-            template,
-            theme,
-            scheme,
-            expandOnHover: this.props.expandOnHover || false
-        }
-
-        return (
-            <Provider value={value}>
-                <Container>
-                   { this.props.children }
-                </Container>
-            </Provider>
-
-        )
+  React.useEffect(() => {
+    if ( props.mode ) {
+      setState({ ...state, mode: props.mode })
     }
+  }, [ props.mode ] )
 
-    private onItemSelection = (arg: INavSelectionArg) => {
-
-        if ( this.state.selectedPath ) {
-            this.setState({ selectedPath: arg.path }, () => {
-                this.dispatchItemSelection(arg)
-            })
-        } else {
-            this.dispatchItemSelection(arg)
-        }
-    }
-
-    private dispatchItemSelection = (arg: INavSelectionArg) => {
-        if ( this.props.onItemSelection ) {
-            this.props.onItemSelection(arg)
-        }
-    }
+  return (
+    <SideNavContext.Provider value={state}>
+      <SideNavActionContext.Provider value={{ onSelectionPathSelected }}>
+        <aside
+          data-selected-path={state.selectedPath}
+          data-testid='sidenav-root'>{ props.children }
+        </aside>
+      </SideNavActionContext.Provider>
+    </SideNavContext.Provider>
+  )
 }

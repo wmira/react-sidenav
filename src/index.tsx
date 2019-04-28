@@ -1,17 +1,9 @@
 
-export { SideNav } from './SideNav'
-export { Nav } from './nav/Nav'
+export { Nav, NavContext } from './Nav'
 export {
-    OnNavSelectionListener,
-    INavSelectionArg,
-    INavProp,
-    ISideNavProp,
-    INavItemProp,
-    INavTheme,
-    ITemplateComponents
-} from './types'
-export {
-    NavText,
-    NavIcon,
-    ExpandToggle
-} from './template/components'
+  SideNav,
+  ViewMode,
+  ISideNavContext,
+  SideNavActionContext,
+  SideNavContext
+} from './SideNav'

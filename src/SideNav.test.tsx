@@ -1,106 +1,137 @@
 
 import * as React from 'react'
-import { mount } from 'enzyme';
+import { fireEvent, render, cleanup, getByTestId } from 'react-testing-library'
+import { Nav } from './Nav'
+import { SideNav, ViewMode } from './SideNav'
+import 'jest-dom/extend-expect'
 
-import { SideNav } from './SideNav'
-import { Nav } from 'react-sidenav/nav/Nav';
-import { ISideNavProp } from 'react-sidenav/types';
-
+afterEach(cleanup)
 
 describe('<SideNav/>', () => {
-    it('manages state internally if defaultSelectionPath is passed', () => {
-        const wrapper = mount((
-            <SideNav
-                defaultSelectedPath='2'>
-                <Nav id="1">Nav</Nav>
-            </SideNav>
-        ))
+  it('renders any items', () => {
+    const { getByTestId } = render(
+      <SideNav>
+        <Nav id='1'>
+          <div>Item</div>I
+        </Nav>
+        <div data-testid='nonNavChild'/>
+      </SideNav>
+    )
+    
+    getByTestId('nonNavChild')
+  })
 
-        wrapper.find(Nav).simulate("click")
-        expect(wrapper.state("selectedPath")).toBe("1")
-    })
-    it("calls onItemSelected listener when path is clicked", () => {
-        const listener = jest.fn();
-        const wrapper = mount((
-            <SideNav
-                onItemSelection={listener}
-                selectedPath='1'>
-                <Nav id="1">Nav</Nav>
-            </SideNav>
-        ))
+  it('calls onItemSelection event when a nav is clicked', () => {
+    const listener = jest.fn()
+    const { getByTestId } = render(
+      <SideNav onSelection={listener}>
+        <Nav id='1'>
+          <div>Item</div>I
+        </Nav>
+      </SideNav>
+    )
 
-        wrapper.find(Nav).simulate("click")
+    fireEvent.click(getByTestId('1'))
+    expect(listener).toHaveBeenCalledWith('1', { id: "1", isLeaf: true, level: 1, payload: undefined})
+  })
 
-        expect(listener.mock.calls.length).toBe(1)
-        const arg = listener.mock.calls[0][0]
+  it('renders sub menu', () => {
+    const listener = jest.fn()
+    const { debug, getByTestId, queryByTestId } = render(
+      <SideNav onSelection={listener}>
+        <Nav id='1'>
+          <div>Item</div>I
+          <Nav id='1'>
+            <div>Item 2</div>
+          </Nav>
+        </Nav>      
+      </SideNav>
+    )
+    const childNavEl = getByTestId('1|1')
+    const subNavContainerEl = childNavEl.parentElement
+    expect(subNavContainerEl.getAttribute('data-navgroupstate')).toEqual('collapsed')
+    
+    fireEvent.click(getByTestId('1'))
 
-        expect(arg.path).toBe("1")
-        expect(arg.id).toBe("1")
-        expect(arg.payload).toBe(undefined)
-    })
+    expect(subNavContainerEl.getAttribute('data-navgroupstate')).toEqual('expanded')
 
-    it("calls onItemSelected with payload if Nav has payload", () => {
-        const listener = jest.fn();
-        const wrapper = mount((
-            <SideNav
-                onItemSelection={listener}
-                selectedPath='1'>
-                <Nav id="1" payload={"banana"}>Nav</Nav>
-            </SideNav>
-        ))
+  })
 
-        wrapper.find(Nav).simulate("click")
+  it('does not render sub menu in compact mode', () => {
+    const { queryByTestId } = render(
+      <SideNav mode={ViewMode.compact}>
+        <Nav id='1'>
+          <div>Item</div>I
+          <Nav id='1'>
+            <div>Item 2</div>
+          </Nav>
+        </Nav>      
+      </SideNav>
+    )
+    expect(queryByTestId('1|1')).toBeFalsy()
+  })
+  it('renders sub menu in compact mode when expanded', () => {
+    const { queryByTestId, getByTestId } = render(
+      <SideNav mode={ViewMode.compact}>
+        <Nav id='1'>
+          <div>Item</div>I
+          <Nav id='1'>
+            <div>Item 2</div>
+          </Nav>
+        </Nav>      
+      </SideNav>
+    )
+    expect(queryByTestId('1|1')).toBeFalsy()
+    fireEvent.click(getByTestId('1'))
+    getByTestId('1|1')
+  })
 
-        expect(listener.mock.calls.length).toBe(1)
-        const arg = listener.mock.calls[0][0]
+  it('can select defaultSelectedPath with sub menu', () => {
+    const { debug, getByTestId, queryByTestId } = render(
+      <SideNav defaultSelectedPath='1|1'>
+        <Nav id='1'>
+          <div>Item</div>I
+          <Nav id='1'>
+            <div>Item 2</div>
+          </Nav>
+        </Nav>      
+      </SideNav>
+    )
+    const subMenuEl = getByTestId('1|1')
+    expect(subMenuEl.getAttribute('data-selected')).toEqual("true")
+  })
 
-        expect(arg.path).toBe("1")
-        expect(arg.id).toBe("1")
-        expect(arg.payload).toBe("banana")
-    })
+  it('can select defaultSelectedPath with top level menu', () => {
+    const { getByTestId } = render(
+      <SideNav defaultSelectedPath='2'>
+        <Nav id='1'>
+          <div>Item</div>I         
+        </Nav>      
+        <Nav id='2'>
+            <div>Item 2</div>
+          </Nav>
+      </SideNav>
+    )
+    const subMenuEl = getByTestId('2')
+    expect(subMenuEl.getAttribute('data-selected')).toEqual("true")
+  })
 
-    it("will use defaultSelectedPath initially, then use internal state in subsequent call", () => {
-        const listener = jest.fn();
-        const wrapper = mount<ISideNavProp, { selectedPath: string }>((
-            <SideNav
-                onItemSelection={listener}
-                defaultSelectedPath='2'>
-                <Nav id="1" payload={"banana"}>Nav</Nav>
-            </SideNav>
-        ))
-
-        expect(wrapper.state('selectedPath')).toBe('2')
-        wrapper.find(Nav).simulate("click")
-
-        expect(listener.mock.calls.length).toBe(1)
-        const arg = listener.mock.calls[0][0]
-
-        expect(arg.path).toBe("1")
-        expect(arg.id).toBe("1")
-        expect(arg.payload).toBe("banana")
-        expect(wrapper.state('selectedPath')).toBe('1')
-    })
-
-    it('calls onClick on Nav ', () => {
-        const sideNavListener = jest.fn()
-        const navListener = jest.fn()
-
-        const wrapper = mount<ISideNavProp, { selectedPath: string }>((
-            <SideNav
-                onItemSelection={sideNavListener}
-                defaultSelectedPath='2'>
-                <Nav id="1" onClick={navListener} payload={"banana"}>Nav</Nav>
-            </SideNav>
-        ))
-        wrapper.find(Nav).simulate("click")
-
-        const argMain = sideNavListener.mock.calls[0][0]
-        const argNav = navListener.mock.calls[0][0]
-        expect(argMain.path).toBe('1')
-        expect(argNav.path).toBe('1')
-        expect(argMain.payload).toBe("banana")
-        expect(argNav.payload).toBe("banana")
-
-    })
-
+  it('collapse submenu when clicked outside', () => {
+    const { container, queryByTestId, getByTestId } = render(
+      <SideNav mode={ViewMode.compact}>
+        <Nav id='1'>
+          <div>Item</div>I
+          <Nav id='1'>
+            <div>Item 2</div>
+          </Nav>
+        </Nav>      
+      </SideNav>
+    )
+    expect(queryByTestId('1|1')).toBeFalsy()
+    fireEvent.click(getByTestId('1'))
+    getByTestId('1|1')
+    
+    fireEvent.click(container)
+    expect(queryByTestId('1|1')).toBeFalsy()
+  })
 })

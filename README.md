@@ -5,17 +5,11 @@
 
 Side Navigation Component for React
 
-![Alt vmware](https://github.com/wmira/react-sidenav/blob/master/sidenav.png)
+![Alt Img](https://github.com/wmira/react-sidenav/blob/master/sidenav.png)
 
 # Getting Started
 
-**react-sidenav** version is 3 is a complete rewrite of the react-sidenav library. The main intention
-of the re-write is to be able to make the rendering of the navigation items non opinionated.
-
-This will make it possible to render anything while the library takes care of handling the switching/rendering
-logic within the component.
-
-As such, **react-sidenav** aims to be a  library and can be used to build any side navigation component.
+**react-sidenav** 4.0 will not be backwards compatible and would need 
 
 ## Requirements
 
@@ -28,93 +22,54 @@ Typescript so it can be directly used with a typescript project as well.
 2. https://codesandbox.io/dashboard/sandboxes/react-sidenav
 
 
-### Dependencies
+### Peer Dependencies
 
-The following are peer dependencies of **react-sidenav**. You would need to have the following installed:
+**React 16.8**
 
-```react```
-```react-dom```
-```styled-components```
+### NavContext 
 
-### Basic Usage 
+As the current version of react-sidenav does not have any fixed rendering template,
+the user is free to render Nav items as they see fit. To render conditionally an item can get the context which contains 
+the following attributes:
 
-At a minimum, SideNav can be used as per the example below. You can render any item you want.
+| property   |      type      |  description |
+|------------:|-------------:|------:|
+| selected | boolean  | if this Nav item is selected |
+| id | string  | the id of the Nav as per props.id |
+| pathId | string  | The path id, will be parentId|props.id if rendered with a parent |
+| level | number  | The level of the Nav, starts with 1 |
+| isLeaf | boolean  | If true, then this Nav has no children |
 
-```javascript
-
-    import { SideNav, Nav } from 'react-sidenav'
-
-    const Navigation = () => (
-        <SideNav defaultSelectedPath="1">
-            <Nav id="1">Item 1</Nav>
-            <Nav id="2">Item 2</Nav>
-            <Nav id="3">Item 3</Nav>
-        </SideNav>
-    )
-
-```
+Below is an example on how to use it.
 
 ```javascript
-
-    import { SideNav, Nav } from 'react-sidenav'
-
-    const Navigation = () => (
-        <SideNav defaultSelectedPath="1">
-            <Nav id="1">
-                <Icon icon={item1}/>
-                Item 1
-            </Nav>
-            <Nav id="2">
-                <Icon icon={item2}/>
-                Item 2
-            </Nav>
-            <Nav id="3">
-                <Icon icon={item2}/>
-                Item 3
-            </Nav>
-        </SideNav>
-    )
-
-```
-
-For stateless mode, you can add a listener and set the value on selectedPath attribute
-
-```javascript
-class Navigation extends React.Component {
-
-    state = { selectedPath: '' }
-
-    onItemSelection = (arg) => {
-        this.setState({ selectedPath: arg.path })
+    const Item = () => {
+      const context = React.useContext(NavContext);
+      return (
+        <div style={{ color: context.selected: 'pink': 'inherit'}}>{ props.children }</div>
+      )
     }
-
-    render() {
-
-        return (
-            <SideNav 
-                selectedPath={this.state.selectedPath} 
-                onItemSelection={this.onItemSelection}>
-                <Nav id={'1'}>1</Nav>
-                <Nav id={'2'}>2</Nav>
-            </SideNav>
-        )
-    }
-
-}
+  
+    <SideNav>
+      <Nav id="1">
+        <Item>Link 1</Item>
+      </Nav>
+      <Nav id="2">
+        <Item>Link 2</Item>
+      </Nav>
+      <Nav id="3">
+        <Item>Link 3</Item>
+      </Nav>
+    </SideNav>
+  
 
 ```
-
 ### SideNav Properties
 
 | property   |      type      |  description |  isRequired |
 |------------|-------------:|------:|-----------------------|
-| onItemSelection | function: ({id, path, payload}) => void | a function that gets called when a navigation has been clicked | false |
-| selectedPath | string | the identifier of the selection. Note that if your navigation is only 1 level then this just corresponds to an id.  | false |
-| defaultSelectedPath | string | SideNav component will manage state. Use defaultSelectedPath to set initial active item | false |
-| theme | INavTheme | The theme used by templates for colors etc | false |
-| template | ITemplate | The template defines which Elements gets rendered. Defaults are used and you can use this to customize how navigations are rendered. More below | false |
-| scheme | Scheme | used to customize template behavior | false |
-| expandOnHover | boolean | expand a submenu on hover. defaults to false | false |
+| onSelection | function: ({id, path, payload}) => void | a function that gets called when a navigation has been clicked | false |
+| defaultSelectedPath | string | the default selection | false |
 
 
 ### Nav Properties
@@ -123,11 +78,15 @@ class Navigation extends React.Component {
 |------------|-------------:|------:|-----------------------|
 | id | | a function that gets called when a navigation has been clicked | true |
 | payload | any | passed to the listener when this nav is clicked  | false |
-| className | string | the class name to assign to this nav's container | false |
-| style | css attribs object | The style to assign to this nav's container | false |
 
 
 # Development
 
 Please checkout example on CodeSandbox and the src/playground directory for now while
 all the documentation/testing is being completed.
+
+# Sponsors
+
+JetBrains
+
+[(https://github.com/wmira/react-sidenav/blob/master/jetbrains.png)]('https://www.jetbrains.com/?from=react-sidenav')

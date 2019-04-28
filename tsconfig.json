@@ -1,26 +1,39 @@
 {
-    "compilerOptions": {
-        "outDir": "./dist/",
-        "sourceMap": false,
-        "noImplicitAny": true,
-        "strict": true,
-        "module": "commonjs",
-        "target": "es5",
-        "jsx": "react",
-        "moduleResolution": "node",
-        "lib": ["es5", "es6", "dom"],
-        "baseUrl": ".",
-        "paths": {
-            "react-sidenav": ["src"],
-            "react-sidenav/*": ["src/*"]
-        },
-        "declaration": true,
-        "types": [
-            "jest",
-            "node"
-        ]
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "lib": ["es5", "es6", "dom"],
+    "baseUrl": ".",
+    "paths": {
+        "react-sidenav": ["src"]            
     },
-    "include": [
-        "./src/**/*"
-    ]    
+    "declaration": true,
+    "types": [
+        "jest",
+        "node"
+    ],
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+        "alwaysShowRuleFailuresAsWarnings": false,
+        "ignoreDefinitionFiles": true,
+        "configFile": "./tslint.json",
+        "suppressWhileTypeErrorsPresent": false,
+        "mockTypeScriptVersion": false
+      }
+    ]
+  },
+  "include": [
+    "./src/index.tsx",
+    "./src/Nav.tsx",
+    "./src/NavGroup.tsx"
+  ]    
 }

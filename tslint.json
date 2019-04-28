@@ -17,8 +17,8 @@
       "no-unused-expression": true,
       "interface-name": true,      
       "max-classes-per-file": false,
-      "no-trailing-whitespace": true,
-      "indent": [true, "spaces", 2]      
+      "no-trailing-whitespace": [true, "ignore-comments"],
+      "indent": [true, "spaces", 2]
     }
   
   }
