@@ -35,10 +35,6 @@ const Navigation = styled.div`
   }
 `;
 
-const Heading = styled.h3`
-  padding: 0px 18px;
-  font-weight: normal;
-`;
 const NavItemCont = styled.div<{ selected: boolean }>`
   display: flex;
   padding: 12px 18px;
@@ -74,7 +70,7 @@ const Center = styled.div`
 `
 const Container = Flex;
 
-const Views = {
+const Views: { [key: string]: React.ComponentType } = {
   basic: Basic,
   sub: SubMenu,
   examples: Examples
