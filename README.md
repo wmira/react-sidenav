@@ -77,4 +77,4 @@ Please checkout example on CodeSandbox and the src/playground directory for now 
 all the documentation/testing is being completed.
 
 # Sponsors
-[![JetBrains](https://github.com/wmira/react-sidenav/raw/master/jetbrains.png)]('https://www.jetbrains.com/?from=react-sidenav')
+[![JetBrains](https://github.com/wmira/react-sidenav/raw/master/jetbrains.png)](https://www.jetbrains.com/?from=react-sidenav)
