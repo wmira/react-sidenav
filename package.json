@@ -14,7 +14,8 @@
     "test:watch": "jest --watch",
     "lint": "tslint --project tsconfig.json",
     "dist:patch": "npm version patch && git push --follow-tags",
-    "dist:minor": "npm version minor && git push --follow-tags"
+    "dist:minor": "npm version minor && git push --follow-tags",
+    "dist:major": "npm version major && git push --follow-tags"
   },
   "repository": {
     "type": "git",
