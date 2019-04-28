@@ -7,23 +7,36 @@ cache:
 
 
 stages:
-    - build
-    - publish
+  - build
+  - publish
+  - docs
 
 
 build:        
-    stage: build    
-    script:
-        - npm ci
-        - npm run dist                
+  stage: build    
+  script:
+      - npm ci
+      - npm run dist                
 
 npm_publish:        
-    stage: publish
-    only:
-        - tags
-    script:
-        - "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > ~/.npmrc"    
-        - npm publish dist
+  stage: publish
+  only:
+    - tags
+  script:
+    - "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > ~/.npmrc"    
+    - npm publish dist
 
+npm_publish_docs:
+  stage: docs
+  only:
+      - master
+  script:
+    - cd docs
+    - npm ci
+    - npm run build
+    - cp now.json build
+    - npm i -g --unsafe-perm now
+    - cd build
+    - now --token=${NOW_TOKEN}
 
     

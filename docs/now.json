@@ -1,0 +1,12 @@
+{
+  "name": "react-sidenav",
+  "alias": "react-sidenav",
+  "version": 2,  
+  "routes": [
+    {"src": "/static/(.*)", "headers": {"cache-control": "s-maxage=31536000,immutable"}, "dest": "/static/$1"},
+    {"src": "/asset-manifest.json", "dest": "/asset-manifest.json"},
+    {"src": "/manifest.json", "dest": "/manifest.json"},
+    {"src": "/precache-manifest.(.*)", "dest": "/precache-manifest.$1"},    
+    {"src": "/(.*)", "headers": {"cache-control": "s-maxage=0"}, "dest": "/index.html"}
+  ]
+}

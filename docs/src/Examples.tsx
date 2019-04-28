@@ -1,7 +1,6 @@
 import React from "react";
 
-import styled from 'styled-components'
-import { Flex, TextContent, InnerCont } from "./containers";
+import { Flex } from "./containers";
 
 
 export const Examples = () => {
