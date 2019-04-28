@@ -77,6 +77,4 @@ all the documentation/testing is being completed.
 
 # Sponsors
 
-JetBrains
-
-[(https://github.com/wmira/react-sidenav/blob/master/jetbrains.png)]('https://www.jetbrains.com/?from=react-sidenav')
+[![JetBrains](https://github.com/wmira/react-sidenav/blob/master/jetbrains.png =42px)]('https://www.jetbrains.com/?from=react-sidenav')
