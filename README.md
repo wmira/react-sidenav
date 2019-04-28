@@ -7,20 +7,10 @@ Side Navigation Component for React
 
 ![Alt Img](https://github.com/wmira/react-sidenav/blob/master/sidenav.png)
 
-# Getting Started
-
-**react-sidenav** 4.0 will not be backwards compatible and would need 
-
 ## Requirements
 
 **react-sidenav** are exported as an es module thus you would need a bundler to use it. It is also written in
 Typescript so it can be directly used with a typescript project as well.
-
-## Examples
-
-1. https://codesandbox.io/s/q9851xoymj
-2. https://codesandbox.io/dashboard/sandboxes/react-sidenav
-
 
 ### Peer Dependencies
 
