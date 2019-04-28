@@ -10,7 +10,7 @@ import { Icon } from 'react-icons-kit'
 
 const Container = styled.div`
   background: #2d353c;
-  width: 220px;
+  width: 200px;
   height: 420px;
   color: #a8acb1;  
 `
@@ -55,6 +55,10 @@ const NavTitle = styled.div`
   padding: 8px;
   font-size: 0.92em;
 `
+const SubTitle = styled.div`
+  padding: 8px 16px;
+  font-size: 0.88em;
+`
 
 export const WithIcons = () => {
   
@@ -67,6 +71,11 @@ export const WithIcons = () => {
         </Nav>
         <Nav id="2">
           <NavItem icon={transactionsIcon} title={"Transactions"}/>
+          {/* <Nav id="1">
+            <SubTitle>Orders</SubTitle>
+            <SubTitle>Refunds</SubTitle>
+            <SubTitle>Deliveries</SubTitle>
+          </Nav> */}
         </Nav>
         <Nav id="3">
           <NavItem icon={usersIcon} title={"Users"}/>

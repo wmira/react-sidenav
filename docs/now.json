@@ -1,6 +1,6 @@
 {
   "name": "react-sidenav",
-  "alias": "react-sidenav",
+  "alias": "react-sidenav.now.sh",
   "version": 2,  
   "routes": [
     {"src": "/static/(.*)", "headers": {"cache-control": "s-maxage=31536000,immutable"}, "dest": "/static/$1"},
