@@ -5,7 +5,7 @@
 
 Side Navigation Component for React
 
-![Alt vmware](https://github.com/wmira/react-sidenav/blob/master/sidenav.png)
+![Alt Img](https://github.com/wmira/react-sidenav/blob/master/sidenav.png)
 
 # Getting Started
 
@@ -22,86 +22,54 @@ Typescript so it can be directly used with a typescript project as well.
 2. https://codesandbox.io/dashboard/sandboxes/react-sidenav
 
 
-### Dependencies
+### Peer Dependencies
 
-The following are peer dependencies of **react-sidenav**. You would need to have the following installed:
+**React 16.8**
 
-It needs React 16
+### NavContext 
 
-### Basic Usage 
+As the current version of react-sidenav does not have any fixed rendering template,
+the user is free to render Nav items as they see fit. To render conditionally an item can get the context which contains 
+the following attributes:
 
-At a minimum, SideNav can be used as per the example below. You can render any item you want.
+| property   |      type      |  description |
+|------------:|-------------:|------:|
+| selected | boolean  | if this Nav item is selected |
+| id | string  | the id of the Nav as per props.id |
+| pathId | string  | The path id, will be parentId|props.id if rendered with a parent |
+| level | number  | The level of the Nav, starts with 1 |
+| isLeaf | boolean  | If true, then this Nav has no children |
 
-```javascript
-
-    import { SideNav, Nav } from 'react-sidenav'
-
-    const Navigation = () => (
-        <SideNav>
-            <Nav id="1">Item 1</Nav>
-            <Nav id="2">Item 2</Nav>
-            <Nav id="3">Item 3</Nav>
-        </SideNav>
-    )
-
-```
+Below is an example on how to use it.
 
 ```javascript
-
-    import { SideNav, Nav } from 'react-sidenav'
-
-    const Navigation = () => (
-        <SideNav>
-            <Nav id="1">
-                <Icon icon={item1}/>
-                Item 1
-            </Nav>
-            <Nav id="2">
-                <Icon icon={item2}/>
-                Item 2
-            </Nav>
-            <Nav id="3">
-                <Icon icon={item2}/>
-                Item 3
-            </Nav>
-        </SideNav>
-    )
-
-```
-
-For stateless mode, you can add a listener and set the value on selectedPath attribute
-
-```javascript
-class Navigation extends React.Component {
-
-    state = { selectedPath: '' }
-
-    onItemSelection = (arg) => {
-        this.setState({ selectedPath: arg.path })
+    const Item = () => {
+      const context = React.useContext(NavContext);
+      return (
+        <div style={{ color: context.selected: 'pink': 'inherit'}}>{ props.children }</div>
+      )
     }
-
-    render() {
-
-        return (
-            <SideNav 
-                selectedPath={this.state.selectedPath} 
-                onItemSelection={this.onItemSelection}>
-                <Nav id={'1'}>1</Nav>
-                <Nav id={'2'}>2</Nav>
-            </SideNav>
-        )
-    }
-
-}
+  
+    <SideNav>
+      <Nav id="1">
+        <Item>Link 1</Item>
+      </Nav>
+      <Nav id="2">
+        <Item>Link 2</Item>
+      </Nav>
+      <Nav id="3">
+        <Item>Link 3</Item>
+      </Nav>
+    </SideNav>
+  
 
 ```
-
 ### SideNav Properties
 
 | property   |      type      |  description |  isRequired |
 |------------|-------------:|------:|-----------------------|
 | onSelection | function: ({id, path, payload}) => void | a function that gets called when a navigation has been clicked | false |
-| 
+| defaultSelectedPath | string | the default selection | false |
 
 
 ### Nav Properties
@@ -110,11 +78,15 @@ class Navigation extends React.Component {
 |------------|-------------:|------:|-----------------------|
 | id | | a function that gets called when a navigation has been clicked | true |
 | payload | any | passed to the listener when this nav is clicked  | false |
-| className | string | the class name to assign to this nav's container | false |
-| style | css attribs object | The style to assign to this nav's container | false |
 
 
 # Development
 
 Please checkout example on CodeSandbox and the src/playground directory for now while
 all the documentation/testing is being completed.
+
+# Sponsors
+
+JetBrains
+
+[(https://github.com/wmira/react-sidenav/blob/master/jetbrains.png)]('https://www.jetbrains.com/?from=react-sidenav')

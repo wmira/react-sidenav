@@ -6,8 +6,9 @@ import { NavGroup } from './NavGroup';
 const PATH_SEPARATOR = '|'
 
 
-interface INavProps {
+interface INavProps<P ={}> {
   id: string
+  payload?: P
 }
 
 interface INavContext {
@@ -42,7 +43,7 @@ const isSelectedPath = (contextPath: string, selection: string) => {
   return true
 }
 const isSelected = (context: ISideNavContext, parentContext: INavContext | null, id: string) => {
-  const selectionPath = context ? context.selection : ''
+  const selectionPath = context ? context.selectedPath : ''
   const parentPathId =  parentContext ? `${parentContext.pathId}` : undefined
 
   const result =  isSelectedPath(parentPathId ? `${parentPathId}${PATH_SEPARATOR}${id}` : id, selectionPath)
@@ -53,11 +54,7 @@ const isSelected = (context: ISideNavContext, parentContext: INavContext | null,
 const createPathId = (context: INavContext | null, id: string) => {
 
   if ( context ) {
-    if ( context.pathId ) {
-      return `${context.pathId}${PATH_SEPARATOR}${id}`
-    } else {
-      return `${context.id}${PATH_SEPARATOR}${id}`
-    }
+    return `${context.pathId}${PATH_SEPARATOR}${id}`
   }
   return id
 
@@ -77,23 +74,20 @@ function hasNavChildren(props: React.Props<any>) {
 export const Nav: React.FC<INavProps> = (props) => {
 
   const context = React.useContext(SideNavContext)
+
   const contextAction = React.useContext(SideNavActionContext)
   const parentNavContext = React.useContext(NavContext)
   const selected = isSelected(context, parentNavContext, props.id)
-  const [selectedInternal, setSelectedInternal] = React.useState<boolean | undefined>(context ? undefined: false)
   const pathId = createPathId(parentNavContext, props.id)
 
-  const onClick = React.useCallback((e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation()
-    if ( context && contextAction ) {
-      contextAction.onSelectionPathSelected(pathId)
-    } else {
-      setSelectedInternal(true)
-    }
-  }, [ context, contextAction, pathId ])
   const level = pathId.split(PATH_SEPARATOR).length
   const hasNavAsChildren = hasNavChildren(props)
   const isLeaf = !hasNavAsChildren
+
+  const onClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation()
+    contextAction.onSelectionPathSelected(pathId, { id: props.id, isLeaf, payload: props.payload, level })
+  }
 
   const elementToCreate = isLeaf ? 'div' : NavGroup
   const containerProps = {
@@ -104,10 +98,10 @@ export const Nav: React.FC<INavProps> = (props) => {
     'data-testid': `${pathId}`,
     children: props.children,
     onClick
-  } as any // dang it
+  } as any
 
   if ( isLeaf ) {
-    containerProps['data-selected'] =  context ? `${selected}` : selectedInternal
+    containerProps['data-selected'] =  selected;
   }
 
   return (

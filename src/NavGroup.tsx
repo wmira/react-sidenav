@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Nav } from './Nav';
-import { SideNavMode, SideNavContext } from './';
+import { ViewMode, SideNavContext } from './';
 
-enum NavGroupState {
+export enum NavGroupState {
   expanded = 'expanded',
   collapsed = 'collapsed'
 }
@@ -32,8 +32,17 @@ const ChildrenIndicatorIcon: React.FC<{size?: number}> = (props) => {
       </svg>
     </i>
   )
-
 }
+const StyleCollapsed = Object.freeze({
+  maxHeight: 0,
+  transition: 'max-height 0.3s ease-out',
+  overflow: 'hidden',
+})
+const StyleExpanded = Object.freeze({
+  overflow: 'hidden',
+  maxHeight: '1000px', // this should be enough
+  transition: 'max-height 0.5s ease-in'
+})
 
 export const NavGroupChildren: React.FC<INavGroupChildrenProp> = (props) => {
   const context = React.useContext(SideNavContext)
@@ -52,7 +61,7 @@ export const NavGroupChildren: React.FC<INavGroupChildrenProp> = (props) => {
     }
   }, [ ref ])
 
-  if ( context.mode === SideNavMode.compact ) {
+  if ( context.mode === ViewMode.compact ) {
     if ( props.state === NavGroupState.expanded ) {
       const { current } = props.rootRef
       const width = current!.clientWidth;
@@ -60,25 +69,26 @@ export const NavGroupChildren: React.FC<INavGroupChildrenProp> = (props) => {
       return (
         <div
           ref={ref}
-          style={{ background: ref.current ? ref.current.style.background: '#FFF', width, position: 'absolute', zIndex: 100, left: width+ 1, top: 0 } as any}>
+          style={{
+            background: ref.current ? ref.current.style.background: '#FFF',
+            width,
+            position: 'absolute',
+            zIndex: 100,
+            left: width+ 1,
+            top: 0 } as any}>
           { props.children }
         </div>
       )
     }
   } else {
-    const styleCollapsed = {
-      maxHeight: 0,
-      transition: 'max-height 0.3s ease-out',
-      overflow: 'hidden',
-    }
-    const styleExpanded = {
-      overflow: 'hidden',
-      maxHeight: '1000px', // this should be enough
-      transition: 'max-height 0.5s ease-in'
-    }
-    const style = props.state === NavGroupState.collapsed ? styleCollapsed : styleExpanded
+
+    const style = props.state === NavGroupState.collapsed ? StyleCollapsed : StyleExpanded
     return (
-      <div style={style}>{ props.children }</div>
+      <div
+        data-navgroupstate={props.state}
+        style={style}>
+        { props.children }
+      </div>
     )
   }
 

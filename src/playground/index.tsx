@@ -5,7 +5,7 @@ import {
   SideNav,
   Nav,
   NavContext,
-  SideNavMode
+  ViewMode
 } from '../';
 
 import {
@@ -74,7 +74,7 @@ const Icon: React.FC<{icon: React.FC<IIconProp>}> = (props) => {
 render(
   <Flex>
     <Container width={140}>
-      <SideNav >
+      <SideNav defaultSelectedPath={'page1'}>
         <Nav id='page1'>
           <Item>Page 1</Item>
         </Nav>
@@ -106,7 +106,7 @@ render(
       </SideNav>
     </Container>
     <Container width={80}>
-      <SideNav mode={SideNavMode.compact}>
+      <SideNav mode={ViewMode.compact}>
         <Nav id='page1'>
           <Item>Page1</Item>
         </Nav>

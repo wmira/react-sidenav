@@ -5,6 +5,12 @@ import { Flex, TextContent, InnerCont } from "./containers";
 import { Live } from './Live'
 
 const code = `
+
+/* 
+  this uses styled components
+  you can use standard css or 
+  style attributes as well 
+*/
 const ItemCont = styled.div\`
   color: \$\{props => (props.selected ? "rgb(0, 166, 90)" : "#555")\};
   padding: 8px 12px;
@@ -17,9 +23,7 @@ const ItemCont = styled.div\`
 const Item = props => {
   const context = React.useContext(NavContext);
   return (
-    <ItemCont
-      selected={context.selected}
-    >
+    <ItemCont selected={context.selected}>
       {props.children}
     </ItemCont>
   )
@@ -31,10 +35,8 @@ const containerStyle = {
 }
 
 render(
-  <SideNavCont
-    style={containerStyle}
-  >
-    <SideNav>
+  <SideNavCont style={containerStyle}>
+    <SideNav defaultSelectedPath={'1'}>
       <Nav id="1">
         <Item>Link 1</Item>
       </Nav>
@@ -72,9 +74,9 @@ export const Basic = () => {
               on the state it is currently on.
             </p>
             <p>
-              The example  below uses styled-components to conditionally render the child of a Nav
+              The example  below uses styled-components to conditionally render styling the child of a Nav
               element depending on the state from the context
-            </p>
+            </p>            
           </TextContent>
         </InnerCont>
       </Flex>

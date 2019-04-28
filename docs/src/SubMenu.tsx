@@ -4,7 +4,9 @@ import styled from 'styled-components'
 import { Flex, TextContent, InnerCont } from "./containers";
 import { Live } from './Live'
 
+
 const code = `
+
 const ItemCont = styled.div\`
   color: \$\{props => (props.selected ? "rgb(0, 166, 90)" : "#555")\};
   padding: 8px 12px;
@@ -14,16 +16,22 @@ const ItemCont = styled.div\`
   }
 \`
 
-const Item = props => {
-  const context = React.useContext(NavContext);
+const Item = props => {  
+  const context = React.useContext(NavContext);  
   return (
     <ItemCont
+      className={props.className}
       selected={context.selected}
     >
       {props.children}
     </ItemCont>
   )
 };
+
+const SubItem = styled(Item)\`
+  padding: 6px 18px;  
+\`
+
 
 const containerStyle = {
   background: '#FFF',
@@ -39,14 +47,20 @@ render(
       <Nav id="2">
         <Item>Link 2</Item>
         <Nav id="1">
-          <span>Sub 1</span>
+          <SubItem>Sub 1</SubItem>
         </Nav>
         <Nav id="2">
-          <span>Sub 1</span>
+          <SubItem>Sub 2</SubItem>
         </Nav>
       </Nav>
       <Nav id="3">
         <Item>Link 3</Item>
+        <Nav id="1">
+          <SubItem>Sub 3</SubItem>
+        </Nav>
+        <Nav id="2">
+          <SubItem>Sub 4</SubItem>
+        </Nav>
       </Nav>
     </SideNav>
   </SideNavCont>

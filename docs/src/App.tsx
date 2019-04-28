@@ -6,6 +6,7 @@ import { MenuIcon } from './icons'
 import { Basic } from './Basic'
 import { MainContent } from './containers'
 import { SubMenu } from './SubMenu';
+import { Examples } from './Examples'
 
 const Flex = styled.div`
   display: flex;
@@ -53,11 +54,14 @@ const NavItemCont = styled.div<{ selected: boolean }>`
   }
 `;
 
-const NavItem: React.FC = props => {
+const NavItem: React.FC<{title: string}> = props => {
   const context = React.useContext(NavContext);
 
   return (
-    <NavItemCont selected={context.selected}>{props.children}</NavItemCont>
+    <NavItemCont selected={context.selected}>
+      <IconCont><MenuIcon size={10}/></IconCont>
+      <span>{ props.title }</span>
+    </NavItemCont>
   )
 };
 
@@ -72,13 +76,14 @@ const Container = Flex;
 
 const Views = {
   basic: Basic,
-  sub: SubMenu
+  sub: SubMenu,
+  examples: Examples
 };
 
 const IconCont: React.FC = (props) => {
-
+  const context = React.useContext(NavContext);
   return (
-    <div style={{padding: '0px 4px', color: "#42a5f5" }}>
+    <div style={{padding: '0px 4px', color: context.selected ? "#ff79c6" : '#efefef33' }}>
       <Center>
         { props.children }
       </Center>
@@ -86,16 +91,17 @@ const IconCont: React.FC = (props) => {
   )
 }
 
+
 export const App = () => {
 
-  const [ activeView, setActiveView ] = React.useState<string>('')
+  const [ activeView, setActiveView ] = React.useState<string>('basic')
 
   const onSelection = (selection: string) => {
     setActiveView(selection);
   };
 
   React.useEffect(() => {
-    // get the hash shit
+    // get the hash shit    
   }, [])
   const ViewComponent = Views[activeView] || null;
 
@@ -103,26 +109,18 @@ export const App = () => {
     <Container>
       <Navigation>
         <Title>React SideNav</Title>
-        <SideNav onSelection={onSelection}>
+        <SideNav 
+          defaultSelectedPath='basic' 
+          onSelection={onSelection}>
           <Nav id="basic">
-            <NavItem>
-              <MenuIcon size={10}/>
-              <span>Usage and Concepts</span>
-            </NavItem>
+            <NavItem title="Usage and Concepts"/>             
           </Nav>
           <Nav id="sub">
-            <NavItem>
-              <MenuIcon size={10}/>
-              <span>Sub Menu</span>
-            </NavItem>
-          </Nav>
-          <Heading>Examples</Heading>
-          <Nav id="customchildren1">
-            <NavItem>Custom Items 1</NavItem>
-          </Nav>
-          <Nav id="customchildren2">
-            <NavItem>Custom Items 2</NavItem>
-          </Nav>
+            <NavItem title="Sub Menu"/>              
+          </Nav>          
+          <Nav id="examples">
+            <NavItem title="Examples"/>
+          </Nav>          
         </SideNav>
       </Navigation>
       <MainContent>

@@ -32,6 +32,8 @@
     ]
   },
   "include": [
-      "./src/**/*"
+    "./src/index.tsx",
+    "./src/Nav.tsx",
+    "./src/NavGroup.tsx"
   ]    
 }
