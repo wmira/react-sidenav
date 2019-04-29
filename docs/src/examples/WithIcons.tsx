@@ -71,11 +71,11 @@ export const WithIcons = () => {
         </Nav>
         <Nav id="2">
           <NavItem icon={transactionsIcon} title={"Transactions"}/>
-          {/* <Nav id="1">
+          <Nav id="1">
             <SubTitle>Orders</SubTitle>
             <SubTitle>Refunds</SubTitle>
             <SubTitle>Deliveries</SubTitle>
-          </Nav> */}
+          </Nav>
         </Nav>
         <Nav id="3">
           <NavItem icon={usersIcon} title={"Users"}/>
