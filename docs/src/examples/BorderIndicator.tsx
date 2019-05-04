@@ -5,15 +5,18 @@ import { SideNav, Nav, NavContext } from 'react-sidenav'
 import {globe as dashboardIcon} from 'react-icons-kit/entypo/globe'
 import {credit_card as transactionsIcon} from 'react-icons-kit/ikons/credit_card'
 import {users as usersIcon} from 'react-icons-kit/entypo/users'
-
+import {codepen as salesIcon} from 'react-icons-kit/icomoon/codepen'
+import {ic_move_to_inbox as leadsIcon} from 'react-icons-kit/md/ic_move_to_inbox'
+import {ic_grain as statsIcon} from 'react-icons-kit/md/ic_grain'
 import { Icon } from 'react-icons-kit'
 
 const Container = styled.div`
-  background: #2d353c;
+  background: #FFF;
   width: 200px;
   height: 360px;
-  color: #a8acb1;  
-  font-family: 'Roboto', sans-serif;
+  color: #444;
+  border: 1px solid #E5E5E5;
+  font-family: 'Open Sans', sans-serif;
 `
 
 const FlexCont = styled.div<{selected: boolean}>`
@@ -21,16 +24,16 @@ const FlexCont = styled.div<{selected: boolean}>`
   justify-content: flex-start;
   align-items: center;
   padding: 8px 12px;
-  color: ${ props => props.selected ? '#FFF': 'inherit' };
+  background: ${ props => props.selected ? '#F5F5F5': 'inherit' };
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  background: ${ props => props.selected ? '#242a31': 'inherit'};
+  transition: all 0.3s ease-in-out;  
+  border-left: 4px solid ${ props => props.selected ? '#DE0A5F' : 'transparent'};
   &:hover {
-    background: #242a31;
-  }
+    background: #F5F5F5;
+  } 
 `
 const IconCont = styled.div<{selected: boolean}>`
-  color: ${ props => props.selected ? '#00acac': 'inherit' };
+  color: ${ props => props.selected ? '#DE0A5F': 'inherit' };
   line-height: 16px;
 `
 const TextCont = styled.div`
@@ -55,59 +58,33 @@ const NavItem: React.FC<INavItemProp> = (props) => {
 const NavTitle = styled.div`
   padding: 8px;
   font-size: 0.92em;
-`
-const SubTitle = styled.div<{ selected: boolean}>`
-  display: flex;
-  padding: 8px 22px;
-  font-size: 0.88em;
-  justify-content: flex-start;
-  align-items: center;
-  cursor: pointer;  
-  color: ${ props => props.selected ? '#FFF': 'inherit' } !important;
-  &:hover {
-    color: #FFF !important;
-  }
-`
-const SubTitleIndicator = styled.div<{selected: boolean}>`
-  border-radius: 50%;
-  width: 6px;
-  height: 6px;
-  background: ${ props => props.selected ? '#00acac': 'inherit' } !important;    
+  color: #A5A5A5;
 `
 
-const SubNavItem: React.FC = (props) => {
-  const context = React.useContext(NavContext)  
-  return (
-    <SubTitle selected={context.selected}>
-      <SubTitleIndicator selected={context.selected}/>
-      <div style={{padding: 4}}>{ props.children }</div>
-    </SubTitle>
-  )
-}
-
-export const WithIcons = () => {
+export const BorderIndicator = () => {
   
   return (
     <Container>
-      <NavTitle>Navigation</NavTitle>
+      <NavTitle>Main</NavTitle>
       <SideNav defaultSelectedPath="1">
         <Nav id="1">
           <NavItem icon={dashboardIcon} title={"Dashboard"}/>
         </Nav>
         <Nav id="2">
-          <NavItem icon={transactionsIcon} title={"Transactions"}/>
-          <Nav id="1"> 
-            <SubNavItem>Orders</SubNavItem>
-          </Nav>
-          <Nav id="2">
-            <SubNavItem>Refunds</SubNavItem>
-          </Nav>
-          <Nav id="3">
-            <SubNavItem>Deliveries</SubNavItem>
-          </Nav>
+          <NavItem icon={transactionsIcon} title={"Transactions"}/>         
         </Nav>
         <Nav id="3">
           <NavItem icon={usersIcon} title={"Users"}/>
+        </Nav>
+        <NavTitle>Sales & Marketing</NavTitle>
+        <Nav id="4">
+          <NavItem icon={salesIcon} title={"Sales / Orders"}/>
+        </Nav>
+        <Nav id="5">
+          <NavItem icon={leadsIcon} title={"Leads"}/>
+        </Nav>
+        <Nav id="6">
+          <NavItem icon={statsIcon} title={"Statistics"}/>
         </Nav>
       </SideNav>
     </Container>

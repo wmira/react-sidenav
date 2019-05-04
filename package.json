@@ -44,7 +44,7 @@
     "@babel/preset-typescript": "^7.3.3",
     "@types/jest": "^24.0.11",
     "@types/node": "^11.13.4",
-    "@types/react": "^16.8.13",
+    "@types/react": "^16.8.15",
     "@types/react-dom": "^16.8.4",
     "@types/styled-components": "^4.1.14",
     "babel-loader": "^8.0.5",
@@ -64,5 +64,8 @@
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.3.1"
   },
-  "peerDependencies": {}
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
 }

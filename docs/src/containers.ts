@@ -3,6 +3,8 @@ import styled, { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
   @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+  @import url('https://fonts.googleapis.com/css?family=Roboto');
 
   html,
   body {

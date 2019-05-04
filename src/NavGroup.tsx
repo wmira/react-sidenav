@@ -40,7 +40,7 @@ const StyleCollapsed = Object.freeze({
 })
 const StyleExpanded = Object.freeze({
   overflow: 'hidden',
-  maxHeight: '1000px', // this should be enough
+  maxHeight: '1000px',
   transition: 'max-height 0.5s ease-in'
 })
 

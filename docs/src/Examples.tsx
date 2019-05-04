@@ -1,12 +1,48 @@
 import React from "react";
-
-import { Flex } from "./containers";
+import styled from 'styled-components'
+import { Flex as BaseFlex } from "./containers";
 import { WithIcons } from './examples/WithIcons'
+import { BorderIndicator } from './examples/BorderIndicator'
+import { TwitterNav } from './examples/TwitterNav'
+import {box as codeSandboxIcon} from 'react-icons-kit/feather/box'
+import { Icon } from 'react-icons-kit'
 
-const Example: React.FC = (props) => {
+const CodeSandboxCont = styled.div`
+  color: #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  & > a {    
+    text-decoration: none;
+  }
+  & > a > span { 
+    padding-left: 4px;
+  }
+  & > a:visited {
+    color: #666;
+  }
+`
+
+const Flex = styled(BaseFlex)`
+  flex-wrap: wrap;
+`
+
+const Example: React.FC<{ id: string}> = (props) => {
 
   return (
-    <div>{ props.children }</div>
+    <div style={{padding: 4}}>
+      <Flex>
+        <CodeSandboxCont>
+          <a rel="noopener noreferrer" 
+            target="_blank" href={`https://codesandbox.io/s/${props.id}`}>
+            <Icon icon={codeSandboxIcon} />          
+            <span>Edit At CodeSandbox</span>
+          </a>        
+        </CodeSandboxCont>
+      </Flex>
+      { props.children }
+    </div>
   )
 } 
 
@@ -14,8 +50,14 @@ export const Examples = () => {
   return (
     <>
       <Flex>
-        <Example>
+        <Example id='03xry073qw'>
           <WithIcons/>
+        </Example>
+        <Example id='m5yyl5rp9y'>
+          <BorderIndicator/>
+        </Example>
+        <Example id='rkwq71854'>
+          <TwitterNav/>
         </Example>
       </Flex>
     </>
