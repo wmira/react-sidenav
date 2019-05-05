@@ -7,6 +7,8 @@ import { Basic } from './Basic'
 import { MainContent } from './containers'
 import { SubMenu } from './SubMenu';
 import { Examples } from './Examples'
+import {menu as menuIcon} from 'react-icons-kit/entypo/menu'
+import { Icon }from 'react-icons-kit'
 
 const Flex = styled.div`
   display: flex;
@@ -18,20 +20,35 @@ const Flex = styled.div`
 const Title = styled.div`
   font-size: 16px;
   font-weight: 700;
-  padding: 18px;
+  padding: 10px;
   text-align: center;
   letter-spacing: 2px;
-`;
-const Navigation = styled.div`
+`
+
+const Navigation = styled.div<{ visible?: boolean }>`
   background: #222d32;
   height: 100vh;
   width: 220px;
   min-width: 220px;
   color: #fff;
   font-size: 14px;
-
+  z-index: 100;
   @media (max-width: 599px) {
-    display: none;
+    display: ${ props => props.visible === true ? 'block' : 'none' };
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  }
+`;
+
+const Header = styled.div`
+  background: #222d32;  
+  display: none;
+  color: #FFF;
+  @media (max-width: 599px) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
 `;
 
@@ -68,7 +85,9 @@ const Center = styled.div`
   width: 100%;
   height: 100%;
 `
-const Container = Flex;
+const Container = styled(Flex)`
+  position: relative;
+`;
 
 const Views: { [key: string]: React.ComponentType } = {
   basic: Basic,
@@ -87,13 +106,50 @@ const IconCont: React.FC = (props) => {
   )
 }
 
+const SideNavigation: React.FC<{visible: boolean, onSelection: (id: string) => void}> = (props) => {
+  
+  return (
+    <Navigation visible={props.visible}>
+      <Title>React SideNav</Title>
+      <SideNav 
+        defaultSelectedPath='basic' 
+        onSelection={props.onSelection}
+      >
+        <Nav id="basic">
+          <NavItem title="Usage and Concepts"/>             
+        </Nav>
+        <Nav id="sub">
+          <NavItem title="Sub Menu"/>
+        </Nav>          
+        <Nav id="examples">
+          <NavItem title="Examples"/>
+        </Nav>          
+      </SideNav>
+    </Navigation>
+  )
+}
+const ShowMenuIconCont = styled.div`
+  height: 100%;
+  padding: 4px 0px 4px 10px;
+  cursor: pointer;
+`
+
+const ShowMenuIcon: React.FC<{ onClick: () => void }> = (props) => {
+  return (
+    <ShowMenuIconCont onClick={props.onClick}>
+      <Icon  size={20} icon={menuIcon} />
+    </ShowMenuIconCont>
+  )
+}
 
 export const App = () => {
 
   const [ activeView, setActiveView ] = React.useState<string>('basic')
+  const [ menuVisible, setMenuVisible ] = React.useState<boolean>(false)
 
   const onSelection = (selection: string) => {
-    setActiveView(selection);
+    setActiveView(selection)
+    setMenuVisible(false)
   };
 
   React.useEffect(() => {
@@ -103,25 +159,17 @@ export const App = () => {
 
   return (
     <Container>
-      <Navigation>
-        <Title>React SideNav</Title>
-        <SideNav 
-          defaultSelectedPath='basic' 
-          onSelection={onSelection}>
-          <Nav id="basic">
-            <NavItem title="Usage and Concepts"/>             
-          </Nav>
-          <Nav id="sub">
-            <NavItem title="Sub Menu"/>              
-          </Nav>          
-          <Nav id="examples">
-            <NavItem title="Examples"/>
-          </Nav>          
-        </SideNav>
-      </Navigation>
-      <MainContent>
-        {ViewComponent ? <ViewComponent /> : null}
-      </MainContent>
+      <SideNavigation visible={menuVisible} onSelection={onSelection}/>   
+      <div>
+        <Header>
+            <ShowMenuIcon onClick={() => setMenuVisible(true) }/>
+            <Title>React SideNav</Title>
+        </Header>
+        <MainContent>        
+          {ViewComponent ? <ViewComponent /> : null}
+        </MainContent>
+      </div>
+      
     </Container>
   )
 }

@@ -12,8 +12,12 @@ const CodeSandboxCont = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6px;
+  padding: 6px;  
+  & > a:hover {
+    text-decoration: underline;
+  }
   & > a {    
+    color: #666;
     text-decoration: none;
   }
   & > a > span { 
