@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Nav } from './Nav';
-import { ViewMode, SideNavContext } from './';
+import { ViewMode, SideNavContext, NavContext } from './';
 
 export enum NavGroupState {
   expanded = 'expanded',
@@ -118,7 +118,10 @@ const ToggleIndicator: React.FC<{collapsed: NavGroupState}> = (props) => {
 
 export const NavGroup: React.FC<INavGroupProp> = (props) => {
   const { children, onClick, ...others } = props
-  const [state, setState] = React.useState(NavGroupState.collapsed)
+  const { selectedPath } = React.useContext(SideNavContext)
+  const { pathId } = React.useContext(NavContext)
+  const childSelected = pathId && selectedPath.indexOf(pathId) === 0
+  const [state, setState] = React.useState(childSelected ? NavGroupState.expanded : NavGroupState.collapsed)
   const rootRef = React.useRef<HTMLDivElement>(null)
 
   const onHandleClick = (e?: React.MouseEvent ) => {
