@@ -53,6 +53,10 @@ export const SideNav: React.FC<ISideNavProp> = (props) => {
     }
   }, [ props.mode ] )
 
+  React.useEffect(() => {
+    setState({ ...state, selectedPath: props.defaultSelectedPath || '' })
+  }, [ props.defaultSelectedPath ] )
+
   return (
     <SideNavContext.Provider value={state}>
       <SideNavActionContext.Provider value={{ onSelectionPathSelected }}>
