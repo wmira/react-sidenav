@@ -9,6 +9,7 @@ export enum NavGroupState {
 
 interface INavGroupProp {
   onClick: (arg: any) => void
+  toggleIconProps: React.HTMLProps<HTMLDivElement>
 }
 
 interface INavGroupChildrenProp {
@@ -107,10 +108,10 @@ const ToggleIndicatorStyle = {
 }
 
 
-const ToggleIndicator: React.FC<{collapsed: NavGroupState}> = (props) => {
+const ToggleIndicator: React.FC<{collapsed: NavGroupState} & React.HTMLProps<HTMLDivElement>> = (props) => {
   const transform = props.collapsed === NavGroupState.collapsed ? "rotate(0deg)" : "rotate(90deg)"
   return (
-    <div style={{ ...ToggleIndicatorStyle, transform } as any} >
+    <div {...props} style={{ ...ToggleIndicatorStyle, transform } as any}>
       <ChildrenIndicatorIcon />
     </div>
   )
@@ -152,7 +153,7 @@ export const NavGroup: React.FC<INavGroupProp> = (props) => {
     <div {...others} onClick={onHandleClick } ref={rootRef} style={{position: 'relative'}}>
       <div style={{position: 'relative'}}>
         { nonNavChildren }
-        <ToggleIndicator collapsed={state} />
+        <ToggleIndicator {...props.toggleIconProps} collapsed={state} />
       </div>
       <NavGroupChildren
         toggleCollapsed={onHandleClick}
