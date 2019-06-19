@@ -7,13 +7,9 @@ import { Live } from './Live'
 
 const code = `
 
-/* 
-  this uses styled components
-  you can use standard css or 
-  style attributes as well 
-*/
+
 const ItemCont = styled.div\`
-  color: \$\{props => (props.selected ? "rgb(0, 166, 90)" : "#555")\};
+  color: \$\{props => (props.selected ? "#00a65a" : "#555")\};
   padding: 8px 12px;
   cursor: pointer;
   &:hover {

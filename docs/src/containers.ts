@@ -45,7 +45,7 @@ export const SideNavCont = styled.div`
 `;
 
 export const TextContent = styled.div`
-
+  max-width: 500px;
 `
 
 export const MainContent = styled.div`

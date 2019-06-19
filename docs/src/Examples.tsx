@@ -4,6 +4,7 @@ import { Flex as BaseFlex } from "./containers";
 import { WithIcons } from './examples/WithIcons'
 import { BorderIndicator } from './examples/BorderIndicator'
 import { TwitterNav } from './examples/TwitterNav'
+import { Compact } from './examples/Compact'
 import {box as codeSandboxIcon} from 'react-icons-kit/feather/box'
 import { Icon } from 'react-icons-kit'
 
@@ -29,14 +30,17 @@ const CodeSandboxCont = styled.div`
 `
 
 const Flex = styled(BaseFlex)`
-  flex-wrap: wrap;
+  flex-wrap: wrap;  
+`
+const FlexConter = styled(Flex)`
+  justify-content: center;
+  align-items: center;
 `
 
 const Example: React.FC<{ id: string}> = (props) => {
 
   return (
-    <div style={{padding: 4}}>
-      <Flex>
+    <div>      
         <CodeSandboxCont>
           <a rel="noopener noreferrer" 
             target="_blank" href={`https://codesandbox.io/s/${props.id}`}>
@@ -44,8 +48,10 @@ const Example: React.FC<{ id: string}> = (props) => {
             <span>Edit At CodeSandbox</span>
           </a>        
         </CodeSandboxCont>
-      </Flex>
-      { props.children }
+      
+        <FlexConter>
+          { props.children }
+        </FlexConter>
     </div>
   )
 } 
@@ -62,6 +68,9 @@ export const Examples = () => {
         </Example>
         <Example id='rkwq71854'>
           <TwitterNav/>
+        </Example>
+        <Example id='rkwq71854'>
+          <Compact/>
         </Example>
       </Flex>
     </>
