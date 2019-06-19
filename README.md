@@ -61,6 +61,9 @@ Below is an example on how to use it.
 |------------|-------------:|------:|-----------------------|
 | onSelection | function: ({id, path, payload}) => void | a function that gets called when a navigation has been clicked | false |
 | defaultSelectedPath | string | the default selection | false |
+| mode | compact, normal | changes rendering style of children | false, defaults to normal |
+| childrenToggleMode | hover, click | changes how children are expanded | false, defaults to hover |
+| childrenToggleIndicator | React Component | the toggle indicator to render. The collapse, expand state is passed or you can use the NavGroupContext to get the collapse/expand state | false |
 
 
 ### Nav Properties

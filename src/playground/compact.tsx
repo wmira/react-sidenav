@@ -16,7 +16,6 @@ import {
 } from './icons';
 
 import styled from 'styled-components'
-import { ChildrenToggleMode } from '../types';
 
 interface IItemContainerProp {
   selected: boolean
@@ -74,62 +73,29 @@ const Icon: React.FC<{icon: React.FC<IIconProp>}> = (props) => {
 
 render(
   <Flex>
-    <Container width={140}>
-      <SideNav 
-        childrenToggleMode={ChildrenToggleMode.click}
-        defaultSelectedPath={'page1'}>
-        <Nav id='page1'>
-          <Item>Page 1</Item>
-        </Nav>
-        <Nav id='page2'>
-          <Item>Page 2</Item>
-          <Nav id='page1'>
-            <Item>Page 2.1</Item>
-          </Nav>
-        </Nav>
-        <Nav id='page4'>
-          <Item>Page 4</Item>
-        </Nav>
-      </SideNav>
-    </Container>
+ 
     <Container>
-      <SideNav>
+      <SideNav mode={ViewMode.compact}>
         <Nav id='icon1'>
           <Icon icon={Icon1}/>
         </Nav>
         <Nav id='icon2'>
           <Icon icon={Icon2}/>
+          <Nav id='icon2'>
+            <span> Sub Nav 1 </span>
+          </Nav>
+          <Nav id='icon3'>
+            <span> Sub Nav 2 </span >
+          </Nav>
+          <Nav id='icon4'>
+            <span> Sub Nav 3 </span>
+          </Nav>
         </Nav>
         <Nav id='icon3'>
           <Icon icon={Icon3}/>
         </Nav>
         <Nav id='icon4'>
           <Icon icon={Icon2}/>
-        </Nav>
-      </SideNav>
-    </Container>
-    <Container width={80}>
-      <SideNav mode={ViewMode.compact}>
-        <Nav id='page1'>
-          <Item>Page1</Item>
-        </Nav>
-        <Nav id='page2'>
-          <Item>Page2</Item>
-          <Nav id='page1'>
-            <Item>Page2.1</Item>
-          </Nav>
-          <Nav id='page2'>
-            <Item>Page2.2</Item>
-            <Nav id='page1'>
-              <Item>Page2.2.1</Item>
-            </Nav>
-            <Nav id='page2.2'>
-              <Item>Page2.2.2</Item>
-            </Nav>
-          </Nav>
-        </Nav>
-        <Nav id='page3'>
-          <Item>Page3</Item>
         </Nav>
       </SideNav>
     </Container>

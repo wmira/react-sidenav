@@ -1,9 +1,10 @@
 
 import * as React from 'react'
-import { fireEvent, render, cleanup } from 'react-testing-library'
+import { fireEvent, render, cleanup } from '@testing-library/react'
 import { Nav } from './Nav'
 import 'jest-dom/extend-expect'
-import { SideNavActionContext, SideNavContext, ViewMode } from './SideNav';
+import { SideNavActionContext, SideNavContext, ViewMode } from './';
+import { ChildrenToggleMode } from './types';
 
 afterEach(cleanup)
 
@@ -20,11 +21,11 @@ describe('<Nav/>', () => {
 
     const Provider: React.FC = (props) => {
       const [selected, setSelected] = React.useState('')
-      const actionListener = (selectedPath) => {
+      const actionListener = (selectedPath: string) => {
         setSelected(selectedPath)
       }
       return (
-        <SideNavContext.Provider value={{ selectedPath: selected}}>
+        <SideNavContext.Provider value={{ childrenToggleMode: ChildrenToggleMode.click, selectedPath: selected}}>
           <SideNavActionContext.Provider value={{ onSelectionPathSelected: actionListener }}>
             { props.children }
           </SideNavActionContext.Provider>
@@ -43,7 +44,11 @@ describe('<Nav/>', () => {
 
   it('renders sub nav', () => {
     const { getByTestId } = render(
-      <SideNavContext.Provider value={{mode: ViewMode.normal, selectedPath: ''}}>
+      <SideNavContext.Provider value={{ 
+        childrenToggleMode: ChildrenToggleMode.click, 
+        mode: ViewMode.normal, 
+        selectedPath: ''
+      }}>
         <Nav id='1'>
           <div data-testid='child'>Test</div>
           <Nav id='2'>

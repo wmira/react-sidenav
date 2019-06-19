@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import { SideNavContext, ISideNavContext, SideNavActionContext } from './index'
 import { NavGroup } from './NavGroup';
+import { ViewMode } from './types';
 
 const PATH_SEPARATOR = '|'
 
@@ -85,7 +86,9 @@ export const Nav: React.FC<INavProps> = (props) => {
   const isLeaf = !hasNavAsChildren
 
   const onClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation()
+    if ( context.mode === ViewMode.normal ) {
+      e.stopPropagation()
+    }
     contextAction.onSelectionPathSelected(pathId, { id: props.id, isLeaf, payload: props.payload, level })
   }
 

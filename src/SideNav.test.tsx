@@ -1,9 +1,10 @@
 
 import * as React from 'react'
-import { fireEvent, render, cleanup, getByTestId } from 'react-testing-library'
+import { fireEvent, render, cleanup } from '@testing-library/react'
 import { Nav } from './Nav'
-import { SideNav, ViewMode } from './SideNav'
+import { SideNav, ViewMode } from './'
 import 'jest-dom/extend-expect'
+import { ChildrenToggleMode } from './types';
 
 afterEach(cleanup)
 
@@ -37,8 +38,8 @@ describe('<SideNav/>', () => {
 
   it('renders sub menu', () => {
     const listener = jest.fn()
-    const { debug, getByTestId, queryByTestId } = render(
-      <SideNav onSelection={listener}>
+    const { getByTestId } = render(
+      <SideNav childrenToggleMode={ChildrenToggleMode.click} onSelection={listener}>
         <Nav id='1'>
           <div>Item</div>I
           <Nav id='1'>
@@ -82,7 +83,7 @@ describe('<SideNav/>', () => {
       </SideNav>
     )
     expect(queryByTestId('1|1')).toBeFalsy()
-    fireEvent.click(getByTestId('1'))
+    fireEvent.mouseOver(getByTestId('1'))
     getByTestId('1|1')
   })
 
@@ -116,7 +117,7 @@ describe('<SideNav/>', () => {
     expect(subMenuEl.getAttribute('data-selected')).toEqual("true")
   })
 
-  it('collapse submenu when clicked outside', () => {
+  it('collapse submenu when clicked outside on compact mode', () => {
     const { container, queryByTestId, getByTestId } = render(
       <SideNav mode={ViewMode.compact}>
         <Nav id='1'>
@@ -128,7 +129,7 @@ describe('<SideNav/>', () => {
       </SideNav>
     )
     expect(queryByTestId('1|1')).toBeFalsy()
-    fireEvent.click(getByTestId('1'))
+    fireEvent.mouseOver(getByTestId('1'))
     getByTestId('1|1')
     
     fireEvent.click(container)
