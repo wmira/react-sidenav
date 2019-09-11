@@ -39,7 +39,7 @@ export const SideNav: React.FC<ISideNavProp> = (props) => {
   const onMouseOver = (e: any) => {
     let mouseOverPathId;
     let current = e.target;
-    while ( current ) {
+    while ( current && current.getAttribute ) {
       const pathId = current.getAttribute('data-pathid')
       if ( pathId ) {
         mouseOverPathId = pathId
