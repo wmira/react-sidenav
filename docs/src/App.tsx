@@ -142,6 +142,9 @@ const ShowMenuIcon: React.FC<{ onClick: () => void }> = (props) => {
   )
 }
 
+const FlexItem = styled.div`
+  flex: 1;
+`
 export const App = () => {
 
   const [ activeView, setActiveView ] = React.useState<string>('basic')
@@ -160,7 +163,7 @@ export const App = () => {
   return (
     <Container>
       <SideNavigation visible={menuVisible} onSelection={onSelection}/>   
-      <div>
+      <FlexItem>
         <Header>
             <ShowMenuIcon onClick={() => setMenuVisible(true) }/>
             <Title>React SideNav</Title>
@@ -168,7 +171,7 @@ export const App = () => {
         <MainContent>        
           {ViewComponent ? <ViewComponent /> : null}
         </MainContent>
-      </div>
+      </FlexItem>
       
     </Container>
   )
