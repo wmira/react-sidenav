@@ -37,7 +37,7 @@ Below is an example on how to use it.
     const Item = () => {
       const context = React.useContext(NavContext);
       return (
-        <div style={{ color: context.selected: 'pink': 'inherit'}}>{ props.children }</div>
+        <div style={{ color: context.selected? 'pink': 'inherit'}}>{ props.children }</div>
       )
     }
   
